@@ -8,6 +8,26 @@ two pointers for array manipulation,
 BFS and DFS for tree or graph traversal, and
 dynamic programming for optimization problems.
 
+## Problem Solving
+
+### understand the problem
+
+Questions to ask yourself:
+
+- can I restate the problem in my own words?
+- what inputs go into the problem?
+- what outputs should come from the solution to the problem?
+- can the outputs be determined from the inputs? in other words, do I have enough info to solve the problem? (you may not be able to answer this question until you set about solving the problem).
+- how should I label the important pieces of data that are a part of the problem?
+
+### explore concrete examples
+
+### break it down
+
+### solve/simplify
+
+### look back and refactor
+
 ## Data Structures
 
 ### Objects
