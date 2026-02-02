@@ -93,9 +93,12 @@ Against a certain problem:
 
 ## Problem Solving Patterns
 
-### Frequency patterns
+### Frequency counter pattern
 
-example question in video:
+- Particularly common in comparing arrays and strings. Make use of an object to break down each of the array/string and then compare the frequency or related stuff of the arrays/strings.
+- anytime we have multiple pieces of data and we need to compare them e.g. anagrams, check if two arrays are equal, etc, use frequency pattern
+
+- example question in video:
 
 ```typescript []
 // naive solution
@@ -124,8 +127,25 @@ function same(arr1: number[], arr2: number[]): boolean {
     obj1[squared] = (obj1[squared] ?? 0) + 1;
     obj2[arr2[i]] = (obj2[arr2[i]] ?? 0) + 1;
   }
-  console.log(Object.entries(obj1));
-  console.log(Object.entries(obj2));
   return Object.keys(obj1).every((key) => obj1[key] === obj2[key]);
+}
+```
+
+- example anagram question:
+
+```typescript
+function validAnagram(str1: string, str2: string): boolean {
+  if (str1.length !== str2.length) return false;
+  const obj1: any = {};
+  const obj2: any = {};
+  for (let i = 0; i < str1.length; i++) {
+    obj1[str1[i]] = (obj1[str1[i]] ?? 0) + 1;
+    obj2[str2[i]] = (obj2[str2[i]] ?? 0) + 1;
+  }
+  const str1Keys = Object.keys(obj1);
+  const str2Keys = Object.keys(obj2);
+  if (str1Keys.length !== str2Keys.length) return false;
+
+  return str1Keys.every((key) => obj1[key] === obj2[keys]);
 }
 ```
