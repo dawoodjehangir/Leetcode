@@ -41,6 +41,14 @@ Against a certain problem:
 
 ### look back and refactor
 
+- can you check the result?
+- can you derive the result differently?
+- can you understand it at a glance?
+- can you use the result or method for some problem?
+- can you improve the performance of your solution?
+- can you think of other ways to refactor?
+- how have other people solved this problem?
+
 ## Data Structures
 
 ### Objects
@@ -82,3 +90,42 @@ Against a certain problem:
   //study this
 - sort: $$O(N*logN)$$
 - forEach/map/filter/reduce/etc: $$O(N)$$
+
+## Problem Solving Patterns
+
+### Frequency patterns
+
+example question in video:
+
+```typescript []
+// naive solution
+// understand, concrete examples, breakdown, solve/simplify, refactor
+
+// if length of two arrs is different, return false
+// make two objects corresponding to each arrays
+
+// traverse through arr 1
+// put sq value and count in obj 1
+// introduce a check such that if value already present then +1, otherwise value is 1
+
+// traverse through arr 2
+// introduce a check such that if value already present then +1, otherwise value is 1
+
+// compare if keys and values of objects are same, then true, otherwise false
+function same(arr1: number[], arr2: number[]): boolean {
+  if (arr1.length !== arr2.length) return false;
+
+  let obj1: any = {};
+  let obj2: any = {};
+
+  for (let i = 0; i < arr1.length; i++) {
+    let squared = arr1[i] ** 2;
+
+    obj1[squared] = (obj1[squared] ?? 0) + 1;
+    obj2[arr2[i]] = (obj2[arr2[i]] ?? 0) + 1;
+  }
+  console.log(Object.entries(obj1));
+  console.log(Object.entries(obj2));
+  return Object.keys(obj1).every((key) => obj1[key] === obj2[key]);
+}
+```
