@@ -22,9 +22,22 @@ Questions to ask yourself:
 
 ### explore concrete examples
 
+Against a certain problem:
+
+- state easy examples/test cases/inputs
+- state complex examples/test cases/inputs
+- edge cases
+- explore empty inputs
+- explore invalid inputs
+
 ### break it down
 
+- explicity write out the steps you need to take e.g pseudocode
+
 ### solve/simplify
+
+- Solve, it it's already simple for you
+- If you find it complex, solve a "simpler" problem. And incorporate the complexity iteratively or later on
 
 ### look back and refactor
 
