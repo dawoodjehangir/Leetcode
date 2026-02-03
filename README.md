@@ -223,6 +223,7 @@ function countUniqueValues(sortedArray: number[]): number {
 
 ```typescript
 // naive solution
+// O(n^2) time complexity
 function maxSubarraySum(numArr: number[], consecNum: number): any {
   if (consecNum > numArr.length) return null;
   let left: number = 0;
@@ -242,6 +243,7 @@ function maxSubarraySum(numArr: number[], consecNum: number): any {
 }
 
 //sliding window solution
+// O(n) time complexity
 function maxSubarraySum(arr: number[], consecNum: number): any {
   if (arr.length < consecNum) return null;
   let maxSum: number = 0;
@@ -256,3 +258,15 @@ function maxSubarraySum(arr: number[], consecNum: number): any {
   return maxSum;
 }
 ```
+
+### Divide and Conquer
+
+- This pattern involves dividing a data set into smaller chunks and then repeating a process with a subset of data.
+- Can tremendously decrease time complexity
+
+## Quick notes:
+
+- frequency counter = deals with >1 arrays, strings, linked list (probably). Can be sorted/unsorted. Makes use of objects to compare these DS between themselves.
+- multiple pointers = deals with sorted arrays/strings/linkedlists to compare a pair of values within against a certain condition. Pointers point towards different indexes, etc and then move with the DS
+- sliding window = deals with arrays/strings (sorted/unsorted) while looking for a subset of data within
+- divide & conquer = divides a data set into smaller chunks and repeats the process with a subset of data
