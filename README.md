@@ -204,10 +204,55 @@ function countUniqueValues(sortedArray: number[]): number {
   while (second < sortedArray.length) {
     if (sortedArray[first] !== sortedArray[second]) {
       first++;
-      sortedArray[first] = sortedArray[second];
+      sortedArray[first] = sor tedArray[second];
     }
     second++;
   }
   return first + 1;
+}
+```
+
+### Sliding Window Pattern
+
+- This is really useful when we have a set of data like an array or a string, and we are looking for a subset of that data that is continuous in some way.
+- This pattern involves creating a window which can either be an array or number from one position to another. Depending on a certain condition, the window either increases or closes (and a new window is created).
+- Very useful for keeping track of a subet of data in an array/string, etc
+
+- example question
+  write a function call maxSubarraySum which accepts an array of integers and a number called n. The function should calculate the maximum sum of n consecutive elements in the array.
+
+```typescript
+// naive solution
+function maxSubarraySum(numArr: number[], consecNum: number): any {
+  if (consecNum > numArr.length) return null;
+  let left: number = 0;
+  let right: number = left + consecNum - 1;
+  let max: number = -Infinity;
+  let sum: number = 0;
+  while (right < numArr.length) {
+    for (let i = left; i <= right; i++) {
+      sum = sum + numArr[i];
+    }
+    max = max > sum ? max : sum;
+    sum = 0;
+    left++;
+    right++;
+  }
+  return max;
+}
+
+//sliding window solution
+function maxSubarraySum(arr: number[], consecNum: number): any {
+  if (arr.length < consecNum) return null;
+  let maxSum: number = 0;
+  let tempSum: number = 0;
+  for (let i = 0; i < consecNum; i++) {
+    maxSum += arr[i];
+  }
+  for (let i = consecNum; i < arr.length; i++) {
+    tempSum = maxSum + arr[i] - arr[i - consecNum];
+    maxSum = Math.max(tempSum, maxSum);
+  }
+  return maxSum;
 }
 ```
