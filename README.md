@@ -149,3 +149,65 @@ function validAnagram(str1: string, str2: string): boolean {
   return str1Keys.every((key) => obj1[key] === obj2[keys]);
 }
 ```
+
+### Multiple Pointers Pattern
+
+- creating pointers that correspond to an index/position and move towards beginning, end, or middle based on certain condition
+- idea: searching for a pair of values/something that meets a condition. Direction isn't defined in an array, string, linked list, or doubly linked list. This usually works efficiently if the data structure we have is sorted, rather than unsorted.
+- efficient for solving problems with minimal space complexity as well
+
+- example question in video:
+  CountUniqueValues which accepts a sorted array, and counts the unique values in the array. There can be negative numbers in the array, but it will always be sorted.
+
+```typescript []
+// my solution
+function countUniqueValues(sortedArray: number[]): number {
+  // state easy examples/test cases/inputs
+  // [1,2,3] // 3
+  // - state complex examples/test cases/inputs
+  // [1,1,1,2] // 2
+  // [1,1,1,2,2,2,3,33] //4
+  // - edge cases
+  // - explore empty inputs
+  // [] // 0
+  // - explore invalid inputs
+  // floating points // not catering in the simplied solution
+  // code breakdown
+  // check length of array. if zero, return 0
+  // intialize count to 1
+  // initialize pointers at first and second position
+  // check if first and second are different => move second to right
+  // check if first and second are same => move both to the right
+  // end condition is right one reaching the end of array
+
+  if (sortedArray.length === 0) return 0;
+  else if (sortedArray.length === 1) return 1;
+  //at least one unique number
+  let count: number = 1;
+  let first: number = 0;
+  let second: number = 1;
+  while (second < sortedArray.length) {
+    if (sortedArray[first] !== sortedArray[second]) count++;
+    first++;
+    second++;
+  }
+  return count;
+}
+
+//course solution
+// only works if we are allowed to alter the array
+function countUniqueValues(sortedArray: number[]): number {
+  if (sortedArray.length === 0) return 0;
+  else if (sortedArray.length === 1) return 1;
+  let first: number = 0;
+  let second: number = 1;
+  while (second < sortedArray.length) {
+    if (sortedArray[first] !== sortedArray[second]) {
+      first++;
+      sortedArray[first] = sortedArray[second];
+    }
+    second++;
+  }
+  return first + 1;
+}
+```
