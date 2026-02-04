@@ -205,3 +205,52 @@ function findAllDuplicates(parray: number[]): number[] {
   return Object.keys(arrayObject).filter((key) => arrayObject[key] === 2);
 }
 ```
+
+# Coding exercise 7
+
+Write a function called averagePair. Given a sorted array of integers and a target average, determine if there is a pair of values in the array where the average of the pair equals the target average. There may be more than one pair that matches the average target.
+
+## takeaways
+
+- in a production TypeScript environment, you might encounter a Precision Issue because of how JavaScript handles floating-point numbers.
+
+- For example, if the average is exactly 2.5, but tav is provided via a calculation that results in 2.50000000000001, tempAve === tav might return false.
+
+```typescript []
+// - sorted array. can have +ve -ve integers
+// - a target average
+// - returns boolean
+
+//easy input
+//[1,2,3],2.5
+//complex input
+//empty input
+//invalid input
+
+function averagePair(inputArray: number[], tav: number): boolean {
+  //create two pointers. one pointing at start, second pointing at end.
+  //create while loop that runs until start<end
+  //take average of the currently pointed positions
+  //if it matches target average, return true
+  //Otherwise:
+  //if the calculated average turns out to be smaller than tav, then move First to Right.
+  //if the calculated average turns out to be higher than tav, then move Second to Left.
+  //return false outside
+
+  if (inputArray.length === 0) return false;
+
+  let first: number = 0;
+  let second: number = inputArray.length - 1;
+
+  while (first < second) {
+    let tempAve = inputArray[first] + inputArray[second];
+    if (tempAve === tav * 2) return true;
+    else if (tempAve < tav * 2) {
+      first++;
+    } else if (tempAve > tav * 2) {
+      second--;
+    }
+  }
+  return false;
+}
+```
