@@ -254,3 +254,45 @@ function averagePair(inputArray: number[], tav: number): boolean {
   return false;
 }
 ```
+
+# Coding exercise 8
+
+Write a function called isSubsequence which takes in two strings and checks whether the characters in the first string form a subsequence of the characters in the second string. In other words, the function should check whether the characters in the first string appear somewhere in the second string, without their order changing.
+
+Time Complexity - O(N + M)
+Space Complexity - O(1)
+
+```typescript []
+// both arguments are strings
+// return boolean depending on the result
+
+// easy input ('hello', 'hello world')
+// complex input
+// empty input - if either of inputs is empty, return false
+// invalid input - Cant think of anything
+
+function isSubsequence(smallseq: string, textstr: string): boolean {
+  //return false if either of strings are empty
+  //return false if length of second string is smaller than first
+  //create two pointers, with each pointing at the start of the two different strings
+  //intialize two pointers at the start of each of the strings
+  //create a while loop, that runs until
+  //if reached the end of first and second < length of second => return true
+  //return false
+
+  //('sing', 'stigern')
+  if (smallseq.length === 0 || textstr.length === 0) return false;
+  if (textstr.length < smallseq.length) return false;
+
+  let first: number = 0; //smallseq
+  let second: number = 0; //textstr
+
+  while (second < textstr.length && first < smallseq.length) {
+    if (smallseq[first] === textstr[second]) {
+      first++;
+    }
+    second++;
+  }
+  return first === smallseq.length;
+}
+```
