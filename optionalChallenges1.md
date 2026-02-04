@@ -134,3 +134,43 @@ If M is the length of message and N is the length of letters:
 Time Complexity: O(M+N)
 
 Space Complexity: O(N)
+
+## takeaways
+
+- an object was created without a prototype (e.g., Object.create(null))
+- if someone accidentally named a property hasOwnProperty. In those cases, user.hasOwnProperty() will crash.
+- string doesn't have .every() method like arrays
+- you cannot use a return statement inside a ternary operator.
+
+```typescript []
+function constructNote(letters: string, note: string): boolean {
+  //check the unique letters in letters. Object1
+  //check the unique letters in note. Object2
+  //compare the keys of Object1 and Object2. If Object2 is a subset of Object1, then true, otherwise false
+  //easy input
+  // abc, abcbacbacbabbacbabcabcbac
+  //complex inputs
+  // similar
+  //empty inputs
+  // cater if letters are empty, then return false. Other way around also
+  //invalid inputs - assumption laid out
+
+  //aaa, aabc
+  if (note.length === 0) return true;
+  if (letters.length === 0) return false;
+
+  //O(N) space
+  const lettersKeys: Record<string, number> = {};
+  //O(N) time
+  for (const l of letters) {
+    lettersKeys[l] = (lettersKeys[l] ?? 0) + 1;
+  }
+  //O(M) time
+  for (const character of note) {
+    if (!lettersKeys.hasOwnProperty(character) || lettersKeys[character] === 0)
+      return false;
+    lettersKeys[character]--;
+  }
+  return true;
+}
+```
