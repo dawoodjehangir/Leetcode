@@ -53,6 +53,9 @@ Space - O(1)
 - _unknown_ is safer than _any_ because it forces you to perform some type checking before performing operations on the arguments.
 - If you don't know the property names yet (e.g., a dictionary or a map), but you know they will all be a certain type (like strings), use Record.
 - for...in loops iterate over keys (indexes), not values VS for...of
+- In non-arrow functions, arguments is a built-in, "array-like" object that contains all the values passed to the function.
+- most important rule of a Set is that it cannot contain duplicate values.
+- new Set(arguments): This takes all the inputs and forces them into a Set. If there were duplicates in the inputs, they are removed here.
 
 ```typescript
 // A Record where keys are strings and values are numbers
@@ -119,6 +122,11 @@ function areThereDuplicates<T extends string | number>(...args: T[]): boolean {
 
 //multiple pointers => come back to this later after studying sorting
 function areThereDuplicates<T extends number | string>(...args: T[]): boolean {}
+
+//one liner - using SET
+function areThereDuplicates<T>(...args: T[]): boolean {
+  return new Set(args).size !== args.length;
+}
 ```
 
 # Coding exercise 5
