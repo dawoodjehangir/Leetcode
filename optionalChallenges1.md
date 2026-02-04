@@ -182,3 +182,26 @@ function constructNote(letters: string, note: string): boolean {
   return true;
 }
 ```
+
+# Coding exercise 6
+
+Given an array of positive integers, some elements appear twice and others appear once. Find all the elements that appear twice in this array. Note that you can return the elements in any order.
+
+//time complexity O(N)
+
+## takeaways
+
+- Object requires for...in or Object.keys()
+- Set is directly iterable with for...of
+
+```typescript []
+function findAllDuplicates(parray: number[]): number[] {
+  if (parray.length === 0) return [];
+  const arrayObject: Record<string, number> = {};
+  for (const num of parray) {
+    arrayObject[String(num)] = (arrayObject[String(num)] ?? 0) + 1;
+  }
+
+  return Object.keys(arrayObject).filter((key) => arrayObject[key] === 2);
+}
+```
