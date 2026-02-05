@@ -246,7 +246,7 @@ function maxSubarraySum(numArr: number[], consecNum: number): any {
 // O(n) time complexity
 function maxSubarraySum(arr: number[], consecNum: number): any {
   if (arr.length < consecNum) return null;
-  let maxSum: number = 0;
+  let maxSum: number = -Infinity;
   let tempSum: number = 0;
   for (let i = 0; i < consecNum; i++) {
     maxSum += arr[i];

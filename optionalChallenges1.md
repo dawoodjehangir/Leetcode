@@ -340,3 +340,57 @@ function findPair(unsortedArr: number[], n: number): boolean {
   return false;
 }
 ```
+
+# coding exercise 10
+
+Given an array of integers and a number, write a function called maxSubarraySum, which finds the maximum sum of a subarray with the length of the number passed to the function.
+
+Note that a subarray must consist of consecutive elements from the original array. In the first example below, [100, 200, 300] is a subarray of the original array, but [100, 300] is not.
+
+Constraints:
+Time Complexity - O(N)
+Space Complexity - O(1)
+
+// array of integers
+// number
+
+```typescript []
+//[1,4,2,10,23,3,1,0,20], 4
+//i=0 till i=5
+//len=9
+//formula=9-4
+
+//([-3,4,0,-2,6,-1], 2)
+//till i=4
+//len=6
+//formular=6-2
+function maxSubarraySum(intArray: number[], windowSize: number): number | null {
+  //if size of array is smaller windowSize, return null
+  //if window size is zero, return null
+  // initialize maxSum to be -Infinity, because sum can be negative too
+  // iterate over the array
+  // check tempSum > maxSum, set maxSum
+  //return maxSum
+
+  if (windowSize <= 0 || intArray.length < windowSize) return null;
+
+  let tempSum: number = 0;
+  for (let i = 0; i < windowSize; i++) {
+    tempSum = tempSum + intArray[i];
+  }
+  let maxSum: number = tempSum;
+  //if start of window is considered
+  // for (let i = 1; i <= intArray.length - windowSize; i++) {
+  //   tempSum = tempSum + intArray[i + windowSize - 1] - intArray[i - 1];
+  //   maxSum = Math.max(maxSum, tempSum);
+  // }
+
+  //if end of window is considered
+  for (let i = windowSize; i < intArray.length; i++) {
+    tempSum = tempSum + intArray[i] - intArray[i - windowSize];
+    maxSum = Math.max(tempSum, maxSum);
+  }
+
+  return maxSum;
+}
+```
