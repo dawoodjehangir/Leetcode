@@ -296,3 +296,47 @@ function isSubsequence(smallseq: string, textstr: string): boolean {
   return first === smallseq.length;
 }
 ```
+
+# Coding exercise 9
+
+Given an unsorted array and a number n, find if there exists a pair of elements in the array whose difference is n. This function should return true if the pair exists or false if it does not.
+
+notes:
+// unsorted array
+// number n; positive/negative?
+// returns boolean;
+
+Part 1 - solve this with the following requirements:
+Time Complexity Requirement - O(n)
+Space Complexity Requirement - O(n)
+
+Part 2 - solve this with the following requirements:
+Time Complexity Requirement - O(n log n)
+Space Complexity Requirement - O(1)
+// Later after sorting
+// solution would be to sort the array with a complexity of nlogn
+// use two pointers and find the pair
+
+```typescript []
+//put data from an array into an Object
+function findPair(unsortedArr: number[], n: number): boolean {
+  //if array is empty return false
+  //put data from the array into Set => space complexity O(N)
+  // trying to find a pair x,y such that x-y=n or y-x=n => y=x-n or y=x+n
+  //Loop over the Set using for...of
+  // if for any number x, there is exists x-n or x+n within the same Set, return true
+  //return false at the end
+  if (unsortedArr.length < 0) return false;
+  const numSet = new Set(unsortedArr);
+  //n=0 can only occur if any number is present more than once in the array
+  if (n === 0) {
+    return numSet.size !== unsortedArr.length;
+  }
+  for (const x of numSet) {
+    if (numSet.has(x - n) || numSet.has(x + n)) {
+      return true;
+    }
+  }
+  return false;
+}
+```
