@@ -394,3 +394,84 @@ function maxSubarraySum(intArray: number[], windowSize: number): number | null {
   return maxSum;
 }
 ```
+
+# Coding exercise 11
+
+Write a function called minSubArrayLen which accepts two parameters - an array of positive integers and a positive integer.
+
+This function should return the minimal length of a contiguous subarray of which the sum is greater than or equal to the integer passed to the function. If there isn't one, return 0 instead.
+
+## takeways
+
+- changing/dynamic sliding window should use a single loop with start and end pointers (Two pointers) if O(N) has to be ensured
+
+// array of positive integers - sorted/unsorted
+// positive int
+// return number
+
+Time Complexity - O(n)
+Space Complexity - O(1) //no object, no set, no new array
+
+//easy inputs
+//complex inputs
+//empty inputs
+//invalid inputs
+
+```typescript []
+//minSubArrayLen([2,3,1,2,4,3], 7)
+
+//longer solution
+function minSubArrayLen(conArray: number[], checkSum: number): number {
+  //if array is empty return 0
+  //initialize min array size = 1
+  // might need loop for window size
+  //while loop since we need to iterate over array
+  if (conArray.length === 0) return 0;
+  // let minArrayLen: number = 1;
+  let minLen: number = Infinity;
+  let start: number = 0;
+  let end: number = 0;
+  let tempSum: number = 0;
+
+  while (start < conArray.length) {
+    //if tempSum is smaller than checkSum, so we keep increasing the end pointer
+    if (tempSum < checkSum && end < conArray.length) {
+      tempSum = tempSum + conArray[end];
+      end++;
+    }
+    //if tempSum >= checkSum, so we try squeezing in the sliding window by incrementing the start
+    else if (tempSum >= checkSum) {
+      minLen = Math.min(minLen, end - start);
+      tempSum = tempSum - conArray[start];
+      start++;
+    }
+    //tempSum is still less than checkSum, however, end pointer has reached the end of array
+    else {
+      break;
+    }
+  }
+
+  return minLen === Infinity ? 0 : minLen;
+}
+
+//concise solution - use two loops, but each loop is associated with an individual pointer
+//minSubArrayLen([2,3,1,2,4,3], 7)
+function minSubArrayLen(conArray: number[], checkSum: number): number {
+  let minLen: number = Infinity;
+  let start: number = 0;
+  let tempSum: number = 0;
+
+  //keep moving end pointer till the end of the array
+  for (let end = 0; end < conArray.length; end++) {
+    tempSum += conArray[end];
+    //only goes valid, when we have reached our tartget Sum. We then try shrinking the sliding window
+    while (tempSum >= checkSum) {
+      minLen = Math.min(minLen, end - start + 1);
+      tempSum -= conArray[start];
+      start++;
+    }
+  }
+
+  return minLen === Infinity ? 0 : minLen;
+}
+```
