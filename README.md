@@ -66,6 +66,18 @@ Against a certain problem:
   This is a little more work as it gives both the Key-Value pair
 - hasOwnProperty: $$O(1)$$
   To check if a Key exists in the object
+- Object.hasOwn(obj, 'key'): : $$O(1)$$
+  To check if a Key exists in the object
+
+- Object.assign(user, { location: "Berlin", active: true });
+
+```
+Action: Object {}, Map new Map()
+Add/Update: obj.key = value,"map.set(key, value)"
+Remove: delete obj.key,map.delete(key)
+Clear All: obj = {},map.clear()
+Check: "Object.hasOwn(obj, key)",map.has(key)
+```
 
 ### Arrays
 
@@ -92,6 +104,52 @@ Against a certain problem:
 - forEach/map/filter/reduce/etc: $$O(N)$$
 
 ## Problem Solving Patterns
+
+- _Introduction:_
+  - 8 important patterns for coding interviews split into two categories:
+    - _Linear structures:_ arrays, linked lists, strings.
+    - _Nonlinear structures:_ trees, graphs.
+  - Focus on pre-built code templates for these patterns.
+
+- _Linear Data Structure Patterns:_
+  1. _Two Pointers:_
+     - Reduces time complexity to linear time \(O(n)\).
+     - Two methods:
+       - Same direction: used for scanning data in a single pass (e.g., fast and slow pointers to detect cycles or find middle elements).
+       - Opposite directions: used for finding pairs (e.g., sum of two numbers in a sorted array).
+  2. _Sliding Window:_
+     - Refines two pointers to manage a window of elements dynamically.
+     - Expands or contracts the window to meet specific conditions (e.g., longest substring without repeating characters).
+     - Often combined with hashmaps.
+  3. _Binary Search:_
+     - Efficiently finds target in logarithmic time \(O(\log n)\).
+     - Extends to lists with monotonic conditions, not just sorted numbers.
+     - Example: finding the minimum in a rotated sorted array.
+
+- _Nonlinear Data Structure Patterns:_ 4. _Breadth-First Search (BFS):_
+  - Explores nodes level by level.
+  - Uses a queue to keep track of visited nodes (ideal for level order traversal).
+  5. _Depth-First Search (DFS):_
+     - Dives deep into one path before exploring others.
+     - Often uses recursion and is memory efficient for exploring all paths.
+     - Example: counting islands in a grid.
+  6. _Backtracking:_
+     - Extension of DFS, explores all possible solutions.
+     - Builds the solution dynamically by making decisions and backtracking on invalid paths.
+     - Example: letter combinations of a phone number.
+
+- _Heaps (Priority Queue):_ 7. _Heaps:_
+  - Used for questions related to top K, K smallest/largest.
+  - _Min Heap:_ smallest value at the root.
+  - _Max Heap:_ largest value at the root.
+  - Max Heap is used to find K smallest values, and vice versa for K largest.
+
+- _Dynamic Programming (DP):_ 8. _Dynamic Programming:_
+  - Optimizes solutions by breaking problems into overlapping subproblems.
+  - Two approaches:
+    - _Top-down:_ recursive with memoization to store results.
+    - _Bottom-up:_ solves smaller subproblems iteratively using a table.
+  - Too complex for this video but covered in-depth on their website.
 
 ### Frequency counter pattern
 
@@ -267,6 +325,6 @@ function maxSubarraySum(arr: number[], consecNum: number): any {
 ## Quick notes:
 
 - frequency counter = deals with >1 arrays, strings, linked list (probably). Can be sorted/unsorted. Makes use of objects to compare these DS between themselves.
-- multiple pointers = deals with sorted arrays/strings/linkedlists to compare a pair of values within against a certain condition. Pointers point towards different indexes, etc and then move with the DS
+- multiple pointers = deals with sorted (not necessarily) arrays/strings/linkedlists to compare a pair of values within against a certain condition. Pointers point towards different indexes, etc and then move with the DS
 - sliding window = deals with arrays/strings (sorted/unsorted) while looking for a subset of data within
 - divide & conquer = divides a data set into smaller chunks and repeats the process with a subset of data

@@ -475,3 +475,53 @@ function minSubArrayLen(conArray: number[], checkSum: number): number {
   return minLen === Infinity ? 0 : minLen;
 }
 ```
+
+# Coding exercise 12
+
+Write a function called findLongestSubstring, which accepts a string and returns the length of the longest substring with all distinct characters.
+
+Time Complexity - O(n) (run once through the string)
+
+## takeaways
+
+- If you need a collection where the key remains a number (and the type matters), you should use a Map.
+- In TypeScript/JavaScript, you cannot use a variable or expression directly as a property name inside an object literal {} unless you wrap it in square brackets [].
+
+// inputs: string
+// len of longest substring
+
+// easy input
+// complex input
+"aaaaaaaa", " "
+// empty input
+"", 0
+// invalid input
+
+```typescript []
+function findLongestSubstring(str: string): number {
+  if (str === "") return 0;
+  else if (str.length === 1) return 1;
+  //initialize longestStrLen = 1
+  //initialize an empty object
+  //initialize start = 0
+  //loop over the string
+  //if element already in object, initialize start to that object's index
+  //else put element in an object
+  //calculate maxLength using loop's index i.e. end, and start
+
+  //return maxLength
+  let longestStr: number = 1;
+  let start: number = 0;
+  let container: Record<string, number> = { [str[start]]: start };
+
+  for (let end = 1; end < str.length; end++) {
+    if (container.hasOwnProperty(str[end])) {
+      start = Number(container[str[end]]) + 1;
+    } else {
+      container[str[end]] = end;
+    }
+    longestStr = Math.max(longestStr, end - start + 1);
+  }
+  return longestStr;
+}
+```
