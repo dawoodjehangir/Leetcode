@@ -552,6 +552,7 @@ mid = left + Math.floor((right-left)/2)
 O(logn)
 
 ```typescript []
+//through looping
 function countZeros(arr: number[]): number {
   if (arr[0] === 0) return arr.length;
   if (arr.length === 0 || arr[arr.length - 1] === 1) return 0;
@@ -570,6 +571,25 @@ function countZeros(arr: number[]): number {
   }
 
   return firstZeroIndex === -1 ? 0 : arr.length - firstZeroIndex;
+}
+
+//recursion method
+function countZeros(
+  arr: number[],
+  left: number,
+  right: number,
+  firstZeroIndex: number,
+): number {
+  if (left > right)
+    return firstZeroIndex === -1 ? 0 : arr.length - firstZeroIndex;
+
+  let mid: number = left + Math.floor((right - left) / 2);
+
+  if (arr[mid] === 0) {
+    return countZeros(arr, left, mid - 1, mid);
+  } else {
+    return countZeros(arr, mid + 1, right, firstZeroIndex);
+  }
 }
 ```
 
