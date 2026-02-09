@@ -328,3 +328,11 @@ function maxSubarraySum(arr: number[], consecNum: number): any {
 - multiple pointers = deals with sorted (not necessarily) arrays/strings/linkedlists to compare a pair of values within against a certain condition. Pointers point towards different indexes, etc and then move with the DS
 - sliding window = deals with arrays/strings (sorted/unsorted) while looking for a subset of data within
 - divide & conquer = divides a data set into smaller chunks and repeats the process with a subset of data
+
+### Intervals Coding Pattern
+
+- typically this is associated with array, linked list, strings and heap (uses interval type of problem).
+- How to Identify? => Most of the cases you are given some time sequence and in that time sequence you are being asked specific different intervals that are separate from each other or somehow they overlap between each other. And you might be given task to find like a common window or a common space between any two set of variables, where you can find some value that is empty in between (e.g. for a meeting)
+- questions lke calendar management, project management (trying to do certain things in a sequential manner due to dependencies), find a room, meeting slot, etc.
+
+### Fast and Slow Pointers
