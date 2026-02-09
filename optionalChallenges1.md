@@ -525,3 +525,52 @@ function findLongestSubstring(str: string): number {
   return longestStr;
 }
 ```
+
+# Coding exercise 13
+
+Given an array of 1s and 0s which has all 1s first followed by all 0s, write a function called countZeroes, which returns the number of zeroes in the array.
+
+## takeaways
+
+- array[2:] in Python is equivalent to array.slice(2) in TS.
+- Safer way to calculate mid as it avoids integer overflow
+
+```
+mid = left + Math.floor((right-left)/2)
+```
+
+//input: array
+//output: no. of zeros
+
+// easy input
+// complex input
+[1,1,1,1], [0,0,0,0,0]
+// empty input
+[]
+//invalid input
+
+O(logn)
+
+```typescript []
+function countZeros(arr: number[]): number {
+  if (arr[0] === 0) return arr.length;
+  if (arr.length === 0 || arr[arr.length - 1] === 1) return 0;
+
+  let left: number = 0;
+  let right: number = arr.length - 1;
+  let firstZeroIndex: number = -1;
+  while (left <= right) {
+    let mid: number = left + Math.floor((right - left) / 2);
+    if (arr[mid] === 0) {
+      firstZeroIndex = mid;
+      right = mid - 1;
+    } else {
+      left = mid + 1;
+    }
+  }
+
+  return firstZeroIndex === -1 ? 0 : arr.length - firstZeroIndex;
+}
+```
+
+space complexity is O(1)
