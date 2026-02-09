@@ -333,6 +333,11 @@ function maxSubarraySum(arr: number[], consecNum: number): any {
 
 - typically this is associated with array, linked list, strings and heap (uses interval type of problem).
 - How to Identify? => Most of the cases you are given some time sequence and in that time sequence you are being asked specific different intervals that are separate from each other or somehow they overlap between each other. And you might be given task to find like a common window or a common space between any two set of variables, where you can find some value that is empty in between (e.g. for a meeting)
-- questions lke calendar management, project management (trying to do certain things in a sequential manner due to dependencies), find a room, meeting slot, etc.
+- questions like calendar management, project management (trying to do certain things in a sequential manner due to dependencies), find a room, meeting slot, etc.
 
 ### Fast and Slow Pointers
+
+- rabbit/hare & tortoise problem.
+- We move across arrays, linkedlist or strings
+- #1 - where is this used? => Given any single array/linked list, you want to find middle point the DS. Considering F pointer reaches the end of DS, the S pointer will be in the middle.
+- #2 - Where is this used? => Detect cycles
