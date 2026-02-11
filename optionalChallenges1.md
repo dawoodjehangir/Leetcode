@@ -553,6 +553,7 @@ O(logn)
 
 ```typescript []
 //through looping
+//space complexity is O(1)
 function countZeros(arr: number[]): number {
   if (arr[0] === 0) return arr.length;
   if (arr.length === 0 || arr[arr.length - 1] === 1) return 0;
@@ -593,4 +594,47 @@ function countZeros(
 }
 ```
 
-space complexity is O(1)
+# Coding exercise 14 - PENDING
+
+Given a sorted array and a number, write a function called sortedFrequency that counts the occurrences of the number in the array
+
+Time complexity O(logN)
+
+```typescript []
+function sortedFrequency(arr: number[], num: number): number {
+  if (arr.length === 0 || arr[arr.length - 1] < num) return -1;
+
+  //break down
+  let left: number = 0;
+  let right: number = arr.length - 1;
+  //we need to find first occurence of num
+  let firstOcc: number = -1;
+  //we need to find last occurence of num
+  let lastOcc: number = -1;
+  // diff of above + 1 is the answer
+
+  // two loops
+  // first finds firstOcc
+  // second finds lastOcc
+  // both use divide and conquer to find that index in logN time
+
+  while (left <= right) {
+    let mid: number = left + Math.floor((right - left) / 2);
+    if (arr[mid] === num && arr[mid - 1] === num) {
+      firstOcc = mid - 1;
+      right = mid - 2;
+    } else if (arr[mid] === num) {
+      firstOcc = mid;
+      right = mid - 1;
+    } else if (arr[mid] > num) {
+      right = mid - 1;
+    } else {
+      left = mid + 1;
+    }
+  }
+
+  return;
+}
+```
+
+# Coding exercise 15 - PENDING

@@ -322,13 +322,6 @@ function maxSubarraySum(arr: number[], consecNum: number): any {
 - This pattern involves dividing a data set into smaller chunks and then repeating a process with a subset of data.
 - Can tremendously decrease time complexity
 
-## Quick notes:
-
-- frequency counter = deals with >1 arrays, strings, linked list (probably). Can be sorted/unsorted. Makes use of objects to compare these DS between themselves.
-- multiple pointers = deals with sorted (not necessarily) arrays/strings/linkedlists to compare a pair of values within against a certain condition. Pointers point towards different indexes, etc and then move with the DS
-- sliding window = deals with arrays/strings (sorted/unsorted) while looking for a subset of data within
-- divide & conquer = divides a data set into smaller chunks and repeats the process with a subset of data
-
 ### Intervals Coding Pattern
 
 - typically this is associated with array, linked list, strings and heap (uses interval type of problem).
@@ -341,3 +334,14 @@ function maxSubarraySum(arr: number[], consecNum: number): any {
 - We move across arrays, linkedlist or strings
 - #1 - where is this used? => Given any single array/linked list, you want to find middle point the DS. Considering F pointer reaches the end of DS, the S pointer will be in the middle.
 - #2 - Where is this used? => Detect cycles
+
+## Recursion
+
+- Two essential parts of a recursive function is: Base case and A Different Input
+
+## Quick notes:
+
+- frequency counter = deals with >1 arrays, strings, linked list (probably). Can be sorted/unsorted. Makes use of objects to compare these DS between themselves.
+- multiple pointers = deals with sorted (not necessarily) arrays/strings/linkedlists to compare a pair of values within against a certain condition. Pointers point towards different indexes, etc and then move with the DS
+- sliding window = deals with arrays/strings (sorted/unsorted) while looking for a subset of data within
+- divide & conquer = divides a data set into smaller chunks and repeats the process with a subset of data
