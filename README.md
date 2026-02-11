@@ -338,6 +338,55 @@ function maxSubarraySum(arr: number[], consecNum: number): any {
 ## Recursion
 
 - Two essential parts of a recursive function is: Base case and A Different Input
+- Things to look at:
+- Can you spot the base case?
+- Do you notice the different input?
+- What would happen if we didn't return?
+
+### Pitfalls/Common problems
+
+- No base case; base case is wrong
+- forgetting to return; returning the wrong thing
+
+### Design Pattern: Recursion
+
+- Helper Method Recursion => Usually useful when we have to compile result in an array or some other DS.
+- Define a recursive function inside another outer function and then call that recursive function from that outer function.
+
+### Pure Recursion Tips
+
+- For arrays, use methods like slice, the spread operator, and concat that make copies of arrays so you don't mutate them.
+- Strings are immutable so you will need to use methods like slice, substr, or substring to make copies of strings
+- To make copies of objects use Object.assign, or the spread operator
+
+```typescript []
+function sumRange(num: number): number {
+  if (num === 1) {
+    return 1;
+  }
+  return num + sumRange(num - 1);
+}
+
+function factorial(num: number): number {
+  if (num === 1) return 1;
+  return num * factorial(num - 1);
+}
+
+function collectOddValues(arr: number[], index: number = 0): number[] {
+  //base case
+  //check if value at the first index is odd
+  //if yes, add that into an empty array + return call to same function with one index less
+  // just return call to same function with one index less.
+
+  if (index >= arr.length) return [];
+  if (arr[index] % 2 === 0) return collectOddValues(arr, index + 1);
+  else {
+    return [arr[index], ...collectOddValues(arr, index + 1)];
+  }
+}
+
+// While the Divide step is now $O(1)$, the Combine step [arr[index], ...collectOddValues(...)] still technically takes $O(K)$ time (where $K$ is the number of odd values found so far) because it creates a new array and copies the elements into it.If you were dealing with millions of items and wanted to reach Absolute Maximum Performance, you would use the Helper Method with .push()
+```
 
 ## Quick notes:
 
