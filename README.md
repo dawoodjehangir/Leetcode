@@ -343,6 +343,8 @@ function maxSubarraySum(arr: number[], consecNum: number): any {
 - Do you notice the different input?
 - What would happen if we didn't return?
 
+- break the sequence/formula/problem to figure out return statement.
+
 ### Pitfalls/Common problems
 
 - No base case; base case is wrong

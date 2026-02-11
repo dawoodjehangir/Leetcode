@@ -81,3 +81,39 @@ function fib(num: number): number {
   return fib(num - 1) + fib(num - 2);
 }
 ```
+
+# Problem #6: reverse
+
+Write a recursive function called reverse which accepts a string and returns a new string in reverse.
+
+```typescript []
+//break it
+// "abc"
+// => reverse("bc") + "a"
+// => reverse("c") + "b"
+// => reverse("") + "c"
+
+function reverse(str: string, index: number = 0): string {
+  if (index >= str.length) return "";
+  return reverse(str, index + 1) + str[index];
+}
+```
+
+# Problem #7: isPalindrome
+
+Write a recursive function called isPalindrome which returns true if the string passed to it is a palindrome (reads the same forward and backward). Otherwise it returns false.
+
+```typescript []
+// awesome,"",6 => awesome,"e", 5
+// awesome,"e",5 => awesome, "em", 4
+function isPalindrome(
+  given: string,
+  check: string = "",
+  ind: number = given.length - 1,
+): boolean {
+  if (check.length === given.length) {
+    return given === check ? true : false;
+  }
+  return isPalindrome(given, check + given[ind], ind - 1);
+}
+```
