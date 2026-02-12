@@ -195,3 +195,60 @@ function flatten(arr: NestedArray[], index: number = 0): number[] {
   }
 }
 ```
+
+# Problem #10: capitalizeFirst
+
+Write a recursive function called capitalizeFirst. Given an array of strings, capitalize the first letter of each string in the array.
+
+## Takeaways
+
+- The Spread operator (...) is elegant but expensive in loops/recursion because it copies the entire array every time.
+
+```typescript []
+// Total Time: $O(N.K)$ for the string manipulations + $O(N^2)$ for the array spreading.
+// Bad considering time complexity
+function capitalizeFirst(arr: string[], index: number = 0): string[] {
+  if (index >= arr.length) return [];
+  let word: string = arr[index];
+  return [
+    word[0].toUpperCase() + word.slice(1),
+    ...capitalizeFirst(arr, index + 1),
+  ];
+}
+```
+
+- To make this function truly efficient O(N.K), spread operator needs to be avoided
+
+## The "In-Place" Mutation Approach (Most Memory Efficient)
+
+```typescript []
+function capitalizeFirst(arr: string[], index: number = 0): string[] {
+  if (index >= arr.length) return arr;
+  // Mutate the element in place
+  arr[index] = arr[index].charAt(0).toUpperCase() + arr[index].slice(1);
+  // Recurse to the next index
+  return capitalizeFirst(arr, index + 1);
+}
+```
+
+## The "Accumulator" Pattern (Functional & Efficient)
+
+If you want to keep the function "pure" (not changing the original array), use an accumulator. By passing the result-in-progress down through the recursive calls, you only build the array once.
+
+```typescript []
+function capitalizeFirst(
+  arr: string[],
+  index: number[] = 0,
+  acc: string[],
+): string[] {
+  if (index >= arr.length) return acc;
+
+  const capitalized: string =
+    arr[index].charAt(0).toUpperCase() + arr[index].slice(1);
+  acc.push(capitalized); // O(1) operation
+
+  return capitalizeFirst(arr, index + 1, acc);
+}
+//Pro-Tip: Tail Call Optimization (TCO)
+// The Accumulator version above is "Tail Recursive." In some languages (and theoretically in the ES6 spec, though support varies by engine), the compiler can optimize this so it doesn't add new frames to the call stack. This prevents "Stack Overflow" errors on very large arrays.
+```
