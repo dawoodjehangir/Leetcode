@@ -295,3 +295,33 @@ function capitalizeWords(arr: string[], index: number): string[] {
   return capitalizeWords(arr, index + 1);
 }
 ```
+
+# Problem #13: stringifyNumbers
+
+Write a function called stringifyNumbers which takes in an object and finds all of the values which are numbers and converts them to strings. Recursion would be a great way to solve this!
+
+The exercise intends for you to create a new object with the numbers converted to strings, and not modify the original. Keep the original object unchanged.
+
+## takeaways:
+
+- Object.assign performs a Shallow Copy. It does not merge nested objects deeply. If a property value is an object itself, Object.assign only copies the reference (the "address") to that object, not the actual contents.
+
+```typescript []
+function stringifyNumbers(obj: any, newObj: any = {}): object {
+  for (let key in obj) {
+    if (typeof obj[key] === "number") {
+      let num: number = obj[key];
+      newObj[key] = String(num);
+    } else if (typeof obj[key] === "object") {
+      if (!Array.isArray(obj[key])) {
+        newObj[key] = stringifyNumbers(obj[key]);
+      } else {
+        newObj[key] = obj[key];
+      }
+    } else {
+      newObj[key] = obj[key];
+    }
+  }
+  return newObj;
+}
+```
