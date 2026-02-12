@@ -252,3 +252,46 @@ function capitalizeFirst(
 //Pro-Tip: Tail Call Optimization (TCO)
 // The Accumulator version above is "Tail Recursive." In some languages (and theoretically in the ES6 spec, though support varies by engine), the compiler can optimize this so it doesn't add new frames to the call stack. This prevents "Stack Overflow" errors on very large arrays.
 ```
+
+# Problem #11: nestedEvenSum
+
+Write a recursive function called nestedEvenSum. Return the sum of all even numbers in an object which may contain nested objects.
+
+```typescript []
+// passing sum as part of the arguments. At the end of object, everything will be summed up
+function nestedEvenSum(obj: any, sum: number = 0): number {
+  for (let key in obj) {
+    if (typeof obj[key] === "number" && Number(obj[key]) % 2 === 0) {
+      sum += Number(obj[key]);
+    } else if (typeof obj[key] === "object") {
+      sum = nestedEvenSum(obj[key], sum);
+    }
+  }
+  return sum;
+}
+
+//add the result from recursive call to sum as the sum isn't part of the arguments
+function nestedEvenSum(obj: any, sum: number = 0): number {
+  for (let key in obj) {
+    if (typeof obj[key] === "number" && Number(obj[key]) % 2 === 0) {
+      sum += Number(obj[key]);
+    } else if (typeof obj[key] === "object") {
+      sum += nestedEvenSum(obj[key]);
+    }
+  }
+  return sum;
+}
+```
+
+# Problem #12: capitalizeWords
+
+Write a recursive function called capitalizeWords. Given an array of words, return a new array containing each word capitalized.
+
+```typescript []
+function capitalizeWords(arr: string[], index: number): string[] {
+  if (index >= arr.length) return arr;
+  const current: string = arr[index];
+  arr[index] = current.toUpperCase();
+  return capitalizeWords(arr, index + 1);
+}
+```
