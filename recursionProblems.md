@@ -117,3 +117,81 @@ function isPalindrome(
   return isPalindrome(given, check + given[ind], ind - 1);
 }
 ```
+
+# Problem #8: someRecursive
+
+Write a recursive function called someRecursive which accepts an array and a callback. The function returns true if a single value in the array returns true when passed to the callback. Otherwise it returns false.
+
+```typescript []
+// return func(arr[index]) ? true : someRecursive(arr, func, index+1)
+function someRecursive(
+  arr: number[],
+  func: (val: number) => boolean,
+  index: number = 0,
+): boolean {
+  if (index >= arr.length) {
+    return false;
+  }
+  return func(arr[index]) ? true : someRecursive(arr, func, index + 1);
+}
+```
+
+# Problem #9: flatten
+
+Write a recursive function called flatten which accepts an array of arrays and returns a new array with all values flattened.
+
+## takeaways
+
+- In TypeScript, instead of any, you can use a Recursive Type Alias to make this super typesafe:
+
+```typescript []
+type NestedArray = number | NestedArray[];
+
+function flatten(arr: NestedArray[]): number[] {
+  // ... same logic ...
+}
+```
+
+```typescript []
+//[1, [3,4]]
+// return [...arr[index]] + flatten(arr, index+1)
+
+// will fail in extreme cases
+function flatten(arr: any): number[] {
+  if (arr.length === 0) return [];
+  if (Array.isArray(arr[0])) {
+    return flatten(arr[0]).concat(flatten(arr.slice(1)));
+  } else {
+    return [arr[0]].concat(flatten(arr.slice(1)));
+  }
+}
+
+// better version of the above
+function flatten(arr: any): number[] {
+  // 1. Guard clause for non-arrays
+  if (!Array.isArray(arr)) return [arr];
+
+  if (arr.length === 0) return [];
+  if (Array.isArray(arr[0])) {
+    return flatten(arr[0]).concat(flatten(arr.slice(1)));
+  } else {
+    return [arr[0]].concat(flatten(arr.slice(1)));
+  }
+}
+
+// more safer and better Time Complexity
+type NestedArray = number | NestedArray[];
+function flatten(arr: NestedArray[], index: number = 0): number[] {
+  if (index >= arr.length) return [];
+
+  const current = arr[index];
+
+  // If the current item is an array, flatten it AND the rest of this array
+  if (Array.isArray(current)) {
+    return [...flatten(current, 0), ...flatten(arr, index + 1)];
+  } else {
+    // If it's just a value, keep it and move to the next index
+    return [current, ...flatten(arr, index + 1)];
+  }
+}
+```
