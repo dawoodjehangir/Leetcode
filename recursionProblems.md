@@ -325,3 +325,70 @@ function stringifyNumbers(obj: any, newObj: any = {}): object {
   return newObj;
 }
 ```
+
+# Problem #14: collectStrings
+
+Write a function called collectStrings which accepts an object and returns an array of all the values in the object that have a typeof string
+
+## takeaways
+
+In JavaScript and TypeScript, .concat() creates a shallow copy of the existing array plus the new elements. If you have 1,000 strings, you might end up copying strings tens of thousands of times as they bubble up through recursive calls.
+
+Here are the best ways to improve it:
+
+1. The Spread Operator (Modern Improvement)
+   While the spread operator (...) is syntactically cleaner, it's important to note that in many engines, it performs similarly to .concat() because it still creates a new array. However, it is the "standard" modern way to merge if you must return a new array.
+
+If you want to keep the "build and return" style of the first function but gain the performance of the second, you can use .push() with the spread operator on the result of the recursive call.
+
+Why this is better: Instead of strObj = strObj.concat(...) (which replaces the whole array), strObj.push(...recursiveCall()) mutates the current level's array.
+
+Caveat: For extremely large datasets (tens of thousands of elements), spreading into a push can hit call stack limits.
+
+```typescript []
+// build a fresh string array in every function call and then return that to build a final string array.
+function collectStringsOne(obj: any): string[] {
+  let strObj: string[] = [];
+  for (let key in obj) {
+    if (typeof obj[key] === "string") {
+      strObj.push(obj[key]);
+    } else if (typeof obj[key] === "object") {
+      strObj = strObj.concat(collectStringsOne(obj[key]));
+    }
+  }
+  return strObj;
+}
+
+// using accumulator that will keep adding strings as it traverses in the object
+function collectStringsTwo(obj: any, acc: string[] = []): string[] {
+  for (let key in obj) {
+    if (typeof obj[key] === "string") {
+      acc.push(obj[key]);
+    } else if (typeof obj[key] === "object") {
+      acc = collectStringsTwo(obj[key], acc);
+    }
+  }
+  return acc;
+}
+
+//better version of One implementation
+
+function collectStringsOneOptimized(obj: Record<string, any>): string[] {
+  const result: string[] = [];
+
+  for (const key in obj) {
+    const value = obj[key];
+
+    if (typeof value === "string") {
+      result.push(value);
+    }
+    // Ensure value is an object and NOT null before recursing
+    else if (value !== null && typeof value === "object") {
+      // Use push with spread to avoid creating an extra intermediate array
+      result.push(...collectStringsOneOptimized(value));
+    }
+  }
+
+  return result;
+}
+```
