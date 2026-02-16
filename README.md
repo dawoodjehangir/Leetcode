@@ -443,6 +443,30 @@ function naiveStringSearch(str: string, sub: string): number {
 }
 ```
 
+## Sorting Algorithms
+
+### Built-in sort in Javascript
+
+- It sorts based on unicode characters
+- By itself, it doesn't always work as expected, especially when it comes to non-string based data.
+- Therefore, we need to give a comparator function to it. That basically informs the sorting funtion to sort based on the comparator function.
+
+```typescript []
+let arr = [2, 5, 73, 2, 57, 8];
+
+// this will sort ascending
+arr.sort((a, b) => a - b);
+// if a-b is negative, a comes before b
+// if a-b is positive, b comes before a
+// if a-b is 0, nothing happens
+
+// this will sort descending
+arr.sort((a, b) => b - a);
+
+// this will sort array of strings based on the length of each string
+array.sort((a, b) => a.length - b.length);
+```
+
 ## Quick notes:
 
 - frequency counter = deals with >1 arrays, strings, linked list (probably). Can be sorted/unsorted. Makes use of objects to compare these DS between themselves.
