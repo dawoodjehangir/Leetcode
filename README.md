@@ -390,6 +390,59 @@ function collectOddValues(arr: number[], index: number = 0): number[] {
 // While the Divide step is now $O(1)$, the Combine step [arr[index], ...collectOddValues(...)] still technically takes $O(K)$ time (where $K$ is the number of odd values found so far) because it creates a new array and copies the elements into it.If you were dealing with millions of items and wanted to reach Absolute Maximum Performance, you would use the Helper Method with .push()
 ```
 
+## Searching Algorithms
+
+- Following javascript methods all do linear search: indexOf, includes, find, findIndex with O(N) time complexity
+
+### Binary Search
+
+- Time complexity in worst and average case is O(logN)
+
+```typescript []
+function binarySearch(arr: number[], num: number): number {
+  if (arr.length <= 0) return -1;
+  let left: number = 0;
+  let right: number = arr.length - 1;
+  while (left <= right) {
+    let middle = left + Math.floor((right - left) / 2);
+    if (num === arr[middle]) {
+      return middle;
+    } else if (num > arr[middle]) {
+      left = middle + 1;
+    } else {
+      right = middle - 1;
+    }
+  }
+  return -1;
+}
+```
+
+### Naive String Search
+
+- count the no. of times a substring appears in a string
+
+```typescript []
+khenaaahenpp;
+
+hen;
+
+function naiveStringSearch(str: string, sub: string): number {
+  if (str.length <= 0) return -1;
+  let count = 0;
+  let ptr = 0;
+  for (let char of str) {
+    if (char === sub[ptr]) {
+      ptr++;
+    } else {
+      ptr = 0;
+    }
+
+    if (ptr === sub.length) count++;
+  }
+  return count;
+}
+```
+
 ## Quick notes:
 
 - frequency counter = deals with >1 arrays, strings, linked list (probably). Can be sorted/unsorted. Makes use of objects to compare these DS between themselves.
