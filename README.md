@@ -534,6 +534,41 @@ function bubbleSort<T>(arr: T[], callback?: (a: T, b: T) => number) {
 }
 ```
 
+### Selection Sort
+
+- Similar to bubble sort, but instead of first placing large values into sorted position, it places small values into sorted position
+- Only efficient if => we are worried about writing to memory since only one swap is done after a whole pass, unlike bubble sort where the swapping keeps happening.
+- Time complexity is O(N^2)
+
+```typescript []
+function selectionSort(arr: number[]): number[] {
+  for (let i = 0; i < arr.length; i++) {
+    let min = i;
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[j] < arr[min]) {
+        min = j;
+      }
+    }
+    [arr[i], arr[min]] = [arr[min], arr[i]];
+  }
+  return arr;
+}
+
+//optimized - only swap if needed
+function selectionSort(arr: number[]): number[] {
+  for (let i = 0; i < arr.length; i++) {
+    let min = i;
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[j] < arr[min]) {
+        min = j;
+      }
+    }
+    if (i !== min) [arr[i], arr[min]] = [arr[min], arr[i]];
+  }
+  return arr;
+}
+```
+
 ## Quick notes:
 
 - frequency counter = deals with >1 arrays, strings, linked list (probably). Can be sorted/unsorted. Makes use of objects to compare these DS between themselves.
