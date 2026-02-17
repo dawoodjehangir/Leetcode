@@ -445,6 +445,16 @@ function naiveStringSearch(str: string, sub: string): number {
 
 ## Sorting Algorithms
 
+### Course2 notes
+
+- Comparison based sorts: Bubble, Insertion, Selection, Heap, Merge, Quick, Tree, Shell
+- Index based sorts: Count, Bucket/Bin, Radix
+
+- $$O(N^2)$$: Bubble, Insertion, Selection
+- $$O(NlogN)$$: Heap, Merge, Quick, Tree
+- $$O(N^1.5)$$: Shell
+- $$O(N)$$: Count, Bucket/Bin, Radix // But these consume a lot of space
+
 ### Built-in sort in Javascript
 
 - It sorts based on unicode characters
@@ -568,6 +578,10 @@ function selectionSort(arr: number[]): number[] {
   return arr;
 }
 ```
+
+### Insertion Sort
+
+- builds up the sort by gradually creating a larger left half which is always sorted
 
 ## Quick notes:
 
