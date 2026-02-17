@@ -467,6 +467,73 @@ arr.sort((a, b) => b - a);
 array.sort((a, b) => a.length - b.length);
 ```
 
+### Bubble Sort
+
+- It's not that efficient.
+- In one use-case, it performs better.
+- An algorithm where the largest values bubble up to the top of the data structure i.e. array. The algorithm spans multiple passes through the array.
+- for data that is almost sorted, bubble sort isn't great. So we make an optimization to this i.e. make use of a variable that checks if there have been any swaps in a single pass of the array
+- Time complexity is O(N^2) in the worst case. In the best case scenairo, when the data is almost sorted + check variable is used, time complexity would be O(N).
+
+```typescript []
+// optimized bubble sort
+
+function bubbleSort(arr: number[]): number[] {
+  for (let i = arr.length; i > 0; i--) {
+    for (let j = 0; j < i - 1; j++) {
+      if (arr[j] > arr[j + 1]) {
+        const temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+      }
+    }
+  }
+  return arr;
+}
+// optimized bubble sort - for almost sorted data
+function bubbleSort(arr: number[]): number[] {
+  for (let i = arr.length; i > 0; i--) {
+    let noSwaps = true;
+    console.log(`Pass: ${arr.length - i + 1}`);
+    for (let j = 0; j < i - 1; j++) {
+      if (arr[j] > arr[j + 1]) {
+        let temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+        noSwaps = false;
+      }
+    }
+    if (noSwaps) break;
+  }
+  return arr;
+}
+
+//exercise
+function bubbleSort<T>(arr: T[], callback?: (a: T, b: T) => number) {
+  // 1. Handle the default comparator if one isn't provided
+  if (typeof callback !== "function") {
+    console.log("no callback");
+    callback = (a: any, b: any): number => {
+      if (a < b) return -1;
+      if (a > b) return 1;
+      return 0;
+    };
+  }
+
+  for (let i = arr.length; i > 0; i--) {
+    for (let j = 0; j < i - 1; j++) {
+      const decision = callback(arr[j], arr[j + 1]);
+      if (decision > 0) {
+        const temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+      }
+    }
+  }
+  return arr;
+}
+```
+
 ## Quick notes:
 
 - frequency counter = deals with >1 arrays, strings, linked list (probably). Can be sorted/unsorted. Makes use of objects to compare these DS between themselves.
