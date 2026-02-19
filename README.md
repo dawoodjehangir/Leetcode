@@ -523,10 +523,46 @@ function bubbleSort(arr: number[]): number[] {
 - It is more suitable for sorting a linkedlist than array, since we don't have to shift items of a linkedlist. By it's nature, it's more so designed of linkedlist
 
 ```typescript []
-// we build a sorted array from the left hand side.
+// we build a sorted array on the left hand side.
 // first element is taken to be the sorted one, from first pass. e.g. we start from i=1 (and not i=0)
 // progressively we build sorted array on the left side, by picking elements from the right side
+
+function insertionSort(arr: number[]): number[] {
+  for (let i = 1; i < arr.length; i++) {
+    let j = i - 1;
+    let current = arr[i];
+    while (j > -1 && arr[j] > current) {
+      arr[j + 1] = arr[j];
+      j--;
+    }
+    arr[j + 1] = current;
+  }
+
+  return arr;
+}
 ```
+
+- In a sorted array, No. of comparisons = (n-1) times in insertionSort => O(N)
+- In a sorted array, No. of Swaps = 0 in insertionSort => O(1)
+- By nature, insertionSort is adaptive. We didn't force adaptivity through some extra variable.
+- Time complexity: Min=O(N) Max=O(N^2)
+- Swaps: Min=O(1) Max=O(N^2)
+- Insertion sort is also stable in nature.
+
+#### Selection Sort
+
+#### Comparison of Sorting Algorithms
+
+| Parameters | Bubble Sort                                                  |                      Insertions Sort                       |
+| :--------- | :----------------------------------------------------------- | :--------------------------------------------------------: |
+| Min Comp   | N (list in Ascending Order)                                  |         N (actually N-1) (list in Ascending Order)         |
+| Max Comp   | N^2 (if list is in descending order)                         |            N^2 (if list is in descending order)            |
+| Min Swap   | O(1) (0 swaps, Ascending)                                    |                 O(1) (0 swaps, Ascending)                  |
+| Max Swap   | N^2 (Descending)                                             |                      N^2 (Descending)                      |
+| Adaptive   | Yes                                                          |                            Yes                             |
+| Stable     | Yes                                                          |                            Yes                             |
+| Linkedlist | No (you may have to shift elements, create a new Linkedlist) | Yes (No shifting of elements or creating a new Linkedlist) |
+| K passes   | Yes, gives you K sorted elements                             |   No, doesn't confirm any sorting in intermediate steps    |
 
 ### Course 1:
 
