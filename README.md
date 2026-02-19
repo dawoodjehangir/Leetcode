@@ -455,7 +455,7 @@ function naiveStringSearch(str: string, sub: string): number {
 - $$O(N^1.5)$$: Shell
 - $$O(N)$$: Count, Bucket/Bin, Radix // But these consume a lot of space
 
-## Bubble sort
+#### Bubble sort
 
 - For an array of length N, the no. of passes required to sort are N-1.
   No. of Passes=N-1
@@ -465,6 +465,7 @@ function naiveStringSearch(str: string, sub: string): number {
 - By nature, Bubble sort isn't adaptive (e.g. if array already sorted, the algo keeps running and comparing elements). It is made adaptive with the help of a flag variable.
 - Minimum time taken by Bubble Sort is O(N) - if array is already sorted. Max time taken by Bubble Sort is O(N^2).
 - Bubble Sort is also stable (preserves the order of elements after sorting).
+- In the first pass, we get the largest element. Second pass we get two largest elements and so on.
 
 ```typescript []
 // looping is done for N-1 times because N-1 passes are need for an array of length N. That is why "i < arr.length - 1"
@@ -500,6 +501,34 @@ function bubbleSort(arr: number[]): number[] {
   return arr;
 }
 ```
+
+#### Insertion sort
+
+##### Mechanism of Insertion
+
+- Focus has to done on the name: Insertion
+- Insertion works differently for an array vs linkedlist
+- To insert an element in a sorted position within a sorted array, start from the end of the array and start shifting the existing elements to the right, until you come across an element that is smaller than that element. So basically you shift all the larger elements to the right side in the array and perform insertion.
+- For array: Min is O(1). Max is O(N)
+- For a singly linkedlist, traverse from the beginning using two pointers. When the Front pointer reaches a value that is greater than the element, create a new node. Point the Tail pointer to the new Node and point the new Node's pointer to the Front pointer.
+- For a singly linkedlist: Min is O(1). Max is O(N)
+
+##### The Algorithm
+
+- For an array of length N, the no. of passes required to sort are N-1.
+  No. of Passes=N-1
+- No. of comparison = 1 + 2 + 3 + ... + n-1 = (n\*(n-1))/2 = O(N^2)
+- Max No. of swaps = 1 + 2 + 3 + ... + n-1 = (n\*(n-1))/2 = O(N^2)
+- Unlike bubble sort, intermediate passes of the algo doesn't return us either the smallest or the largest elements.
+- It is more suitable for sorting a linkedlist than array, since we don't have to shift items of a linkedlist. By it's nature, it's more so designed of linkedlist
+
+```typescript []
+// we build a sorted array from the left hand side.
+// first element is taken to be the sorted one, from first pass. e.g. we start from i=1 (and not i=0)
+// progressively we build sorted array on the left side, by picking elements from the right side
+```
+
+### Course 1:
 
 ### Built-in sort in Javascript
 
