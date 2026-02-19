@@ -455,6 +455,52 @@ function naiveStringSearch(str: string, sub: string): number {
 - $$O(N^1.5)$$: Shell
 - $$O(N)$$: Count, Bucket/Bin, Radix // But these consume a lot of space
 
+## Bubble sort
+
+- For an array of length N, the no. of passes required to sort are N-1.
+  No. of Passes=N-1
+- The time complexity of the sorting algorithm depends on the no. of comparisons done.
+- No. of comparisons (For array length N) = (n-1) + (n-2) + (n-3) + ... + 3 + 2 + 1 = (n\*(n-1))/2 = O(N^2)
+- Maximum no. of possible swaps (For array length N) = (n-1) + (n-2) + (n-3) + ... + 3 + 2 + 1 = (n\*(n-1))/2 = O(N^2)
+- By nature, Bubble sort isn't adaptive (e.g. if array already sorted, the algo keeps running and comparing elements). It is made adaptive with the help of a flag variable.
+- Minimum time taken by Bubble Sort is O(N) - if array is already sorted. Max time taken by Bubble Sort is O(N^2).
+- Bubble Sort is also stable (preserves the order of elements after sorting).
+
+```typescript []
+// looping is done for N-1 times because N-1 passes are need for an array of length N. That is why "i < arr.length - 1"
+
+// comparisons between consective elements reduce with every passing iteration because the end of the array starts to get sorted. One less comparison with every pass. Hence "j < arr.length - 1 - i"
+function bubbleSort(arr: number[]): number[] {
+  for (let i = 0; i < arr.length - 1; i++) {
+    //loop dictating the passes through the array
+    for (let j = 0; j < arr.length - 1 - i; j++) {
+      // loop needed for comparing consective elements
+      if (arr[j] > arr[j + 1]) {
+        swap(arr[j], arr[j + 1]);
+      }
+    }
+  }
+  return arr;
+}
+
+//adaptive bubble sort
+function bubbleSort(arr: number[]): number[] {
+  for (let i = 0; i < arr.length - 1; i++) {
+    //loop dictating the passes through the array
+    let flag = true;
+    for (let j = 0; j < arr.length - 1 - i; j++) {
+      // loop needed for comparing consective elements
+      if (arr[j] > arr[j + 1]) {
+        swap(arr[j], arr[j + 1]);
+        flag = false;
+      }
+    }
+    if (flag) break;
+  }
+  return arr;
+}
+```
+
 ### Built-in sort in Javascript
 
 - It sorts based on unicode characters
