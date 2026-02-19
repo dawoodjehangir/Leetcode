@@ -551,6 +551,26 @@ function insertionSort(arr: number[]): number[] {
 
 #### Selection Sort
 
+- This algo also sorts elements in passes. In each pass, one element will be sorted i.e. the smallest element will be sorted. Just like Insertion and Bubble sort, N-1 passes will be there.
+- Why the name Selection? => we select a Position
+
+```typescript []
+function selectionSort(arr: number[]): number[] {
+  for (let i = 0; i < arr.length - 1; i++) {
+    let min = i;
+    let swaps = false;
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[min] > arr[j]) {
+        min = j;
+        swaps = true;
+      }
+    }
+    if (swaps) Swap(arr, i, min);
+  }
+  return arr;
+}
+```
+
 #### Comparison of Sorting Algorithms
 
 | Parameters | Bubble Sort                                                  |                      Insertions Sort                       |
