@@ -551,36 +551,57 @@ function insertionSort(arr: number[]): number[] {
 
 #### Selection Sort
 
-- This algo also sorts elements in passes. In each pass, one element will be sorted i.e. the smallest element will be sorted. Just like Insertion and Bubble sort, N-1 passes will be there.
-- Why the name Selection? => we select a Position
+- This algo also sorts elements in passes. In each pass, one element will be sorted i.e. the smallest element will be sorted.
+- Just like Insertion and Bubble sort, N-1 passes will be there.
+- Why the name Selection? => we select a Position and at the start of the algorithm, it's the first position i.e. index 0. We select this position and put the minimum element in the array at this first position. Subsequently, we keep selecting new positions in the array and keep putting relevant elements there which basically sorts the array.
 
 ```typescript []
+// 1st pass: 5 comparison, 1 swap
+// 2nd pass: 4 coomparisons, 1 swap
+
 function selectionSort(arr: number[]): number[] {
   for (let i = 0; i < arr.length - 1; i++) {
     let min = i;
-    let swaps = false;
     for (let j = i + 1; j < arr.length; j++) {
       if (arr[min] > arr[j]) {
         min = j;
-        swaps = true;
       }
     }
-    if (swaps) Swap(arr, i, min);
+    Swap(arr, i, min);
   }
   return arr;
 }
 ```
 
+- No of comparisons: 1+2+3+...+n-1 = n\*(n-1)/2 = O(N^2)
+- No of Swaps: 1+1+1+1+1+...+1 = O(n) (VERY IMPORTANT)
+- K passes then I get K smaller elements
+- It's not adaptive => since swapping anyway happens only once in a pass, there is no way to check if the list is already sorted in Selection Sort. It will still take O(n^2) time.
+- It's not stable.
+
+#### Quick Sort
+
+- This works on the idea that an element is in a sorted position if all the elements to left of it (in an array) are smaller than itself, while all the elements to the right of it are greater than itself => only then we can say that an element is sorted.
+- The worst case time complexity for Quick sort happens when any array is already sorted in ascending or descending order => O(N^2) i.e. no of comparisons = n\*(n+1)/2
+- The best case scenario happens when the partitioning procedure happens right in the middle of array in every recursive call. => no. of comparisons are roughly N at each level and no. levels to sort an array in best case scenario is logN. So Time complexity is O(NlogN)
+- Best case: Partitioning is in the middle = O(NlogN) => though we don't know arrangement of elements
+- Worst case: Partitioning is on any one end of the array = O(N^2) => always in ascending/descending sorted list
+- Average case: O(NlogN)
+- We can also select middle element as the pivot by bringing that element as the first element in the list (replacing it's position). The advantage of this? => if the list is already sorted, then the sorted array case (ascending/descending) will become the best case i.e. O(NlogN).
+- Selecting any random index as pivot => randomized quick sort
+- Best and Worst case scenarios in terms of time complexity still stay the same.
+- Also, called Selection Exchange sort, Partition Exchange sort
+
 #### Comparison of Sorting Algorithms
 
-| Parameters | Bubble Sort                                                  |                      Insertions Sort                       |
-| :--------- | :----------------------------------------------------------- | :--------------------------------------------------------: |
-| Min Comp   | N (list in Ascending Order)                                  |         N (actually N-1) (list in Ascending Order)         |
-| Max Comp   | N^2 (if list is in descending order)                         |            N^2 (if list is in descending order)            |
-| Min Swap   | O(1) (0 swaps, Ascending)                                    |                 O(1) (0 swaps, Ascending)                  |
-| Max Swap   | N^2 (Descending)                                             |                      N^2 (Descending)                      |
-| Adaptive   | Yes                                                          |                            Yes                             |
-| Stable     | Yes                                                          |                            Yes                             |
+| Parameters | Bubble Sort                                                  |                      Insertions Sort                       | Selection Sort |
+| :--------- | :----------------------------------------------------------- | :--------------------------------------------------------: | -------------- |
+| Min Comp   | N (list in Ascending Order)                                  |         N (actually N-1) (list in Ascending Order)         | O(N^2)         |
+| Max Comp   | N^2 (if list is in descending order)                         |            N^2 (if list is in descending order)            | O(N^2)         |
+| Min Swap   | O(1) (0 swaps, Ascending)                                    |                 O(1) (0 swaps, Ascending)                  | O(1) (0 swaps) |
+| Max Swap   | N^2 (Descending)                                             |                      N^2 (Descending)                      | O(N)           |
+| Adaptive   | Yes                                                          |                            Yes                             | No             |
+| Stable     | Yes                                                          |                            Yes                             | No             |
 | Linkedlist | No (you may have to shift elements, create a new Linkedlist) | Yes (No shifting of elements or creating a new Linkedlist) |
 | K passes   | Yes, gives you K sorted elements                             |   No, doesn't confirm any sorting in intermediate steps    |
 
