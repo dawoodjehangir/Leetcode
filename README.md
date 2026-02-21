@@ -735,6 +735,66 @@ function selectionSort(arr: number[]): number[] {
 
 - builds up the sort by gradually creating a larger left half which is always sorted
 
+### Basic Sorting vs Intermediate Sorting Algos
+
+- The following algorithms work weel for relatively smaller data than a larger set i.e. - $$O(N^2)$$: Bubble, Insertion, Selection
+- Improve time complexity from O(N^2) to O(NlogN)
+
+### Merge Sort
+
+- Exploits the fact that arrays of 0 or 1 element are always sorted.
+- works by decomposing an array into smaller arrays of 0 or 1 elements, then building up a newly sorted array
+- We split merge sort into two parts: merge two sorted arrays into a new array (it should run in O(n+m) time e.g. 'n' and 'm' represents the size of individual arrays) +
+
+```typescript []
+// more easy to undertstand
+function merge(m: number[], n: number[]): number[] {
+  if (m.length === 0 && n.length === 0) return [];
+
+  const results: number[] = [];
+  let i = 0;
+  let j = 0;
+  while (i < m.length && j < n.length) {
+    if (m[i] < n[j]) {
+      results.push(m[i]);
+      i++;
+    } else {
+      results.push(n[j]);
+      j++;
+    }
+  }
+  while (i < m.length) {
+    results.push(m[i]);
+    i++;
+  }
+  while (j < n.length) {
+    results.push(n[j]);
+    j++;
+  }
+  return results;
+}
+
+//more modern approach
+function merge(m: number[], n: number[]): number[] {
+  if (m.length === 0 && n.length === 0) return [];
+
+  const results: number[] = [];
+  let i = 0;
+  let j = 0;
+  while (i < m.length && j < n.length) {
+    if (m[i] < n[j]) {
+      results.push(m[i]);
+      i++;
+    } else {
+      results.push(n[j]);
+      j++;
+    }
+  }
+  //Since one of those slices will always be empty, it achieves the exact same result as your two while loops but in a single line.
+  return [...results, ...m.slice(i), ...n.slice(j)];
+}
+```
+
 ## Quick notes:
 
 - frequency counter = deals with >1 arrays, strings, linked list (probably). Can be sorted/unsorted. Makes use of objects to compare these DS between themselves.
