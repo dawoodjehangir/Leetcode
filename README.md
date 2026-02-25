@@ -104,6 +104,176 @@ Check: "Object.hasOwn(obj, key)",map.has(key)
 - sort: $$O(N*logN)$$
 - forEach/map/filter/reduce/etc: $$O(N)$$
 
+#### The "Big Three" Iterators (Non-Mutating)
+| Method | Purpose | Time Complexty | Space Complexity|
+| :--- | :----: | :----: | ---: |
+| map() | transforms every element | O(n) | O(n) |
+| filter() | selects elements based on a condition | O(n) | O(n) |
+| reduce() | accumulates array into a single value | O(n) | O(1)* |
+* Note: _reduce_ space is $O(1)$ if the accumulator is a primitive, but $O(n)$ if you are building a new object/array.
+
+#### Search and Retrieval
+In interviews, use these instead of manual for loops to show language proficiency.
+- **find() / findIndex()**: Takes a callback func as argument. Returns the first element/index that matches or undefined/-1 in case not found, respectively.
+- Time: $O(n)$ (Worst case) | Space: $O(1)$
+- **includes() / indexOf()**: accepts the value as the arugment itself, instead of callback function. Checks for existence. Returns boolean/-1 in case not found.
+- Time: $O(n)$ | Space: $O(1)$
+- some() / every(): Takes a callback func as argument. Short-circuiting booleans.
+- **some** stops at the first true;
+- **every** stops at the first false.
+- Time: $O(n)$ | Space: $O(1)$
+
+#### Adding/Removing Elements (The Stack & Queues)
+These are crucial for implementing BFS, DFS, or Sliding Window patterns. How?
+
+| Method | Action | Time Complexty | Space Complexity|
+| :--- | :----: | :----: | ---: |
+| push() | add to the end | O(1) _Amortized_ | O(1) |
+| pop() | remove from the end | O(1) | O(1) |
+| shift() | delete from front | O(n) | O(1) |
+| unshift() | Add to front | O(n) | O(1) |
+
+```
+Interview Warning: Avoid shift() and unshift() inside a loop if possible. Because arrays are indexed, removing the first element forces the engine to re-index every other element in the array, leading to an $O(n^2)$ overall complexity.
+
+Amortized:
+In Big Tech interviews, when you say push() is $O(1)$, a sharp interviewer will ask: "Is it always $O(1)$?"
+The Reality:
+Under the hood, engines like V8 (Node.js/Chrome) allocate a fixed amount of contiguous memory for an array. When you exceed that capacity, the engine must:
+1- Allocate a new, larger block of memory (usually 2x the size).
+2- Copy all existing elements to the new block ($O(n)$).
+3- Add the new element.
+The Reality:Under the hood, engines like V8 (Node.js/Chrome) allocate a fixed amount of contiguous memory for an array. When you exceed that capacity, the engine must:Allocate a new, larger block of memory (usually $2 \times$ the size).Copy all existing elements to the new block ($O(n)$).Add the new element.
+
+Why it is called "Amortized"?
+Since this "expensive" O(n) resize happens very rarely (e.g., only when the array doubles), we "spread" that cost over all the O(1) operations that preceded it. On average, the cost per operation remains constant.Result: $O(1)$ Amortized.
+```
+
+#### Adding/Removing Elements (The Stack & Queues)
+- **sort()**:
+- Time: $O(n \log n)$.
+- Space: $O(\log n)$ (usually Timsort in modern engines like V8).
+- TS Tip: Always provide a comparator: arr.sort((a, b) => a - b). Without it, TS converts elements to strings, meaning 10 comes before
+
+```
+You might think sorting in place is $O(1)$ space, but that is rarely true for efficient algorithms.
+
+Algorithm: Modern engines use Timsort (a hybrid of Merge Sort and Insertion Sort).
+
+Space Complexity: $O(\log n)$ or $O(n)$ depending on the implementation.
+
+The "Why": Even if the sorting happens "in-place" (mutating the original array), the algorithm uses a recursion stack or temporary storage for merging runs of data.
+
+In TypeScript/V8, it typically requires O(log n) stack space for the recursive calls.
+```
+
+- slice(start, end): Returns a shallow copy of a portion.
+- Time: $O(k)$ where $k$ is the number of elements copied.
+- Space: $O(k)$.
+  
+- splice(start, deleteCount, ...items): Mutates the array by removing/replacing elements.
+- Time: $O(n)$.
+- Space: $O(1)$ (unless storing the deleted elements).
+
+```typescript []
+//In a Big Tech interview, using splice correctly shows you understand in-place mutation. While modern development favors immutability, splice is the most memory-efficient way to modify an array without allocating a new one.
+
+// The signature is: array.splice(start, deleteCount, ...items).
+
+//1. Deletion (Removing Elements)
+//To delete, you provide the starting index and how many items to remove.
+const queue: string[] = ["Job1", "Job2", "Job3", "Job4"];
+
+// Remove 2 elements starting at index 1
+const deleted = queue.splice(1, 2); 
+
+console.log(queue);   // ["Job1", "Job4"]
+console.log(deleted); // ["Job2", "Job3"] -> splice returns the removed items
+
+//Interview Tip: If deleteCount is omitted, it removes everything from start to the end of the array.
+
+//2. Insertion (Adding without Deleting)
+// To insert, set deleteCount to 0. The elements are inserted before the index specified.
+const stream: number[] = [1, 2, 5];
+
+// At index 2, delete 0 elements, and insert 3 and 4
+stream.splice(2, 0, 3, 4);
+
+console.log(stream); // [1, 2, 3, 4, 5]
+// Time Complexity Check: This is $O(n)$ because 5 has to be shifted to the right to make room for 3 and 4. Space is still O(1) because inplace (existing memory space used to make space for just one extra item) 
+
+//3. Replacement (The "Swap" logic)
+//You can delete and insert in one atomic operation. This is common in "Update" logic for local state.
+
+const users: string[] = ["Alice", "Unknown", "Charlie"];
+
+// At index 1, remove 1 element ("Unknown") and insert "Bob"
+users.splice(1, 1, "Bob");
+
+console.log(users); // ["Alice", "Bob", "Charlie"]
+
+//4. Negative Indexing (Counting from the End)
+// splice supports negative integers to indicate an offset from the end of the array. This is very "clean" for removing the last $n$ elements.
+
+const logs: string[] = ["ERR1", "ERR2", "WARN1", "INFO1"];
+
+// Start at the 2nd to last element (-2), remove 2 elements
+logs.splice(-2, 2);
+
+console.log(logs); // ["ERR1", "ERR2"]
+```
+Comparison of scenarios 
+
+| Scenario | Code Pattern | Result on [A,B,C] 
+| :--- | :----: | :----: | ---: |
+| Clear Array | arr.splice(0) | [] | 
+| Pop last item | arr.splice(-1,1) | [A,B] | O(n)/O(n) |
+| Insert at Start | arr.splice(0,0,X) | [X,A,B,C] same as unshift  |
+| Replace All | arr.splice(0,arr.length, X) | [X] |
+
+⚠️ The "Gotcha" for Interviews
+Problem: What happens if you use splice inside a for loop?
+
+``` typescript []
+for (let i = 0; i < arr.length; i++) {
+    if (shouldDelete(arr[i])) {
+        arr.splice(i, 1);
+        i--; // CRITICAL: You must decrement i or you will skip the next element!
+    }
+}
+
+//In a Big Tech interview, if you're asked to remove elements from an array while iterating, the interviewer is testing if you know that re-indexing happens. If you delete index 1, the old index 2 moves into index 1. If your loop moves to index 2, you've skipped an element.
+```
+
+The Interviewer's "Trap" Question
+An interviewer might ask: "If splice is $O(n)$, and I want to build an array by inserting elements at the front one by one, what is the total complexity?
+1- Each insertion is $O(n)$.
+2- Doing it $n$ times results in $O(n^2)$.
+3- The SDE Solution: Suggest using a Linked List (where insertion is $O(1)$) or simply push to the end ($O(1)$ amortized) and reverse at the very end ($O(n)$). Both strategies avoid the $O(n^2)$ trap.
+
+#### ES2023 "Immutable" Alternatives
+Big Tech interviewers love to see "clean code." Recently, methods were added that do what the mutators do but return a new array instead.
+- **toSorted()**: Like sort() but non-mutating.
+- **toReversed()**: Like reverse() but non-mutating.
+- **with(index, value)**: Returns a new array with one element replaced ($O(n)$ time/space).
+
+```
+Interviewers love "Functional Programming" (FP) principles. FP dictates that you should not mutate inputs. Until 2023, TS/JS forced you to copy an array manually before sorting or reversing it
+```
+Here is the comparison of the Mutable (Old) vs. Immutable (New) versions:
+
+| Operation | Mutable | Immutable | Time/Space Complexity ES2023|
+| :--- | :----: | :----: | ---: |
+| Sort | arr.sort() | arr.toSorted() | O(nlogn)/O(n)* |
+| Reverse | arr.reverse() | arr.toReversed() | O(n)/O(n) |
+| Splice | arr.splice(i,n) | arr.toSpliced(i,n) | O(n)/O(n) |
+| Replace | arr[i] = n | arr.with(i, val) | O(n)/O(n) |
+
+* Note: The Immutable versions always have $O(n)$ Space Complexity because they explicitly create a brand-new array.
+
+Why this matters in an interview:
+If an interviewer asks you to reverse a list, asking "Do you want me to reverse it in-place to save memory, or return a new array to maintain immutability?" shows you understand high-level architectural trade-offs.
+
 ## Problem Solving Patterns
 
 - _Introduction:_
