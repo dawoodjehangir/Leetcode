@@ -90,6 +90,7 @@ Check: "Object.hasOwn(obj, key)",map.has(key)
 
 #### methods
 
+- In TypeScript (and JavaScript), arrays are dynamic objects. Most methods are categorized by whether they mutate the original array or return a new one (immutability).
 - push: $$O(1)$$
 - pop: $$O(1)$$
 - shift: $$O(N)$$
@@ -744,7 +745,11 @@ function selectionSort(arr: number[]): number[] {
 
 - Exploits the fact that arrays of 0 or 1 element are always sorted.
 - works by decomposing an array into smaller arrays of 0 or 1 elements, then building up a newly sorted array
-- We split merge sort into two parts: merge two sorted arrays into a new array (it should run in O(n+m) time e.g. 'n' and 'm' represents the size of individual arrays) +
+- We split merge sort into two parts: merge two sorted arrays into a new array (it should run in O(n+m) time e.g. 'n' and 'm' represents the size of individual arrays) + mergeSort function that keeps splitting an array until the length <= 1.
+
+| Time Complexity (Best) | Time Complexity (Average) | Time Complexity (Worse) | Space Complexity |
+| :--------------------- | :------------------------ | :---------------------: | ---------------- |
+| O(NlogN)               | O(NlogN)                  |        O(NlogN)         | O(N)             |
 
 ```typescript []
 // more easy to undertstand
@@ -776,8 +781,6 @@ function merge(m: number[], n: number[]): number[] {
 
 //more modern approach
 function merge(m: number[], n: number[]): number[] {
-  if (m.length === 0 && n.length === 0) return [];
-
   const results: number[] = [];
   let i = 0;
   let j = 0;
@@ -792,6 +795,15 @@ function merge(m: number[], n: number[]): number[] {
   }
   //Since one of those slices will always be empty, it achieves the exact same result as your two while loops but in a single line.
   return [...results, ...m.slice(i), ...n.slice(j)];
+}
+
+function mergeSort(arr: number[]): number[] {
+  if (arr.length <= 1) return arr;
+  const mid = Math.floor(arr.length / 2);
+  const left = mergeSort(arr.slice(0, mid));
+  const right = mergeSort(arr.slice(mid));
+
+  return merge(left, right);
 }
 ```
 
