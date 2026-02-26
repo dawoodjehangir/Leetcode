@@ -307,7 +307,7 @@ If an interviewer asks you to reverse a list, asking "Do you want me to reverse 
      - Extends to lists with monotonic conditions, not just sorted numbers.
      - Example: finding the minimum in a rotated sorted array.
 
-- _Nonlinear Data Structure Patterns_:
+- _Nonlinear Data Structure Patterns:_
   4. _Breadth-First Search (BFS):_
     - Explores nodes level by level.
     - Uses a queue to keep track of visited nodes (ideal for level order traversal).
