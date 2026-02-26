@@ -244,7 +244,8 @@ for (let i = 0; i < arr.length; i++) {
 //In a Big Tech interview, if you're asked to remove elements from an array while iterating, the interviewer is testing if you know that re-indexing happens. If you delete index 1, the old index 2 moves into index 1. If your loop moves to index 2, you've skipped an element.
 ```
 
-The Interviewer's "Trap" Question
+##### The Interviewer's "Trap" Question:
+
 An interviewer might ask: "If splice is $O(n)$, and I want to build an array by inserting elements at the front one by one, what is the total complexity?
 1- Each insertion is $O(n)$.
 2- Doing it $n$ times results in $O(n^2)$.
