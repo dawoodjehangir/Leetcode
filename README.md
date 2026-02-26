@@ -224,7 +224,7 @@ console.log(logs); // ["ERR1", "ERR2"]
 Comparison of scenarios 
 
 | Scenario | Code Pattern | Result on [A,B,C] |
-| :--- | :----: | :----: | ---: |
+| :--- | :----: | ---: |
 | Clear Array | arr.splice(0) | [] | 
 | Pop last item | arr.splice(-1,1) | [A,B] | O(n)/O(n) |
 | Insert at Start | arr.splice(0,0,X) | [X,A,B,C] same as unshift  |
