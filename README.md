@@ -319,21 +319,22 @@ If an interviewer asks you to reverse a list, asking "Do you want me to reverse 
      - Builds the solution dynamically by making decisions and backtracking on invalid paths.
      - Example: letter combinations of a phone number.
 
-- _Heaps (Priority Queue):_ 7. _Heaps:_
+- _Heaps (Priority Queue):_
+
+7. _Heaps:_
 
 - Used for questions related to top K, K smallest/largest.
 - _Min Heap:_ smallest value at the root.
 - _Max Heap:_ largest value at the root.
 - Max Heap is used to find K smallest values, and vice versa for K largest.
 
-- \_Dynamic Programming (DP):
+- _Dynamic Programming (DP)_: 8. Dynamic Programming:
 
-  _ 8. \_Dynamic Programming:_
-  - Optimizes solutions by breaking problems into overlapping subproblems.
-  - Two approaches:
-    - _Top-down:_ recursive with memoization to store results.
-    - _Bottom-up:_ solves smaller subproblems iteratively using a table.
-  - Too complex for this video but covered in-depth on their website.
+- Optimizes solutions by breaking problems into overlapping subproblems.
+- Two approaches:
+  - _Top-down:_ recursive with memoization to store results.
+  - _Bottom-up:_ solves smaller subproblems iteratively using a table.
+- Too complex for this video but covered in-depth on their website.
 
 ### Frequency counter pattern
 
