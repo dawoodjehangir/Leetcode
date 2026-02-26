@@ -307,43 +307,31 @@ If an interviewer asks you to reverse a list, asking "Do you want me to reverse 
      - Extends to lists with monotonic conditions, not just sorted numbers.
      - Example: finding the minimum in a rotated sorted array.
 
-- _Nonlinear Data Structure Patterns_:
+- _Nonlinear Data Structure Patterns_: 4. _Breadth-First Search (BFS):_
+  - Explores nodes level by level.
+  - Uses a queue to keep track of visited nodes (ideal for level order traversal).
+  5. _Depth-First Search (DFS):_
+  - Dives deep into one path before exploring others.
+  - Often uses recursion and is memory efficient for exploring all paths.
+  - Example: counting islands in a grid.
+  6. _Backtracking:_
+  - Extension of DFS, explores all possible solutions.
+  - Builds the solution dynamically by making decisions and backtracking on invalid paths.
+  - Example: letter combinations of a phone number.
 
-1. _Breadth-First Search (BFS):_
-
-- Explores nodes level by level.
-- Uses a queue to keep track of visited nodes (ideal for level order traversal).
-
-2. _Depth-First Search (DFS):_
-
-- Dives deep into one path before exploring others.
-- Often uses recursion and is memory efficient for exploring all paths.
-- Example: counting islands in a grid.
-
-3. _Backtracking:_
-
-- Extension of DFS, explores all possible solutions.
-- Builds the solution dynamically by making decisions and backtracking on invalid paths.
-- Example: letter combinations of a phone number.
-
-- _Heaps (Priority Queue):_
-
-1. _Heaps:_
-
-- Used for questions related to top K, K smallest/largest.
-- _Min Heap:_ smallest value at the root.
-- _Max Heap:_ largest value at the root.
-- Max Heap is used to find K smallest values, and vice versa for K largest.
+- _Heaps (Priority Queue):_ 7. _Heaps:_
+  - Used for questions related to top K, K smallest/largest.
+  - _Min Heap:_ smallest value at the root.
+  - _Max Heap:_ largest value at the root.
+  - Max Heap is used to find K smallest values, and vice versa for K largest.
 
 - _Dynamic Programming (DP)_:
-
-1. Dynamic Programming:
-
-- Optimizes solutions by breaking problems into overlapping subproblems.
-- Two approaches:
-  - _Top-down:_ recursive with memoization to store results.
-  - _Bottom-up:_ solves smaller subproblems iteratively using a table.
-- Too complex for this video but covered in-depth on their website.
+  8. Dynamic Programming:
+  - Optimizes solutions by breaking problems into overlapping subproblems.
+  - Two approaches:
+    - _Top-down:_ recursive with memoization to store results.
+    - _Bottom-up:_ solves smaller subproblems iteratively using a table.
+  - Too complex for this video but covered in-depth on their website.
 
 ### Frequency counter pattern
 
