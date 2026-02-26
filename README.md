@@ -143,7 +143,6 @@ Under the hood, engines like V8 (Node.js/Chrome) allocate a fixed amount of cont
 1- Allocate a new, larger block of memory (usually 2x the size).
 2- Copy all existing elements to the new block ($O(n)$).
 3- Add the new element.
-The Reality:Under the hood, engines like V8 (Node.js/Chrome) allocate a fixed amount of contiguous memory for an array. When you exceed that capacity, the engine must:Allocate a new, larger block of memory (usually $2 \times$ the size).Copy all existing elements to the new block ($O(n)$).Add the new element.
 
 Why it is called "Amortized"?
 Since this "expensive" O(n) resize happens very rarely (e.g., only when the array doubles), we "spread" that cost over all the O(1) operations that preceded it. On average, the cost per operation remains constant.Result: $O(1)$ Amortized.
