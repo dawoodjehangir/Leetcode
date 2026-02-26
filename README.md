@@ -307,33 +307,30 @@ If an interviewer asks you to reverse a list, asking "Do you want me to reverse 
      - Extends to lists with monotonic conditions, not just sorted numbers.
      - Example: finding the minimum in a rotated sorted array.
 
-- _Nonlinear Data Structure Patterns:_
-  4. _Breadth-First Search (BFS):_
-    - Explores nodes level by level.
-    - Uses a queue to keep track of visited nodes (ideal for level order traversal).
+- _Nonlinear Data Structure Patterns:_ 4. _Breadth-First Search (BFS):_
+  - Explores nodes level by level.
+  - Uses a queue to keep track of visited nodes (ideal for level order traversal).
   5. _Depth-First Search (DFS):_
-    - Dives deep into one path before exploring others.
-    - Often uses recursion and is memory efficient for exploring all paths.
-    - Example: counting islands in a grid.
+  - Dives deep into one path before exploring others.
+  - Often uses recursion and is memory efficient for exploring all paths.
+  - Example: counting islands in a grid.
   6. _Backtracking:_
-    - Extension of DFS, explores all possible solutions.
-    - Builds the solution dynamically by making decisions and backtracking on invalid paths.
-    - Example: letter combinations of a phone number.
+  - Extension of DFS, explores all possible solutions.
+  - Builds the solution dynamically by making decisions and backtracking on invalid paths.
+  - Example: letter combinations of a phone number.
 
-- _Heaps (Priority Queue):_
-  7. _Heaps:_
-    - Used for questions related to top K, K smallest/largest.
-    - _Min Heap:_ smallest value at the root.
-    - _Max Heap:_ largest value at the root.
-    - Max Heap is used to find K smallest values, and vice versa for K largest.
+- _Heaps (Priority Queue):_ 7. _Heaps:_
+  - Used for questions related to top K, K smallest/largest.
+  - _Min Heap:_ smallest value at the root.
+  - _Max Heap:_ largest value at the root.
+  - Max Heap is used to find K smallest values, and vice versa for K largest.
 
-- _Dynamic Programming (DP)_:
-  8. Dynamic Programming:
-    - Optimizes solutions by breaking problems into overlapping subproblems.
-    - Two approaches:
-      - _Top-down:_ recursive with memoization to store results.
-      - _Bottom-up:_ solves smaller subproblems iteratively using a table.
-    - Too complex for this video but covered in-depth on their website.
+- _Dynamic Programming (DP)_: 8. Dynamic Programming:
+  - Optimizes solutions by breaking problems into overlapping subproblems.
+  - Two approaches:
+    - _Top-down:_ recursive with memoization to store results.
+    - _Bottom-up:_ solves smaller subproblems iteratively using a table.
+  - Too complex for this video but covered in-depth on their website.
 
 ### Frequency counter pattern
 
@@ -376,6 +373,8 @@ function same(arr1: number[], arr2: number[]): boolean {
 - example anagram question:
 
 ```typescript
+// Not a correct solution
+// Missing Key Check: str1Keys.every checks if the counts match, but it doesn't explicitly verify if the key even exists in obj2. While the length check at the top helps, it's safer to check for existence.
 function validAnagram(str1: string, str2: string): boolean {
   if (str1.length !== str2.length) return false;
   const obj1: any = {};
@@ -389,6 +388,30 @@ function validAnagram(str1: string, str2: string): boolean {
   if (str1Keys.length !== str2Keys.length) return false;
 
   return str1Keys.every((key) => obj1[key] === obj2[keys]);
+}
+
+// Better solution
+function validAnagram(str1: string, str2: string): boolean {
+  if (str1.length !== str2.length) return false;
+
+  const lookup: Record<string, number> = {};
+
+  // Increment counts for the first string
+  for (let char of str1) {
+    lookup[char] = (lookup[char] ?? 0) + 1;
+  }
+
+  // Decrement counts for the second string
+  for (let char of str2) {
+    // If we can't find the char or it's already 0, it's not an anagram
+    if (!lookup[char]) {
+      return false;
+    } else {
+      lookup[char] -= 1;
+    }
+  }
+
+  return true;
 }
 ```
 
