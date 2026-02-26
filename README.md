@@ -247,9 +247,9 @@ for (let i = 0; i < arr.length; i++) {
 ##### The Interviewer's "Trap" Question:
 
 An interviewer might ask: "If splice is $O(n)$, and I want to build an array by inserting elements at the front one by one, what is the total complexity?
-1- Each insertion is $O(n)$.
-2- Doing it $n$ times results in $O(n^2)$.
-3- The SDE Solution: Suggest using a Linked List (where insertion is $O(1)$) or simply push to the end ($O(1)$ amortized) and reverse at the very end ($O(n)$). Both strategies avoid the $O(n^2)$ trap.
+- Each insertion is $O(n)$.
+- Doing it $n$ times results in $O(n^2)$.
+- The SDE Solution: Suggest using a Linked List (where insertion is $O(1)$) or simply push to the end ($O(1)$ amortized) and reverse at the very end ($O(n)$). Both strategies avoid the $O(n^2)$ trap.
 
 #### ES2023 "Immutable" Alternatives
 Big Tech interviewers love to see "clean code." Recently, methods were added that do what the mutators do but return a new array instead.
