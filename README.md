@@ -1,3 +1,9 @@
+## Note
+
+Refer to other files regarding concept to study for Interview
+
+========================================================
+
 # Leetcode
 
 ## most common patterns:
