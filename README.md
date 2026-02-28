@@ -469,7 +469,7 @@ function countUniqueValues(sortedArray: number[]): number {
   while (second < sortedArray.length) {
     if (sortedArray[first] !== sortedArray[second]) {
       first++;
-      sortedArray[first] = sor tedArray[second];
+      sortedArray[first] = sortedArray[second];
     }
     second++;
   }
@@ -540,7 +540,31 @@ function maxSubarraySum(arr: number[], consecNum: number): any {
 - rabbit/hare & tortoise problem.
 - We move across arrays, linkedlist or strings
 - #1 - where is this used? => Given any single array/linked list, you want to find middle point the DS. Considering F pointer reaches the end of DS, the S pointer will be in the middle.
-- #2 - Where is this used? => Detect cycles
+- #2 - Where is this used? => Detect cycles (Floyd's Algorithm)
+- Imagine a circular running track. If two people start at the same point and one runs faster, the faster runner will eventually lap the slower runner. If the track is a straight line (no loop), the fast runner just hits the end and the race is over.
+
+```typescript []
+function hasCycle(head: Node | null): boolean {
+  let slow = head;
+  let fast = head;
+
+  while (fast !== null && fast.next !== null) {
+    slow = slow.next;
+    fast = fast.next.next;
+
+    if (slow === fast) {
+      return true; // They met! There is a loop.
+    }
+  }
+
+  return false; // Fast reached the end; no loop.
+}
+```
+
+| Metric           |                      Traditional Way                       |              Fast/Slow Pointers |
+| :--------------- | :--------------------------------------------------------: | ------------------------------: |
+| Time complexity  |                          $$O(n)$$                          |                        $$O(N)$$ |
+| Space complexity | $$O(N)$$ (Usually requires a _Set_ to track visited nodes) | $$O(1)$$ (No extra memory used) |
 
 ## Recursion
 
