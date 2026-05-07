@@ -291,7 +291,7 @@ Since this "expensive" O(n) resize happens very rarely (e.g., only when the arra
 
 - **sort()**:
 - Time: $O(n \log n)$.
-- Space: $O(\log n)$ (usually Timsort in modern engines like V8).
+- Space: $O(n)$ (usually Timsort in modern engines like V8).
 - TS Tip: Always provide a comparator: arr.sort((a, b) => a - b). Without it, TS converts elements to strings, meaning 10 comes before 2
 
 ```

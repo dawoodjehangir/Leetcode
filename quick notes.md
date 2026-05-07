@@ -157,3 +157,28 @@ Common usage of `Set`:
 | Unique values | deduplication |
 | Sliding window | longest substring |
 | Intersection problems | common elements |
+
+### Sorting
+
+#### Built-in sort JS/TS
+
+MDN explicitly states that the time and space complexity “cannot be guaranteed” because it depends on the engine implementation.
+
+JavaScript’s built-in sort is typically O(n log n) time. Space complexity depends on the engine, but modern implementations like V8’s TimSort generally use O(n) auxiliary space.
+
+| Case    | Time       |
+| ------- | ---------- |
+| Best    | O(n)       |
+| Average | O(n log n) |
+| Worst   | O(n log n) |
+
+Space complexity:
+| Space | Typical |
+| ---------------- | ------- |
+| Auxiliary memory | O(n) |
+
+Use TimSort or a TimSort hybrid for sorting:
+
+- hybrid of merge sort + insertion sort
+- optimized for partially sorted data
+- stable

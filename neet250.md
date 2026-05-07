@@ -70,6 +70,134 @@ function isAnagram(s: string, t: string): boolean {
 }
 ```
 
+### 4: Two Sum
+
+Given an array of integers nums and an integer target, return the indices i and j such that nums[i] + nums[j] == target and i != j.
+
+You may assume that every input has exactly one pair of indices i and j that satisfy the condition.
+
+Return the answer with the smaller index first.
+
+```typescript
+//recommended time and space complexity
+// O(n) time
+// O(n) space
+
+//brute force approach
+//O(n^2) time
+//O(1) space
+function twoSumBruteForce(nums: number[], target: number): number[] {
+  for (let ind = 0; ind < nums.length; ind++) {
+    for (let sind = ind + 1; sind < nums.length; sind++) {
+      if (nums[ind] + nums[sind] === target) {
+        return [ind, sind];
+      }
+    }
+  }
+}
+
+//optimized
+// Hash Map (Two pass)
+// Time O(n), Space O(n)
+function twoSumHashTwoPass(nums: number[], target: number): number[] {
+  const numsMap = new Map<number, number>();
+
+  // First pass
+  for (let i = 0; i < nums.length; i++) {
+    numsMap.set(nums[i], i);
+  }
+
+  // Second pass
+  for (let i = 0; i < nums.length; i++) {
+    const complement = target - nums[i];
+    const complementIndex = numsMap.get(complement);
+
+    if (complementIndex !== undefined && complementIndex !== i) {
+      return [i, complementIndex];
+    }
+  }
+
+  return [];
+}
+
+//optimized
+// Hash Map (One pass)
+// Time O(n), Space O(n)
+
+function twoSumHashOnePass(nums: number[], target: number): number[] {
+  const numsMap = new Map<number, number>();
+
+  for (let i = 0; i < nums.length; i++) {
+    const complement = target - nums[i];
+    const firstIndex = numsMap.get(complement);
+
+    if (firstIndex !== undefined) {
+      return [firstindex, i];
+    } else {
+      numsMap.set(nums[i], i);
+    }
+  }
+  return [];
+}
+
+// Optimized
+// Sorting
+// Time O(nlogn), Space O(n)
+// sort the array O(nlogn) and then use constant time to find two indices
+function twoSumSorting(nums: number[], target: number): number[] {
+  const pairs: [number, number][] = nums.map((num, index) => [num, index]);
+
+  pairs.sort((a, b) => a[0] - b[0]);
+
+  let left = 0;
+  let right = pairs.length - 1;
+
+  while (left < right) {
+    const sum = pairs[left][0] + pairs[right][0];
+
+    if (sum === target) {
+      return [pairs[left][1], pairs[right][1]];
+    }
+
+    if (sum < target) {
+      left++;
+    } else {
+      right--;
+    }
+  }
+
+  return [];
+}
+
+// generalized Two Sum solution if the assumption of exactly one pair is removed
+function allTwoSumPairs(nums: number[], target: number): number[][] {
+  const map = new Map<number, number[]>();
+  const result: number[][] = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    const complement = target - nums[i];
+
+    // If complement already seen
+    if (map.has(complement)) {
+      // Pair current index with ALL previous complement indices
+      for (const prevIndex of map.get(complement)!) {
+        result.push([prevIndex, i]);
+      }
+    }
+
+    // Initialize array if first occurrence
+    if (!map.has(nums[i])) {
+      map.set(nums[i], []);
+    }
+
+    // Store current index
+    map.get(nums[i])!.push(i);
+  }
+
+  return result;
+}
+```
+
 # Medium
 
 # Hard
