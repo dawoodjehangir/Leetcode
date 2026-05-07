@@ -1,10 +1,4 @@
-## Note
-
-Refer to other files regarding concept to study for Interview
-
-========================================================
-
-# Leetcode
+# DSA journey including courses, neetcode, and leetcode
 
 ## most common patterns:
 
