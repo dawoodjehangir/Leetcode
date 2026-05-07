@@ -85,6 +85,28 @@ Clear All: obj = {},map.clear()
 Check: "Object.hasOwn(obj, key)",map.has(key)
 ```
 
+How Map is better than Record (simple Object)
+
+| Feature     |                      Map                       |                                                                 Record |
+| :---------- | :--------------------------------------------: | ---------------------------------------------------------------------: |
+| Key Types   |  Can be any type (number, object, function).   |                       Keys are always converted to Strings or Symbols. |
+| Performance | Optimized for frequent additions and removals. |                Can be slower for large datasets with frequent updates. |
+| Size        |         Has a built-in .size property.         |         You have to manually count keys using Object.keys(obj).length. |
+| Security    |          Contains no keys by default.          |   Contains prototype properties (like toString), which can cause bugs. |
+| Order       |    Preserves the insertion order of items.     | Order is generally preserved but can be inconsistent for numeric keys. |
+
+The "Hidden" String Conversion
+JavaScript converts that number arr[i] into a string. Behind the scenes, the engine has to manage that type conversion. A Map<number, number> keeps the numbers as numbers, which is more memory-efficient and predictable for the engine's JIT (Just-In-Time) compiler.
+
+Is it better in all cases?
+No. There are scenarios where a plain object (Record) is actually the better choice:
+
+JSON Serialization: Objects are the "native" format for JSON. If you need to send your data over a network via JSON.stringify(), a Map will come out empty {} unless you write a custom serializer.
+
+Simple Configs: If you are just defining a small, static set of settings (e.g., { theme: 'dark', volume: 5 }), a Record is more readable and has slightly less memory overhead than initializing a full Map object.
+
+Direct Property Access: If you prefer the brevity of obj.key over map.get('key'), objects are more convenient.
+
 ##### IMPORTANT NOTE for Object
 
 - Use for...in to traverse through keys of an object. However, there are some things to consider.
