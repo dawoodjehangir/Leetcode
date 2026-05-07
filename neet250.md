@@ -198,6 +198,57 @@ function allTwoSumPairs(nums: number[], target: number): number[][] {
 }
 ```
 
+### 5: Longest Common Prefix
+
+You are given an array of strings strs. Return the longest common prefix of all the strings.
+
+If there is no longest common prefix, return an empty string "".
+
+```typescript
+//brute force
+// two pointers.
+// initial prefix found using first two strings
+// Traverse through the entire array and compare adjacent strings and keep comparing with the initial value
+// return the shortest one, which in turn would be the longest
+function compare(one: string, two: string): string[] {
+  let first: string[] = one.split("");
+  let second: string[] = two.split("");
+  let lcpArray: string[] = [];
+  if (first.length < second.length) {
+    for (let char = 0; char < first.length; char++) {
+      if (first[char] === second[char]) {
+        lcpArray.push(first[char]);
+      } else {
+        break;
+      }
+    }
+  } else {
+    for (let char = 0; char < second.length; char++) {
+      if (first[char] === second[char]) {
+        lcpArray.push(first[char]);
+      } else {
+        break;
+      }
+    }
+  }
+  return lcpArray;
+}
+
+function lcp(strs: string[]): string {
+  if (strs.length === 1) return strs[0];
+  let lcpArray: string[] = compare(strs[0], strs[1]);
+  for (let index = 2; index < strs.length; index++) {
+    const previous = strs[index - 1];
+    const current = strs[index];
+    let tempLCP = compare(previous, current);
+    if (tempLCP.length < lcpArray.length) {
+      lcpArray = tempLCP;
+    }
+  }
+  return lcpArray.join("");
+}
+```
+
 # Medium
 
 # Hard

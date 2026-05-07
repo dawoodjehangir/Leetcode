@@ -188,16 +188,6 @@ function threeSum(arr: number[], target: number): number[] {
 }
 ```
 
-5. Longest Common Prefix
-   You are given an array of strings strs. Return the longest common prefix of all the strings.
+```
 
-If there is no longest common prefix, return an empty string "".
-
-```typescript []
-function lcp(strs: string[]): string {
-  const base = lcp[0];
-  let it = 1;
-
-  return base.splice(0, right + 1);
-}
 ```
