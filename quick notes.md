@@ -65,7 +65,7 @@ class Dog extends Animal {}
 JS essentially creates: Dog.prototype --> Animal.prototype
 Method lookup walks prototypes dynamically.
 
-#### Lists
+### Lists
 
 - an empty array is truthy. Arrays are objects in JavaScript, and all objects are truthy.
 
@@ -80,3 +80,80 @@ Method lookup walks prototypes dynamically.
 | `undefined` | falsy        |
 
 ```
+
+### Strings
+
+Strings are:
+
+- immutable
+- UTF-16 encoded
+- primitive values
+  Methods return new strings rather than modifying the original.
+
+| Method          | Importance |
+| --------------- | ---------- |
+| `slice()`       | Critical   |
+| `split()`       | Critical   |
+| `includes()`    | Critical   |
+| `indexOf()`     | Critical   |
+| `replace()`     | Critical   |
+| `startsWith()`  | High       |
+| `endsWith()`    | High       |
+| `toLowerCase()` | High       |
+| `toUpperCase()` | High       |
+| `trim()`        | High       |
+| `match()`       | Medium     |
+| `repeat()`      | Medium     |
+
+### Sets
+
+a Set is a collection of unique values. No duplicates allowed.
+
+- Empty set
+  `const set = new Set<number>();`
+
+- From an array
+  `const set = new Set([1, 2, 3]);`
+
+- String set
+  `const chars = new Set(["a", "b", "c"]);`
+
+| Operation | Complexity |
+| --------- | ---------- |
+| `add`     | O(1)       |
+| `has`     | O(1)       |
+| `delete`  | O(1)       |
+
+- Object example
+
+```typescript
+const set = new Set<object>();
+
+set.add({ x: 1 });
+set.add({ x: 1 });
+
+console.log(set.size); => 2
+```
+
+Because these are DIFFERENT object references.
+
+Very important interview nuance.
+
+- Sets vs Arrays
+  | Feature | Set | Array |
+  | ------------------ | -------- | ----- |
+  | Duplicates allowed | No | Yes |
+  | Ordered | Yes | Yes |
+  | Fast lookup | Yes | No |
+  | Index access | No | Yes |
+  | `has()` complexity | O(1) avg | O(n) |
+
+Common usage of `Set`:
+| Pattern | Example |
+| --------------------- | ------------------ |
+| Duplicate detection | contains duplicate |
+| Visited tracking | graph traversal |
+| Membership testing | word dictionary |
+| Unique values | deduplication |
+| Sliding window | longest substring |
+| Intersection problems | common elements |

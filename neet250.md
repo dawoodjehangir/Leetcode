@@ -34,6 +34,42 @@ function hasDuplicate(nums: number[]): boolean {
 }
 ```
 
+### 3: Valid Anagram
+
+Given two strings s and t, return true if the two strings are anagrams of each other, otherwise return false.
+
+An anagram is a string that contains the exact same characters as another string, but the order of the characters can be different.
+
+- does strings consist of only english characters? lowercase, uppercase?
+- any intended time and space complexity?
+
+- two strings have to be of the same length => invalid if length is different
+
+```typescript []
+// Time complexity O(s+t)
+// Space complexity O(s+t)
+
+function isAnagram(s: string, t: string): boolean {
+  if (s.length !== t.length) return false;
+  const sMap: Record<string, number> = {};
+  const tMap: Record<string, number> = {};
+
+  for (let i = 0; i < s.length; i++) {
+    sMap[s[i]] = (sMap[s[i]] ?? 0) + 1;
+    tMap[t[i]] = (tMap[t[i]] ?? 0) + 1;
+  }
+
+  return Object.keys(sMap).every((key) => sMap[key] === tMap[key]);
+}
+
+// Time complexity O(nlogn) => depends on sort function. This can be asked to implement also
+// Space complexity O(logn) to O(n)
+function isAnagram(s: string, t: string): boolean {
+  if (s.length !== t.length) return false;
+  return s.split("").sort().join("") === t.split("").sort().join("");
+}
+```
+
 # Medium
 
 # Hard
