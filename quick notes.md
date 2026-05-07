@@ -64,3 +64,19 @@ But TypeScript types disappear at runtime. After compilation: TypeScript -> Java
 class Dog extends Animal {}
 JS essentially creates: Dog.prototype --> Animal.prototype
 Method lookup walks prototypes dynamically.
+
+#### Lists
+
+- an empty array is truthy. Arrays are objects in JavaScript, and all objects are truthy.
+
+```
+| Value       | Truthy/Falsy |
+| ----------- | ------------ |
+| `[]`        | truthy       |
+| `{}`        | truthy       |
+| `""`        | falsy        |
+| `0`         | falsy        |
+| `null`      | falsy        |
+| `undefined` | falsy        |
+
+```
