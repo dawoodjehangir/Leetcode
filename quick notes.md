@@ -7,6 +7,13 @@
 - function are objects. classes are functions too? => deeply tied to prototype inheritance
 - reference semantics
 
+### JS/TS concepts
+
+- Primitive types (number, string, boolean) are copied by value
+- Objects/arrays/maps/functions are copied by reference
+
+This distinction is extremely important in JS/TS interviews.
+
 ### Hash maps, Objects, hashing
 
 - hash maps resize themselves

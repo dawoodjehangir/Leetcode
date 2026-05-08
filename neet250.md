@@ -1,3 +1,8 @@
+# REDO:
+
+- longest common prefix => implement horizontal and vvertical scanning, Trie also
+- group anagrams =>
+
 # Easy
 
 ## Array & Hashing
@@ -247,8 +252,126 @@ function lcp(strs: string[]): string {
   }
   return lcpArray.join("");
 }
+
+// horizontal scanning
+// DO THIS LATER
+
+// vertical scanning
+// DO THIS LATER
+
+//Sorting
+// DO THIS LATER
+
+// Trie
+
+class TrieNode {
+  // In TS, we declare properties and their types outside the constructor
+  // Record<string, TrieNode> is like a std::map<string, TrieNode*>
+  children: Record<string, TrieNode>;
+
+  constructor() {
+    this.children = {};
+  }
+}
+
+class Trie {
+  private root: TrieNode;
+
+  constructor() {
+    this.root = new TrieNode();
+  }
+
+  insert(word: string): void {
+    let node = this.root;
+    for (const char of word) {
+      if (!node.children[char]) {
+        node.children[char] = new TrieNode();
+      }
+      node = node.children[char];
+    }
+  }
+
+  lcp(word: string, prefixLen: number): number {
+    let node = this.root;
+    let i = 0;
+    const maxPossible = Math.min(word.length, prefixLen);
+
+    while (i < maxPossible) {
+      const char = word[i];
+      if (!node.children[char]) {
+        return i;
+      }
+      node = node.children[char];
+      i++;
+    }
+    return maxPossible;
+  }
+}
+
+class Solution {
+  longestCommonPrefix(strs: string[]): string {
+    if (strs.length === 1) return strs[0];
+
+    // Find the shortest string to minimize Trie depth
+    let shortestIdx = 0;
+    for (let i = 1; i < strs.length; i++) {
+      if (strs[i].length < strs[shortestIdx].length) {
+        shortestIdx = i;
+      }
+    }
+
+    const trie = new Trie();
+    trie.insert(strs[shortestIdx]);
+
+    let currentPrefixLen = strs[shortestIdx].length;
+
+    for (const word of strs) {
+      currentPrefixLen = trie.lcp(word, currentPrefixLen);
+      // Optimization: if LCP hits 0, stop early
+      if (currentPrefixLen === 0) break;
+    }
+
+    return strs[0].substring(0, currentPrefixLen);
+  }
+}
 ```
 
 # Medium
+
+### 6: Group Anagrams
+
+Given an array of strings strs, group all anagrams together into sublists. You may return the output in any order.
+
+An anagram is a string that contains the exact same characters as another string, but the order of the characters can be different.
+
+Constraints:
+
+- `1 <= strs.length <= 1000`
+- `0 <= strs[i].length <= 100`
+- `strs[i]` is made up of lowercase English letters.
+
+```typescript []
+//smart solution using hashmaps
+// key: would be an entire 26 character array
+// val: would be list of strings that share the same structure of 26 char array
+function groupAnagrams(strs: string[]): string[][] {
+  const result = new Map<string, string[]>();
+
+  for (const word of strs) {
+    const key: number[] = new Array(26).fill(0);
+    for (const char of word) {
+      key[char.charCodeAt(0) - "a".charCodeAt(0)] += 1;
+    }
+    const fixedKey = key.join(",");
+
+    if (!result.has(fixedKey)) {
+      result.set(fixedKey, []);
+    }
+
+    result.get(fixedKey)!.push(word);
+  }
+  return Array.from(result.values());
+}
+```
 
 # Hard
