@@ -366,6 +366,52 @@ function isPalindrome(s: string): boolean {
 }
 ```
 
+### 8: Valid Palindrome II
+
+You are given a string s, return true if the s can be a palindrome after deleting at most one character from it.
+
+A palindrome is a string that reads the same forward and backward.
+
+```typescript []
+// Time O(n)
+// Space Recommended O(1), Mine is O(n) since I create new substrings after removing one character
+// Space can be made O(1) if isPalindrome is passed with left and right pointers, rather than returning new substrings
+
+function isPalindrome(s: string): boolean {
+  let start = 0;
+  let end = s.length - 1;
+  while (start < end) {
+    if (s[start] !== s[end]) {
+      return false;
+    }
+    start++;
+    end--;
+  }
+  return true;
+}
+function validPalindrome(s: string): boolean {
+  let start = 0;
+  let end = s.length - 1;
+  while (start < end) {
+    if (s[start] !== s[end]) {
+      const s1 = s.slice(0, start) + s.slice(start + 1, s.length); //removing start one
+      const try1 = isPalindrome(s1);
+      const s2 = s.slice(0, end) + s.slice(end + 1, s.length); //removing end one
+      const try2 = isPalidrome(s2);
+
+      if (try1 === false && try2 === false) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+    start++;
+    end--;
+  }
+  return true;
+}
+```
+
 # Medium
 
 ### 6: Group Anagrams
