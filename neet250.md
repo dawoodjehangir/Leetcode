@@ -412,6 +412,36 @@ function validPalindrome(s: string): boolean {
 }
 ```
 
+### 9: Merge Strings Alternately
+
+You are given two strings, word1 and word2. Construct a new string by merging them in alternating order, starting with word1 — take one character from word1, then one from word2, and repeat this process.
+
+If one string is longer than the other, append the remaining characters from the longer string to the end of the merged result.
+
+Return the final merged string.
+
+```typescript []
+// Time O(n+m)
+// Space O(n+m)
+// A better solution would be to have one pointer (as we are picking from the same index always), and have only one loop
+    mergeAlternately(word1: string, word2: string): string {
+        let w1Pointer = 0;
+        let w2Pointer = 0;
+        const shortStr = word1.length < word2.length ? word1 : word2;
+        let newStr = "";
+        while (w1Pointer < shortStr.length) {
+            newStr = newStr + word1[w1Pointer] + word2[w2Pointer];
+            w1Pointer++;
+            w2Pointer++;
+        }
+        if (shortStr === word1) {
+            return newStr + word2.slice(w2Pointer);
+        } else {
+            return newStr + word1.slice(w1Pointer);
+        }
+    }
+```
+
 # Medium
 
 ### 6: Group Anagrams
