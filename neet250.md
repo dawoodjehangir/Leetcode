@@ -336,6 +336,36 @@ class Solution {
 }
 ```
 
+### 7: Valid Palindrome
+
+Given a string s, return true if it is a palindrome, otherwise return false.
+
+A palindrome is a string that reads the same forward and backward. It is also case-insensitive and ignores all non-alphanumeric characters.
+
+```typescript []
+// Recommended Time & Space complexity
+//Time O(n)
+//Space O(1)
+// easy examples: "abba"
+// complex examples: ""
+// empty examples: "empty string"
+// invalid examples: "including spaces and non-alphanumeric characters"
+function isPalindrome(s: string): boolean {
+  //remove non-alphanumeric characters from a string => might lead to space issues
+  let start = 0;
+  let end = s.length - 1;
+  const nonAN: RegExp = /[^a-z0-9]/i; // regex expression to identify non alphanumeric keys
+  while (start < end) {
+    while (start < end && nonAN.test(s[start])) start++;
+    while (start < end && nonAN.test(s[end])) end--;
+    if (s[start].toLowerCase() !== s[end].toLowerCase()) return false;
+    start++;
+    end--;
+  }
+  return true;
+}
+```
+
 # Medium
 
 ### 6: Group Anagrams
