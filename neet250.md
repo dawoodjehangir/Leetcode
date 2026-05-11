@@ -513,6 +513,65 @@ function calPoints(operations: string[]): number {
 }
 ```
 
+### 11: Valid Parentheses
+
+You are given a string s consisting of the following characters: '(', ')', '{', '}', '[' and ']'.
+
+The input string s is valid if and only if:
+
+Every open bracket is closed by the same type of close bracket.
+Open brackets are closed in the correct order.
+Every close bracket has a corresponding open bracket of the same type.
+Return true if s is a valid string, and false otherwise.
+
+```typescript []
+// Time O(N)
+// Space O(N)
+function isValid(s: string): boolean {
+  const stack: string[] = [];
+  const closeToOpenObj: Record<string, string> = {
+    ")": "(",
+    "]": "[",
+    "}": "{",
+  };
+  const closeToOpenMap = new Map<string, string>([
+    [")", "("],
+    ["]", "["],
+    ["}", "{"],
+  ]);
+  //   for (let char of s) {
+  //     if (closeToOpenObj[char]) {
+  //       if (
+  //         stack.length > 0 &&
+  //         stack[stack.length - 1] === closeToOpenObj[char]
+  //       ) {
+  //         stack.pop();
+  //       } else {
+  //         return false;
+  //       }
+  //     } else {
+  //       stack.push(char);
+  //     }
+  //   }
+
+  for (let char of s) {
+    if (closeToOpenMap.has(char)) {
+      if (
+        stack.length > 0 &&
+        stack[stack.length - 1] === closeToOpenMap.get(char)
+      ) {
+        stack.pop();
+      } else {
+        return false;
+      }
+    } else {
+      stack.push(char);
+    }
+  }
+  return stack.length === 0 ? true : false;
+}
+```
+
 # Medium
 
 ### 6: Group Anagrams
