@@ -572,6 +572,40 @@ function isValid(s: string): boolean {
 }
 ```
 
+### 12. Reverse Linked List
+
+Given the beginning of a singly linked list head, reverse the list, and return the new beginning of the list.
+
+```typescript []
+//1 2 3 4 5
+//A, B, C
+
+class ListNode {
+  constructor(
+    public value: number = 0,
+    public next: ListNode | null = null,
+  ) {}
+}
+
+// Time O(N)
+// Space O(1)
+// iterative
+function reverseList(head: ListNode | null): ListNode | null {
+  let current: ListNode | null = head;
+  let previous: ListNode | null = null;
+  while (current !== null) {
+    let temp: ListNode | null = current.next;
+    current.next = previous;
+    previous = current;
+    current = temp;
+  }
+  head = previous;
+  return head;
+}
+
+function reverseList(head: ListNode | null): ListNode | null {}
+```
+
 # Medium
 
 ### 6: Group Anagrams
