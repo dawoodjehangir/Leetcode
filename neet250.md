@@ -622,6 +622,40 @@ function reverseList(head: ListNode | null): ListNode | null {
 }
 ```
 
+### 13. Merge Two Sorted Linked Lists
+
+You are given the heads of two sorted linked lists list1 and list2.
+
+Merge the two lists into one sorted linked list and return the head of the new sorted linked list.
+
+The new list should be made up of nodes from list1 and list2.
+
+```typescript []
+function mergeTwoLists(
+  list1: ListNode | null,
+  list2: ListNode | null,
+): ListNode | null {
+  let dummy = new ListNode(0, null);
+  let temp = dummy;
+  while (list1 !== null && list2 !== null) {
+    if (list1.val < list2.val) {
+      temp.next = list1;
+      list1 = list1.next;
+    } else {
+      temp.next = list2;
+      list2 = list2.next;
+    }
+    temp = temp.next;
+  }
+  if (list1 === null) {
+    temp.next = list2;
+  } else if (list2 === null) {
+    temp.next = list1;
+  }
+  return dummy.next;
+}
+```
+
 # Medium
 
 ### 6: Group Anagrams
