@@ -1,6 +1,11 @@
 # Quick notes
 
-## Yet to explore
+## Yet to Learn#1: DSA/Algos
+
+- Boyer-Moore Voting Algorithm
+- Bit Manipulation
+
+## Yet to Learn#2: JS/TS/framework topics
 
 - Nominal typing vs structural typing
 - memory layout in JS => JS objects: garbage collected, hidden classes/shapes internally, dynamic property addition, runtime optimized

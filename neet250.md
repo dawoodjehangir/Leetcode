@@ -703,6 +703,104 @@ function binarySearchRecursive(
 }
 ```
 
+### 15. Remove Element
+
+You are given an integer array nums and an integer val. Your task is to remove all occurrences of val from nums in-place.
+
+After removing all occurrences of val, return the number of remaining elements, say k, such that the first k elements of nums do not contain val.
+
+```typescript []
+// algorithm more complex
+// first try
+// Space O(1)
+// Time O(N^2) because splice is inside an existing loop. Splice itself needs O(N) time for deletion,mutation.
+function removeElement(nums: number[], val: number): number {
+  if (nums.length <= 0) return 0;
+  if (val > 50) return nums.length;
+  let start: number = 0;
+  let end: number = nums.length - 1;
+  let k: number = 0;
+  while (start <= end) {
+    if (nums[start] === val) {
+      while (nums[end] === val) {
+        end--;
+      }
+      let temp = nums.splice(start, 1);
+      start--;
+      nums.push(temp[0]);
+    } else {
+      k++;
+    }
+    start++;
+  }
+  return k;
+}
+
+//Better solution with optimal time and space
+function removeElement(nums: number[], val: number): number {
+  let start: number = 0;
+  let end: number = nums.length;
+  let k: number = 0;
+  while (start < end) {
+    if (nums[start] === val) {
+      end--;
+      [nums[start], nums[end]] = [nums[end], nums[start]];
+    } else {
+      start++;
+      k++;
+    }
+  }
+  return k;
+}
+```
+
+### 16. Majority Element
+
+Given an array nums of size n, return the majority element.
+
+The majority element is the element that appears more than ⌊n / 2⌋ times in the array. You may assume that the majority element always exists in the array.
+
+```typescript []
+// first algo: without optimum time O(2N) and space complexity O(N)
+// create a hashmap and traverse through the array => O(N) space in worst case, Time O(N)
+// traverse the entries at the end => O(N) worst case
+
+function majorityElement(nums: number[]): number | null {
+  const hMap = new Map<number, number>();
+  let majorityElement: number;
+  for (let num of nums) {
+    hMap.set(num, (hMap.get(num) ?? 0) + 1);
+  }
+  for (let [key, val] of hMap.entries()) {
+    if (val > Math.floor(nums.length / 2)) {
+      return key;
+    }
+  }
+  return null;
+}
+
+// another solution with O(N) Time and O(N) Space
+// finding majorityElement in a single traversal
+
+function majorityElement(nums: number[]): number {
+  const hMap = new Map<number, number>();
+  let majorityNumCount: number = 0;
+  let majorityNum: number = 0;
+
+  for (let num of nums) {
+    hMap.set(num, (hMap.get(num) ?? 0) + 1);
+
+    if (hMap.get(num)! > majorityNumCount) {
+      majorityNumCount = hMap.get(num)!;
+      majorityNum = num;
+    }
+  }
+  return majorityNum;
+}
+
+// Optimum solution: Linear time and O(1) space
+```
+
 # Medium
 
 ### 6: Group Anagrams
