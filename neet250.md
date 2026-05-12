@@ -656,6 +656,53 @@ function mergeTwoLists(
 }
 ```
 
+### 14. Binary Search
+
+You are given an array of distinct integers nums, sorted in ascending order, and an integer target.
+
+Implement a function to search for target within nums. If it exists, then return its index, otherwise, return -1.
+
+Your solution must run in O(logn) time.
+
+```typescript []
+// iterative
+// Time O(logN)
+// Space O(1)
+function search(nums: number[], target: number): number {
+  if (nums.length <= 0) return -1;
+  let left: number = 0;
+  let right: number = nums.length - 1;
+  while (left <= right) {
+    let mid: number = left + Math.floor((right - left) / 2);
+    if (target === nums[mid]) {
+      return mid;
+    } else if (target > nums[mid]) {
+      left = mid + 1;
+    } else if (target < nums[mid]) {
+      right = mid - 1;
+    }
+  }
+  return -1;
+}
+
+function binarySearchRecursive(
+  l: number,
+  r: number,
+  nums: number[],
+  target: number,
+): number {
+  if (l > r) return -1;
+  let mid: number = l + Math.floor((r - l) / 2);
+  if (nums[mid] === target) {
+    return mid;
+  } else if (target > nums[mid]) {
+    return binarySearchRecursive(mid + 1, r, nums, target);
+  } else if (target < nums[mid]) {
+    return binarySearchRecursive(l, mid - 1, nums, target);
+  }
+}
+```
+
 # Medium
 
 ### 6: Group Anagrams
