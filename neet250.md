@@ -589,7 +589,7 @@ class ListNode {
 
 // Time O(N)
 // Space O(1)
-// iterative
+// iterativedd
 function reverseList(head: ListNode | null): ListNode | null {
   let current: ListNode | null = head;
   let previous: ListNode | null = null;
@@ -603,7 +603,23 @@ function reverseList(head: ListNode | null): ListNode | null {
   return head;
 }
 
-function reverseList(head: ListNode | null): ListNode | null {}
+//recursive - two pointer
+// Space O(N)
+function reverseList(head: ListNode | null): ListNode | null {
+  const reverseTwoPointer = (
+    first: ListNode | null,
+    second: ListNode | null,
+  ) => {
+    if (first !== null) {
+      reverseTwoPointer(first.next, first);
+      first.next = second;
+    } else {
+      head = second;
+    }
+  };
+  reverseTwoPointer(head, null);
+  return head;
+}
 ```
 
 # Medium
