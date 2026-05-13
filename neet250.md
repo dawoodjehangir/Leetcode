@@ -866,6 +866,31 @@ function removeDuplicates(nums: number[]): number {
 }
 ```
 
+### 19. Search Insert Position
+
+You are given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
+
+You must write an algorithm with O(log n) runtime complexity.
+
+```typescript
+//O(log n) time optimum
+function searchInsert(nums: number[], target: number): number {
+  let left = 0;
+  let right = nums.length - 1;
+  while (left <= right) {
+    let mid = left + Math.floor((right - left) / 2);
+    if (target === nums[mid]) {
+      return mid;
+    } else if (target > nums[mid]) {
+      left = mid + 1;
+    } else if (target < nums[mid]) {
+      right = mid - 1;
+    }
+  }
+  return left;
+}
+```
+
 # Medium
 
 ### 6: Group Anagrams
