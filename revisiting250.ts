@@ -32,3 +32,25 @@ function mergeTwoLists(list1: ListNode | null, list2: ListNode | null) {
   }
   return dummyHead.next;
 }
+
+//20. Valid Parentheses
+function isValid(s: string): boolean {
+  const stackArr: string[] = [];
+  const sMap = new Map<string, string>([
+    ["]", "["],
+    ["}", "{"],
+    [")", "("],
+  ]);
+  for (let char of s) {
+    if (!sMap.has(char)) {
+      stackArr.push(char);
+    } else {
+      if (sMap.get(char) !== stackArr[stackArr.length - 1]) {
+        return false;
+      } else {
+        stackArr.pop();
+      }
+    }
+  }
+  return stackArr.length === 0 ? true : false;
+}
