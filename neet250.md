@@ -801,6 +801,39 @@ function majorityElement(nums: number[]): number {
 // Optimum solution: Linear time and O(1) space
 ```
 
+### 17. Merge Sorted Array
+
+You are given two integer arrays nums1 and nums2, both sorted in non-decreasing order, along with two integers m and n, where:
+
+m is the number of valid elements in nums1,
+n is the number of elements in nums2.
+The array nums1 has a total length of (m+n), with the first m elements containing the values to be merged, and the last n elements set to 0 as placeholders.
+
+Your task is to merge the two arrays such that the final merged array is also sorted in non-decreasing order and stored entirely within nums1.
+You must modify nums1 in-place and do not return anything from the function.
+
+```typescript []
+//This is the most optimal solution
+// Space O(1)
+// Time O(N)
+function merge(nums1: number[], m: number, nums2: number[], n: number): void {
+  let num1Pointer = m - 1;
+  let num2Pointer = n - 1;
+  let placeholderPointer = m + n - 1;
+  while (placeholderPointer > num1Pointer) {
+    //recheck condition
+    if (nums1[num1Pointer] > nums2[num2Pointer]) {
+      nums1[placeholderPointer] = nums1[num1Pointer];
+      num1Pointer--;
+    } else {
+      nums1[placeholderPointer] = nums2[num2Pointer];
+      num2Pointer--;
+    }
+    placeholderPointer--;
+  }
+}
+```
+
 # Medium
 
 ### 6: Group Anagrams
