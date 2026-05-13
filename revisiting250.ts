@@ -78,3 +78,30 @@ function twoSum(nums: number[], target: number): number[] {
   }
   return [];
 }
+
+//206. Reverse Linked List
+function reverseList(head: ListNode | null): ListNode | null {
+  let current: ListNode | null = head;
+  let previous: ListNode | null = null;
+
+  while (current !== null) {
+    let tempStore: ListNode | null = current.next;
+    current.next = previous;
+    previous = current;
+    current = tempStore;
+  }
+  return previous; //new head
+}
+
+//344. Reverse String
+function reverseString(s: string[]): void {
+  let start: number = 0;
+  let end: number = s.length - 1;
+  // even case: s and e crossover
+  // odd case: s and e meet in the middle
+  while (start < end) {
+    let tempStore = s[start];
+    s[start++] = s[end];
+    s[end--] = tempStore;
+  }
+}
