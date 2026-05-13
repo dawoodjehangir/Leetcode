@@ -834,6 +834,38 @@ function merge(nums1: number[], m: number, nums2: number[], n: number): void {
 }
 ```
 
+### 18. Remove Duplicates From Sorted Array
+
+You are given an integer array nums sorted in non-decreasing order. Your task is to remove duplicates from nums in-place so that each element appears only once.
+
+After removing the duplicates, return the number of unique elements, denoted as k, such that the first k elements of nums contain the unique elements.
+
+Note:
+
+The order of the unique elements should remain the same as in the original array.
+It is not necessary to consider elements beyond the first k positions of the array.
+To be accepted, the first k elements of nums must contain all the unique elements.
+Return k as the final result.
+
+```typescript []
+function removeDuplicates(nums: number[]): number {
+  if (nums.length === 1) return 1;
+  let first: number = 1;
+  let second: number = 1;
+
+  while (first < nums.length) {
+    if (nums[first] !== nums[first - 1]) {
+      nums[second] = nums[first]; //Main trick: a unique number is encountered
+      second++;
+      first++;
+    } else {
+      first++;
+    }
+  }
+  return second;
+}
+```
+
 # Medium
 
 ### 6: Group Anagrams
