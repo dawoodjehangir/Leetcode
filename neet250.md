@@ -891,6 +891,85 @@ function searchInsert(nums: number[], target: number): number {
 }
 ```
 
+### 20. Implement Stack Using Queues
+
+Implement a last-in-first-out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (push, top, pop, and empty).
+
+Implement the MyStack class:
+
+void push(int x) Pushes element x to the top of the stack.
+int pop() Removes the element on the top of the stack and returns it.
+int top() Returns the element on the top of the stack.
+boolean empty() Returns true if the stack is empty, false otherwise.
+Notes:
+
+You must use only standard operations of a queue, which means that only push to back, peek/pop from front, size and is empty operations are valid.
+Depending on your language, the queue may not be supported natively. You may simulate a queue using a list or deque (double-ended queue) as long as you use only a queue's standard operations.
+
+```typescript []
+// using shift/unshift in case of Queue implementation
+class MyQueue {
+  private myQueue: number[];
+
+  constructor() {
+    this.myQueue = [];
+  }
+  push(x: number): void {
+    this.myQueue.push(x);
+  }
+  peek(): number {
+    return this.myQueue[0];
+  }
+  pop(): number {
+    return this.myQueue.length > 0 ? this.myQueue.shift()! : -1;
+  }
+
+  isEmpty(): boolean {
+    return this.myQueue.length > 0 ? false : true;
+  }
+
+  size(): number {
+    return this.myQueue.length;
+  }
+}
+
+class MyStack {
+  private q1: MyQueue;
+  private q2: MyQueue;
+  constructor() {
+    this.q1 = new MyQueue();
+    this.q2 = new MyQueue();
+  }
+
+  push(x: number): void {
+    this.q1.push(x);
+  }
+
+  pop(): number {
+    while (this.q1.size() > 1) {
+      this.q2.push(this.q1.pop());
+    }
+    let popped = this.q1.pop();
+    [this.q1, this.q2] = [this.q2, this.q1];
+    return popped;
+  }
+
+  top(): number {
+    while (this.q1.size() > 1) {
+      this.q2.push(this.q1.pop());
+    }
+    let top = this.q1.pop();
+    this.q2.push(top);
+    [this.q1, this.q2] = [this.q2, this.q1];
+    return top;
+  }
+
+  empty(): boolean {
+    return this.q1.size() === 0 ? true : false;
+  }
+}
+```
+
 # Medium
 
 ### 6: Group Anagrams
