@@ -54,3 +54,13 @@ function isValid(s: string): boolean {
   }
   return stackArr.length === 0 ? true : false;
 }
+
+//brute forcce
+function isValidBrute(s: string): boolean {
+  while (s.includes("()") || s.includes("{}") || s.includes("[]")) {
+    s = s.replace("[]", "");
+    s = s.replace("()", "");
+    s = s.replace("{}", "");
+  }
+  return s.length === 0;
+}
