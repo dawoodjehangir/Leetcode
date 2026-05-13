@@ -64,3 +64,17 @@ function isValidBrute(s: string): boolean {
   }
   return s.length === 0;
 }
+
+//1. Two Sum
+function twoSum(nums: number[], target: number): number[] {
+  const hMap = new Map<number, number>();
+  for (let ind = 0; ind < nums.length; ind++) {
+    let targetComplement: number = target - nums[ind];
+    if (hMap.has(targetComplement)) {
+      return [hMap.get(targetComplement)!, ind];
+    } else {
+      hMap.set(nums[ind], ind);
+    }
+  }
+  return [];
+}
