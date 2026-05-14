@@ -1089,6 +1089,53 @@ function gr(l: number, r: number): number {
 }
 ```
 
+### 23. Sqrt(x)
+
+You are given a non-negative integer x, return the square root of x rounded down to the nearest integer. The returned integer should be non-negative as well.
+
+You must not use any built-in exponent function or operator.
+
+For example, do not use pow(x, 0.5) in c++ or x \*\* 0.5 in python.
+
+```typescript []
+function mySqrt(x: number): number {
+  //l has to be 1 as non negative and can't be lower than that
+  //r is x itself
+  //sqrt idea should make us think of BS since usually sqrt(x)
+  // is usually lower than x/2. Think of basic numbers to understand this
+  let l: number = 1;
+  let r: number = x;
+  while (l <= r) {
+    let mid = l + Math.floor((r - l) / 2);
+    if (mid * mid === x) {
+      return mid;
+    } else if (mid * mid > x) {
+      r = mid - 1;
+    } else {
+      l = mid + 1;
+    }
+  }
+  if (l === r) {
+    return r;
+  }
+  return r;
+}
+
+function recursiveMySqrt(l: number, r: number, x: number): number | null {
+  if (l > r) {
+    return r;
+  }
+  let mid: number = l + Math.floor((r - l) / 2);
+  if (mid * mid === x) {
+    return mid;
+  } else if (mid * mid > x) {
+    return this.bsr(l, mid - 1, x);
+  } else {
+    return this.bsr(mid + 1, r, x);
+  }
+}
+```
+
 # Medium
 
 ### 6: Group Anagrams

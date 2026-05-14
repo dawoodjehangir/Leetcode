@@ -4,6 +4,7 @@
 
 - Boyer-Moore Voting Algorithm
 - Bit Manipulation
+- Newton's Method
 
 ## Yet to Learn#2: JS/TS/framework topics
 
