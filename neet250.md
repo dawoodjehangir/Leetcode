@@ -1007,7 +1007,7 @@ class MyStack {
 }
 ```
 
-### Linked List Cycle Detection
+### 21. Linked List Cycle Detection
 
 Given the beginning of a linked list head, return true if there is a cycle in the linked list. Otherwise, return false.
 
@@ -1030,6 +1030,39 @@ function hasCycle(head: ListNode | null): boolean {
     }
   }
   return false;
+}
+```
+
+### 22. Guess Number Higher Or Lower
+
+We are playing the Guess Game. The game is as follows:
+
+I pick a number from 1 to n. You have to guess which number I picked.
+
+Every time you guess wrong, I will tell you whether the number I picked is higher or lower than your guess.
+
+You call a pre-defined API int guess(int num), which returns three possible results:
+
+0: your guess is equal to the number I picked (i.e. num == pick).
+-1: Your guess is higher than the number I picked (i.e. num > pick).
+1: Your guess is lower than the number I picked (i.e. num < pick).
+Return the number that I picked.
+
+```typescript []
+function guessNumber(n: number): number {
+  let left: number = 0;
+  let right: number = n;
+  while (left <= right) {
+    let mid = left + Math.floor((right - left) / 2);
+    let check = guess(mid);
+    if (check === 0) {
+      return mid;
+    } else if (check === -1) {
+      right = mid - 1;
+    } else if (check === 1) {
+      left = mid + 1;
+    }
+  }
 }
 ```
 
