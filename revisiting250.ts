@@ -105,3 +105,24 @@ function reverseString(s: string[]): void {
     s[end--] = tempStore;
   }
 }
+
+// Binary Search
+// recursive
+function bsr(
+  l: number,
+  r: number,
+  nums: number[],
+  target: number,
+): number | null {
+  if (l > r) {
+    return null;
+  }
+  let mid: number = l + Math.floor((r - l) / 2);
+  if (nums[mid] === target) {
+    return mid;
+  } else if (nums[mid] > target) {
+    return bsr(l, mid - 1, nums, target);
+  } else {
+    return bsr(mid + 1, r, nums, target);
+  }
+}

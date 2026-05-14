@@ -1049,6 +1049,8 @@ You call a pre-defined API int guess(int num), which returns three possible resu
 Return the number that I picked.
 
 ```typescript []
+// Time O(logN)
+// Space O(1)
 function guessNumber(n: number): number {
   let left: number = 0;
   let right: number = n;
@@ -1062,6 +1064,27 @@ function guessNumber(n: number): number {
     } else if (check === 1) {
       left = mid + 1;
     }
+  }
+}
+
+//recursive also.
+function guessNumber(n: number): number {
+  let left: number = 0;
+  let right: number = n;
+  return this.gr(left, right);
+}
+function gr(l: number, r: number): number {
+  if (l > r) {
+    return -1;
+  }
+  let mid: number = l + Math.floor((r - l) / 2);
+  let check: number = guess(mid);
+  if (check === 0) {
+    return mid;
+  } else if (check === 1) {
+    return this.gr(mid + 1, r);
+  } else if (check === -1) {
+    return this.gr(l, mid - 1);
   }
 }
 ```
