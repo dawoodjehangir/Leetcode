@@ -1136,6 +1136,146 @@ function recursiveMySqrt(l: number, r: number, x: number): number | null {
 }
 ```
 
+### 24. Implement Queue using Stacks
+
+```typescript []
+//using Two stacks
+// this is brute force i.e. bad. Pop and Peek take O(N) time
+
+class MyStack {
+  private myStack: number[];
+  constructor() {
+    this.myStack = [];
+  }
+  push(x: number): void {
+    this.myStack.push(x);
+  }
+  pop(): number | undefined {
+    return this.myStack.pop();
+  }
+  peek(): number {
+    return this.myStack[this.size() - 1];
+  }
+  size(): number {
+    return this.myStack.length;
+  }
+  isEmpty(): boolean {
+    return this.size() === 0 ? true : false;
+  }
+}
+
+// brute force queue with O(1) push and O(N) pop and peek
+class MyQueue {
+  private s1: MyStack;
+  private s2: MyStack;
+  constructor() {
+    this.s1 = new MyStack();
+    this.s2 = new MyStack();
+  }
+
+  /**
+   * @param {number} x
+   * @return {void}
+   */
+  push(x: number): void {
+    this.s1.push(x);
+  }
+
+  /**
+   * @return {number}
+   * O(n) since item's have to be popped from s1 to s2
+   */
+  pop(): number {
+    while (this.s1.size() > 1) {
+      this.s2.push(this.s1.pop()!);
+    }
+    let res = this.s1.pop();
+    while (!this.s2.isEmpty()) {
+      this.s1.push(this.s2.pop()!);
+    }
+    return res!;
+  }
+
+  /**
+   * @return {number}
+   */
+  peek(): number {
+    while (!this.s1.isEmpty()) {
+      this.s2.push(this.s1.pop()!);
+    }
+    let res = this.s2.peek();
+    while (!this.s2.isEmpty()) {
+      this.s1.push(this.s2.pop()!);
+    }
+    return res;
+  }
+
+  /**
+   * @return {boolean}
+   */
+  empty(): boolean {
+    return this.s1.isEmpty();
+  }
+}
+
+// Amortized O(1) pop and peek
+// Push is still O(1)
+class MyQueue {
+  private s1: MyStack;
+  private s2: MyStack;
+  constructor() {
+    this.s1 = new MyStack();
+    this.s2 = new MyStack();
+  }
+
+  /**
+   * @param {number} x
+   * @return {void}
+   */
+  push(x: number): void {
+    this.s1.push(x);
+  }
+
+  /**
+   * @return {number}
+   * O(n) since item's have to be popped from s1 to s2
+   */
+  pop(): number {
+    let res: number;
+    if (this.s2.isEmpty()) {
+      while (this.s1.size() > 1) {
+        this.s2.push(this.s1.pop());
+      }
+      res = this.s1.pop();
+    } else {
+      res = this.s2.pop();
+    }
+    return res;
+  }
+
+  /**
+   * @return {number}
+   */
+  peek(): number {
+    let res: number;
+    if (this.s2.isEmpty()) {
+      while (!this.s1.isEmpty()) {
+        this.s2.push(this.s1.pop());
+      }
+    }
+    res = this.s2.peek();
+    return res;
+  }
+
+  /**
+   * @return {boolean}
+   */
+  empty(): boolean {
+    return this.s1.isEmpty() && this.s2.isEmpty();
+  }
+}
+```
+
 # Medium
 
 ### 6: Group Anagrams
