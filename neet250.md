@@ -1276,6 +1276,73 @@ class MyQueue {
 }
 ```
 
+### 25. Binary Tree Inorder Traversal
+
+You are given the root of a binary tree, return the inorder traversal of its nodes' values.
+
+```typescript []
+class TreeNode {
+  val: number;
+  left: TreeNode | null;
+  right: TreeNode | null;
+  constructor(val: number, left: TreeNode | null, right: TreeNode | null) {
+    this.val = val;
+    this.left = left;
+    this.right = right;
+  }
+}
+
+//pure recursion
+// This is bad becuase copying of result array using ... is O(N) in worst case on top of the usual O(N) time complexity. Similarly, usage of space is also more due to array building than the stack that's anyway needed
+function inorderTraversal(root: TreeNode | null): number[] {
+  if (root === null) {
+    return [];
+  }
+  let result: number[] = [];
+  result.push(...this.inorderTraversal(root.left));
+  result.push(root.val);
+  result.push(...this.inorderTraversal(root.right));
+  return result;
+}
+
+//using a nested function/accumulator
+// O(N) Time
+// O(height of tree) Space considering the stack
+// O(N) space for array
+function inorderTraversal(root: TreeNode | null): number[] {
+  let result: number[] = [];
+  const it = (root) => {
+    if (!root) return;
+    it(root.left);
+    result.push(root.val);
+    it(root.right);
+  };
+  it(root);
+  return result;
+}
+
+// iterative solution
+// this will need a stack to keep track of the nodes.
+// Time complexity is again O(N). Space is O(height of tree) for stack and O(N) for result
+function inorderTraversal(root: TreeNode | null): number[] {
+  const myStack: TreeNode[] = [];
+  const result: number[] = [];
+  let curr: TreeNode | null = root;
+
+  while (curr !== null || myStack.length > 0) {
+    while (curr !== null) {
+      myStack.push(curr);
+      curr = curr.left;
+    }
+    curr = myStack.pop();
+    result.push(curr.val);
+    curr = curr.right;
+  }
+
+  return result;
+}
+```
+
 # Medium
 
 ### 6: Group Anagrams
