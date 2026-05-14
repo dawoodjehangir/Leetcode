@@ -933,6 +933,7 @@ class MyQueue {
   }
 }
 
+// using two queues
 class MyStack {
   private q1: MyQueue;
   private q2: MyQueue;
@@ -966,6 +967,40 @@ class MyStack {
 
   empty(): boolean {
     return this.q1.size() === 0 ? true : false;
+  }
+}
+
+// using one queue
+// push O(1)
+// pop O(n)
+class MyStack {
+  private q: MyQueue;
+  constructor() {
+    this.q = new MyQueue();
+  }
+
+  push(x: number): void {
+    this.q.push(x);
+  }
+
+  pop(): number {
+    for (let i = 0; i < this.q.size() - 1; i++) {
+      this.q.push(this.q.pop());
+    }
+    return this.q.pop();
+  }
+
+  top(): number {
+    for (let i = 0; i < q.size() - 1; i++) {
+      this.q.push(this.q.pop());
+    }
+    let top = this.q.pop();
+    this.q.push(top);
+    return top;
+  }
+
+  empty(): boolean {
+    return this.q.size() === 0 ? true : false;
   }
 }
 ```
