@@ -970,6 +970,32 @@ class MyStack {
 }
 ```
 
+### Linked List Cycle Detection
+
+Given the beginning of a linked list head, return true if there is a cycle in the linked list. Otherwise, return false.
+
+There is a cycle in a linked list if at least one node in the list can be visited again by following the next pointer.
+
+Internally, index determines the index of the beginning of the cycle, if it exists. The tail node of the list will set it's next pointer to the index-th node. If index = -1, then the tail node points to null and no cycle exists.
+
+Note: index is not given to you as a parameter.
+
+```typescript []
+function hasCycle(head: ListNode | null): boolean {
+  let slowP: ListNode = head;
+  let fastP: ListNode = head;
+  while (fastP !== null && fastP.next !== null) {
+    fastP = fastP.next.next;
+    slowP = slowP.next;
+    if (fastP === slowP) {
+      //has a cycle
+      return true;
+    }
+  }
+  return false;
+}
+```
+
 # Medium
 
 ### 6: Group Anagrams
