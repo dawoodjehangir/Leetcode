@@ -984,14 +984,16 @@ class MyStack {
   }
 
   pop(): number {
-    for (let i = 0; i < this.q.size() - 1; i++) {
+    let size = this.q.size();
+    for (let i = 0; i < size - 1; i++) {
       this.q.push(this.q.pop());
     }
     return this.q.pop();
   }
 
   top(): number {
-    for (let i = 0; i < q.size() - 1; i++) {
+    let size = this.q.size();
+    for (let i = 0; i < size - 1; i++) {
       this.q.push(this.q.pop());
     }
     let top = this.q.pop();
