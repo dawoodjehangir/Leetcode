@@ -1492,6 +1492,51 @@ function postorderTraversal(root: TreeNode | null): number[] {
 }
 ```
 
+### 28. Contains Duplicate II
+
+You are given an integer array nums and an integer k, return true if there are two distinct indices i and j in the array such that nums[i] == nums[j] and abs(i - j) <= k, otherwise return false.
+
+```typescript []
+// Tried Hash Set since it allows storing single values and doesn't allow duplication at all
+//Time Complexity is O(N)
+// Space Complexity O(k) => size of the set at a certain time
+function containsNearbyDuplicate(nums: number[], k: number): boolean {
+  const hSet = new Set<number>();
+  let j: number = 0;
+  let counter: number = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (i > k) {
+      hSet.delete(nums[j]);
+      j++;
+    }
+    if (hSet.has(nums[i])) {
+      return true;
+    } else {
+      hSet.add(nums[i]);
+    }
+  }
+  return false;
+}
+
+// same as above but with better naming convention for understanding
+function containsNearbyDuplicate(nums, k) {
+  let window = new Set();
+  let L = 0;
+
+  for (let R = 0; R < nums.length; R++) {
+    if (R - L > k) {
+      window.delete(nums[L]);
+      L++;
+    }
+    if (window.has(nums[R])) {
+      return true;
+    }
+    window.add(nums[R]);
+  }
+  return false;
+}
+```
+
 # Medium
 
 ### 6: Group Anagrams
