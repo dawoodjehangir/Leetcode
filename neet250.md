@@ -1343,6 +1343,44 @@ function inorderTraversal(root: TreeNode | null): number[] {
 }
 ```
 
+### 26. Binary Tree Preorder Traversal
+
+You are given the root of a binary tree, return the preorder traversal of its nodes' values.
+
+```typescript []
+// we will now try the optimal recursive solution
+function preorderTraversal(root: TreeNode | null): number[] {
+  let result: number[] = [];
+  const preorder = (root) => {
+    if (root === null) {
+      return;
+    }
+    result.push(root.val);
+    preorder(root.left);
+    preorder(root.right);
+  };
+  preorder(root);
+  return result;
+}
+
+// we will now try the optimum iterative solution
+function preorderTraversal(root: TreeNode | null): number[] {
+  const myStack: TreeNode[] = [];
+  let result: number[] = [];
+  let curr: TreeNode | null = root;
+  while (curr !== null || myStack.length > 0) {
+    while (curr !== null) {
+      myStack.push(curr);
+      result.push(curr.val);
+      curr = curr.left;
+    }
+    curr = myStack.pop();
+    curr = curr.right;
+  }
+  return result;
+}
+```
+
 # Medium
 
 ### 6: Group Anagrams
