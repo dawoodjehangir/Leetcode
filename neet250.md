@@ -1341,6 +1341,24 @@ function inorderTraversal(root: TreeNode | null): number[] {
 
   return result;
 }
+
+// bari's iterative solution
+function inorderTraversal(root: TreeNode | null): number[] {
+  const myStack: TreeNode[] = [];
+  let result: number[] = [];
+  let curr: TreeNode | null = root;
+  while (curr !== null || myStack.length > 0) {
+    if (curr !== null) {
+      myStack.push(curr);
+      curr = curr.left;
+    } else {
+      curr = myStack.pop();
+      result.push(curr.val);
+      curr = curr.right;
+    }
+  }
+  return result;
+}
 ```
 
 ### 26. Binary Tree Preorder Traversal
@@ -1376,6 +1394,99 @@ function preorderTraversal(root: TreeNode | null): number[] {
     }
     curr = myStack.pop();
     curr = curr.right;
+  }
+  return result;
+}
+
+// bari's iterative solution
+function preorderTraversal(root: TreeNode | null): number[] {
+  const myStack: TreeNode[] = [];
+  let result: number[] = [];
+  let curr: TreeNode | null = root;
+  while (curr !== null || myStack.length > 0) {
+    if (curr !== null) {
+      myStack.push(curr);
+      result.push(curr.val);
+      curr = curr.left;
+    } else {
+      curr = myStack.pop();
+      curr = curr.right;
+    }
+  }
+  return result;
+}
+```
+
+### 27. Binary Tree Postorder Traversal
+
+You are given the root of a binary tree, return the postorder traversal of its nodes' values.
+
+```typescript []
+// recursive
+function postorderTraversal(root: TreeNode | null): number[] {
+  const result: number[] = [];
+  const postorder = (root) => {
+    if (root === null) {
+      return;
+    }
+    postorder(root.left);
+    postorder(root.right);
+    result.push(root.val);
+  };
+  postorder(root);
+  return result;
+}
+
+// bari's iterative post order
+function postorderTraversal(root: TreeNode | null): number[] {
+  const myStack: TreeNode[] = [];
+  const visited: boolean[] = [];
+  const result: number[] = [];
+  let curr: TreeNode = root;
+  let visitValue: boolean;
+
+  while (curr !== null || myStack.length > 0) {
+    if (curr !== null) {
+      myStack.push(curr);
+      visited.push(false);
+      curr = curr.left;
+    } else {
+      curr = myStack.pop();
+      visitValue = visited.pop();
+      if (!visitValue) {
+        myStack.push(curr);
+        visited.push(!visitValue);
+        curr = curr.right;
+      } else {
+        result.push(curr.val);
+        curr = null;
+      }
+    }
+  }
+  return result;
+}
+
+// bari's iterative post order with a tuple stack
+function postorderTraversal(root: TreeNode | null): number[] {
+  const myStack: [TreeNode, boolean][] = [];
+  const result: number[] = [];
+  let curr: TreeNode | null = root;
+
+  while (curr !== null || myStack.length > 0) {
+    if (curr !== null) {
+      myStack.push([curr, false]);
+      curr = curr.left;
+    } else {
+      const [node, visitVal] = myStack.pop()!;
+      curr = node;
+      if (!visitVal) {
+        myStack.push([curr, !visitVal]);
+        curr = curr.right;
+      } else {
+        result.push(curr.val);
+        curr = null;
+      }
+    }
   }
   return result;
 }
