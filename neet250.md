@@ -1598,6 +1598,46 @@ function invertTreeiterative(root: TreeNode | null): TreeNode | null {
   }
   return root;
 }
+
+//using BFS
+function bfs(root: TreeNode | null) {
+  if (root == null) return null;
+  const myQueue: TreeNode[] | null = [];
+  myQueue.push(root);
+  while (myQueue.length > 0) {
+    let node = myQueue.shift();
+    [node.left, node.right] = [node.right, node.left];
+    if (node.left !== null) {
+      myQueue.push(node.left);
+    }
+    if (node.right !== null) {
+      myQueue.push(node.right);
+    }
+  }
+  return root;
+}
+```
+
+### 31. Maximum Depth of Binary Tree
+
+Given the root of a binary tree, return its depth.
+
+The depth of a binary tree is defined as the number of nodes along the longest path from the root node down to the farthest leaf node.
+
+```typescript []
+// the trivial idea I have is to traverse the tree iteratively in inorder or preorder, whatever way, and since I will have the stack, I can keep a track of max size of the stack to get to know the maximum depth of Binary tree.
+
+// recursive way
+function maxDepth(root: TreeNode | null): number {
+  if (root === null) {
+    return 0;
+  } else {
+    let left = this.maxDepth(root.left);
+    let right = this.maxDepth(root.right);
+
+    return Math.max(left, right) + 1;
+  }
+}
 ```
 
 # Medium
