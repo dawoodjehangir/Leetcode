@@ -1537,7 +1537,7 @@ function containsNearbyDuplicate(nums, k) {
 }
 ```
 
-### Best Time to Buy and Sell Stock
+### 29. Best Time to Buy and Sell Stock
 
 You are given an integer array prices where prices[i] is the price of NeetCoin on the ith day.
 
@@ -1563,6 +1563,40 @@ function maxProfit(prices: number[]): number {
     sell++;
   }
   return maxP;
+}
+```
+
+### 30. Invert Binary Tree
+
+You are given the root of a binary tree root. Invert the binary tree and return its root.
+
+```typescript []
+// idea is to follow levelorder traversal and then switch children as we go down the tree or as we come up
+//method #1 going down the tree
+function invertTree(root: TreeNode | null): TreeNode | null {
+  if (root === null) {
+    return null;
+  }
+  [root.right, root.left] = [root.left, root.right];
+  let left = invertTree(root.left);
+  let right = invertTree(root.right);
+  return root;
+}
+
+function invertTreeiterative(root: TreeNode | null): TreeNode | null {
+  const myStack: TreeNode[] | null = [];
+  let curr: TreeNode | null = root;
+  while (curr !== null || myStack.length > 0) {
+    if (curr !== null) {
+      [curr.left, curr.right] = [curr.right, curr.left];
+      myStack.push(curr);
+      curr = curr.left;
+    } else {
+      curr = myStack.pop();
+      curr = curr.right;
+    }
+  }
+  return root;
 }
 ```
 
