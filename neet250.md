@@ -1625,8 +1625,6 @@ Given the root of a binary tree, return its depth.
 The depth of a binary tree is defined as the number of nodes along the longest path from the root node down to the farthest leaf node.
 
 ```typescript []
-// the trivial idea I have is to traverse the tree iteratively in inorder or preorder, whatever way, and since I will have the stack, I can keep a track of max size of the stack to get to know the maximum depth of Binary tree.
-
 // recursive way
 function maxDepth(root: TreeNode | null): number {
   if (root === null) {
@@ -1666,6 +1664,47 @@ function maxDepth(root: TreeNode | null): number {
 }
 
 // implement using iterative dfs
+// this algo looks like the inorder and preorder traversal
+// maxDepth is used because depth varaible is the "height till a particular node" which keeps changing as we traverse through the tree, while maxDepth keeps track of max depth we achieved at a certain point in traversal.
+function maxDepth(root: TreeNode | null): number {
+  if (root === null) return 0;
+  const myStack: [TreeNode, number][] = [];
+  let current: TreeNode | null = root;
+  let depth = 1;
+  let maxDepth = 0;
+  while (current !== null || myStack.length > 0) {
+    if (current !== null) {
+      myStack.push([current, depth]);
+      maxDepth = Math.max(maxDepth, depth);
+      current = current.left;
+      depth++;
+    } else {
+      const [node, d] = myStack.pop()!;
+      current = node.right;
+      depth = d + 1;
+    }
+  }
+  return maxDepth;
+}
+
+//cleaner iterative dfs solution
+function maxDepth(root: TreeNode | null): number {
+  if (root === null) return 0;
+  const myStack: [TreeNode, number][] = [];
+  myStack.push([root, 1]);
+  let maxDepth = 0;
+  while (myStack.length > 0) {
+    const [node, depth] = myStack.pop();
+    maxDepth = Math.max(depth, maxDepth);
+    if (node.left !== null) {
+      myStack.push([node.left, depth + 1]);
+    }
+    if (node.right !== null) {
+      myStack.push([node.right, depth + 1]);
+    }
+  }
+  return maxDepth;
+}
 ```
 
 # Medium
