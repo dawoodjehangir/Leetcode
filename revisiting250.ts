@@ -224,11 +224,11 @@ function isPalindrome(s: string): boolean {
   let right: number = s.length - 1;
   while (left <= right) {
     //keep moving left forward if non-alphaumeric
-    while (!isAlphanumeric(s[left])) {
+    while (left < right && !isAlphanumeric(s[left])) {
       left++;
     }
     //keep moving right back if non-alphanumeric
-    while (!isAlphanumeric(s[right])) {
+    while (left < right && !isAlphanumeric(s[right])) {
       right--;
     }
     //valid comparison of characters
@@ -241,4 +241,34 @@ function isPalindrome(s: string): boolean {
   return true;
 }
 
-// valid palindrome II
+//680. Valid Palindrome II
+function isBasicPalindrome(s: string, left: number, right: number): boolean {
+  while (left < right) {
+    if (s[left] !== s[right]) {
+      return false;
+    }
+    left++;
+    right--;
+  }
+  return true;
+}
+// space needs improving
+function validPalindrome(s: string): boolean {
+  let flag: boolean = false;
+  let left = 0;
+  let right = s.length - 1;
+  while (left < right) {
+    if (s[left] !== s[right]) {
+      //cater two cases
+      //removing left one
+      //removing right one
+      return (
+        isBasicPalindrome(s, left + 1, right) ||
+        isBasicPalindrome(s, left, right - 1)
+      );
+    }
+    left++;
+    right--;
+  }
+  return true;
+}
