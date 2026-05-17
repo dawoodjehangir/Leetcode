@@ -190,3 +190,55 @@ function groupAnagrams(strs: string[]): string[][] {
   }
   return [...groupAnagrams.values()];
 }
+
+//125. Valid Palindrome
+function isAlphanumeric(char: string): boolean {
+  return (
+    (char >= "A" && char <= "Z") ||
+    (char >= "a" && char <= "z") ||
+    (char >= "0" && char <= "9")
+  );
+}
+//but this takes O(n) space
+function isPalindromeHeavy(s: string): boolean {
+  //strings are immutable so creating a array and then filtering out
+  //unnecessary characters
+  const toFilter: string[] = s.split("");
+  const finalString = toFilter.filter((char: string) => isAlphanumeric(char));
+  let left: number = 0;
+  let right: number = finalString.length - 1;
+  while (left <= right) {
+    if (finalString[left].toLowerCase() !== finalString[right].toLowerCase()) {
+      return false;
+    }
+    left++;
+    right--;
+  }
+  return true;
+}
+
+//recommended O(N) time
+//recommended O(1) space
+function isPalindrome(s: string): boolean {
+  let left: number = 0;
+  let right: number = s.length - 1;
+  while (left <= right) {
+    //keep moving left forward if non-alphaumeric
+    while (!isAlphanumeric(s[left])) {
+      left++;
+    }
+    //keep moving right back if non-alphanumeric
+    while (!isAlphanumeric(s[right])) {
+      right--;
+    }
+    //valid comparison of characters
+    if (s[left].toLowerCase() !== s[right].toLowerCase()) {
+      return false;
+    }
+    left++;
+    right--;
+  }
+  return true;
+}
+
+// valid palindrome II
