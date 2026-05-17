@@ -1638,6 +1638,34 @@ function maxDepth(root: TreeNode | null): number {
     return Math.max(left, right) + 1;
   }
 }
+//Breadth-First Search (BFS) processes the tree level by level.
+//This makes it a perfect fit for computing the maximum depth because:
+
+//Every iteration of BFS processes one entire level of the tree.
+//So each completed level corresponds to increasing the depth by 1
+//implement the same using bfs
+function maxDepth(root: TreeNode | null): number {
+  if (root === null) return 0;
+  const myQueue: TreeNode[] | null = [];
+  myQueue.push(root);
+  let maxDepth = 0;
+  while (myQueue.length > 0) {
+    const size = myQueue.length;
+    for (let i = 0; i < size; i++) {
+      let node: TreeNode | null = myQueue.shift();
+      if (node.left !== null) {
+        myQueue.push(node.left);
+      }
+      if (node.right !== null) {
+        myQueue.push(node.right);
+      }
+    }
+    maxDepth++;
+  }
+  return maxDepth;
+}
+
+// implement using iterative dfs
 ```
 
 # Medium
