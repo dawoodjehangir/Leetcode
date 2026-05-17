@@ -106,7 +106,7 @@ function reverseString(s: string[]): void {
   }
 }
 
-// Binary Search
+//704. Binary Search
 // recursive
 function bsr(
   l: number,
@@ -125,6 +125,47 @@ function bsr(
   } else {
     return bsr(mid + 1, r, nums, target);
   }
+}
+
+// iterative
+function searchIterative(nums: number[], target: number): number {
+  let left: number = 0;
+  let right: number = nums.length - 1;
+  while (left <= right) {
+    const mid: number = left + Math.floor((right - left) / 2);
+    if (nums[mid] === target) {
+      return mid;
+    } else if (nums[mid] < target) {
+      left = mid + 1;
+    } else {
+      right = mid - 1;
+    }
+  }
+  return -1;
+}
+
+function searchRecursive(nums: number[], target: number): number {
+  let left: number = 0;
+  let right: number = nums.length - 1;
+  const bs = (
+    nums: number[],
+    target: number,
+    left: number,
+    right: number,
+  ): number => {
+    if (left > right) {
+      return -1;
+    }
+    const mid = left + Math.floor((right - left) / 2);
+    if (nums[mid] === target) {
+      return mid;
+    } else if (nums[mid] > target) {
+      return bs(nums, target, left, mid - 1);
+    } else {
+      return bs(nums, target, mid + 1, right);
+    }
+  };
+  return bs(nums, target, left, right);
 }
 
 //49. Group Anagrams
