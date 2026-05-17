@@ -126,3 +126,26 @@ function bsr(
     return bsr(mid + 1, r, nums, target);
   }
 }
+
+//49. Group Anagrams
+function groupAnagrams(strs: string[]): string[][] {
+  const groupAnagrams = new Map<string, string[]>();
+
+  const baseCode: number = "a".charCodeAt(0);
+
+  for (const str of strs) {
+    let key: number[] = new Array(26).fill(0);
+
+    for (let char of str) {
+      key[char.charCodeAt(0) - baseCode] += 1;
+    }
+    const keyStr = key.join(",");
+    if (groupAnagrams.has(keyStr)) {
+      let gAnagramArr = groupAnagrams.get(keyStr)!;
+      gAnagramArr.push(str);
+    } else {
+      groupAnagrams.set(keyStr, [str]);
+    }
+  }
+  return [...groupAnagrams.values()];
+}
