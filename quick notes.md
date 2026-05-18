@@ -474,3 +474,25 @@ Use TimSort or a TimSort hybrid for sorting:
 - hybrid of merge sort + insertion sort
 - optimized for partially sorted data
 - stable
+
+### Binary Trees
+
+#### 1. Top-down DFS
+
+Parent sends state downward.
+
+- depth
+- pathSum
+- currentPath
+
+#### 2. Bottom-up DFS
+
+Children return information upward.
+
+- height
+- balanced?
+- diameter
+- subtree sums
+
+The recursive code for maxDepth and Height looks same because `The max depth of a tree == the height of the root node`
+This is a standard equivalence in tree theory

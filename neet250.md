@@ -1626,6 +1626,7 @@ The depth of a binary tree is defined as the number of nodes along the longest p
 
 ```typescript []
 // recursive way
+// this is donw top -> down
 function maxDepth(root: TreeNode | null): number {
   if (root === null) {
     return 0;
@@ -1633,7 +1634,7 @@ function maxDepth(root: TreeNode | null): number {
     let left = this.maxDepth(root.left);
     let right = this.maxDepth(root.right);
 
-    return Math.max(left, right) + 1;
+    return 1 + Math.max(left, right);
   }
 }
 //Breadth-First Search (BFS) processes the tree level by level.
@@ -1704,6 +1705,36 @@ function maxDepth(root: TreeNode | null): number {
     }
   }
   return maxDepth;
+}
+```
+
+### 32. Diameter of Binary Tree
+
+The diameter of a binary tree is defined as the length of the longest path between any two nodes within the tree. The path does not necessarily have to pass through the root.
+
+The length of a path between two nodes in a binary tree is the number of edges between the nodes. Note that the path can not include the same node twice.
+
+Given the root of a binary tree root, return the diameter of the tree.
+
+```typescript []
+//Since the core algorithm uses the height of BT, that indirectly ensures that one node isn't counted twice
+
+function diameterOfBinaryTree(root: TreeNode | null): number {
+  if (root === null) return 0;
+  let maxDiameter: number = 0;
+  const dbt = (node: TreeNode | null): number => {
+    if (node === null) {
+      return 0;
+    } else {
+      let left = dbt(node.left);
+      let right = dbt(node.right);
+      let d = left + right;
+      maxDiameter = Math.max(maxDiameter, d);
+      return Math.max(left, right) + 1;
+    }
+  };
+  dbt(root);
+  return maxDiameter;
 }
 ```
 
