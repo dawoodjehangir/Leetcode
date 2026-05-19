@@ -2,7 +2,7 @@
 
 ## Yet to Learn#1: DSA/Algos
 
-- Boyer-Moore Voting Algorithm
+- Boyer-Moore Voting Algorithm - Done once
 - Bit Manipulation
 - Newton's Method
 
