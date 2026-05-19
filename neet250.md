@@ -799,6 +799,18 @@ function majorityElement(nums: number[]): number {
 }
 
 // Optimum solution: Linear time and O(1) space
+// Bayer-Moore algorithm - precise solution
+function majorityElement(nums: number[]): number {
+  let majorityElement = 0;
+  let majorityElementCount = 0;
+  for (let num of nums) {
+    if (majorityElementCount === 0) {
+      majorityElement = num;
+    }
+    majorityElementCount += num === majorityElement ? 1 : -1;
+  }
+  return majorityElement;
+}
 ```
 
 ### 17. Merge Sorted Array

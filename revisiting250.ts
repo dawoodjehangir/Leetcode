@@ -272,3 +272,36 @@ function validPalindrome(s: string): boolean {
   }
   return true;
 }
+
+//169. Majority Element
+// Bayer-Moore algorithm - own implementation
+function majorityElementSimple(nums: number[]): number {
+  let majorityElement: number = nums[0];
+  let majorityElementCount: number = 1;
+  for (let i = 1; i < nums.length; i++) {
+    if (majorityElement !== nums[i]) {
+      if (majorityElementCount > 0) {
+        majorityElementCount--;
+      } else {
+        majorityElement = nums[i];
+        majorityElementCount = 1;
+      }
+    } else {
+      majorityElementCount++;
+    }
+  }
+  return majorityElement;
+}
+
+// Bayer-Moore algorithm - precise solution
+function majorityElement(nums: number[]): number {
+  let majorityElement = 0;
+  let majorityElementCount = 0;
+  for (let num of nums) {
+    if (majorityElementCount === 0) {
+      majorityElement = num;
+    }
+    majorityElementCount += num === majorityElement ? 1 : -1;
+  }
+  return majorityElement;
+}
