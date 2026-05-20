@@ -305,3 +305,22 @@ function majorityElement(nums: number[]): number {
   }
   return majorityElement;
 }
+
+//35. Search Insert Position
+// upon the end of loop of binary search in a scenario where target is not found, then the L pointer
+// always ends up being at the position where the target can be inserted
+function searchInsert(nums: number[], target: number): number {
+  let left: number = 0;
+  let right: number = nums.length - 1;
+  while (left <= right) {
+    let mid: number = left + Math.floor((right - left) / 2);
+    if (nums[mid] === target) {
+      return mid;
+    } else if (nums[mid] > target) {
+      right = mid - 1;
+    } else {
+      left = mid + 1;
+    }
+  }
+  return left;
+}
