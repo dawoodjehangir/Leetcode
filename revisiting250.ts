@@ -363,3 +363,48 @@ function longestCommonPrefixV(strs: string[]): string {
   }
   return strs[0].slice(0, lcpLength);
 }
+
+//1768. Merge Strings Alternately
+function mergeAlternately(word1: string, word2: string): string {
+  //check the length of two strings
+  // one pointer at each string respectively
+  //loop till the smaller string finishes
+  // rest loop over two strings
+  const result: string[] = [];
+  let i = 0;
+  let j = 0;
+  while (i < word1.length && j < word2.length) {
+    result.push(word1[i++]);
+    result.push(word2[j++]);
+  }
+  while (i < word1.length) {
+    result.push(word1[i++]);
+  }
+  while (j < word2.length) {
+    result.push(word2[j++]);
+  }
+
+  return result.join("");
+}
+
+function mergeAlternatelySingleP(word1: string, word2: string): string {
+  //check the length of two strings
+  // one pointer at each string respectively
+  //loop till the smaller string finishes
+  // rest loop over two strings
+  const result: string[] = [];
+  const len1: number = word1.length;
+  const len2: number = word2.length;
+  let ind: number = 0;
+  while (ind < len1 || ind < len2) {
+    if (ind < len1) {
+      result.push(word1[ind]);
+    }
+    if (ind < len2) {
+      result.push(word2[ind]);
+    }
+    ind++;
+  }
+
+  return result.join("");
+}
