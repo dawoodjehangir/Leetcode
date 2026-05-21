@@ -408,3 +408,24 @@ function mergeAlternatelySingleP(word1: string, word2: string): string {
 
   return result.join("");
 }
+
+//88. Merge Sorted Array
+/**
+ Do not return anything, modify nums1 in-place instead.
+ */
+function merge(nums1: number[], m: number, nums2: number[], n: number): void {
+  let nums1Pointer = m - 1;
+  let nums2Pointer = n - 1;
+  let invalidZeroPointer = m + n - 1;
+  while (nums2Pointer >= 0) {
+    if (nums1Pointer >= 0 && nums2[nums2Pointer] < nums1[nums1Pointer]) {
+      nums1[invalidZeroPointer] = nums1[nums1Pointer];
+      nums1Pointer--;
+      invalidZeroPointer--;
+    } else {
+      nums1[invalidZeroPointer] = nums2[nums2Pointer];
+      nums2Pointer--;
+      invalidZeroPointer--;
+    }
+  }
+}

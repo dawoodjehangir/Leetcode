@@ -861,19 +861,19 @@ You must modify nums1 in-place and do not return anything from the function.
 // Space O(1)
 // Time O(N)
 function merge(nums1: number[], m: number, nums2: number[], n: number): void {
-  let num1Pointer = m - 1;
-  let num2Pointer = n - 1;
-  let placeholderPointer = m + n - 1;
-  while (placeholderPointer > num1Pointer) {
-    //recheck condition
-    if (nums1[num1Pointer] > nums2[num2Pointer]) {
-      nums1[placeholderPointer] = nums1[num1Pointer];
-      num1Pointer--;
+  let nums1Pointer = m - 1;
+  let nums2Pointer = n - 1;
+  let invalidZeroPointer = m + n - 1;
+  while (nums2Pointer >= 0) {
+    if (nums1Pointer >= 0 && nums2[nums2Pointer] < nums1[nums1Pointer]) {
+      nums1[invalidZeroPointer] = nums1[nums1Pointer];
+      nums1Pointer--;
+      invalidZeroPointer--;
     } else {
-      nums1[placeholderPointer] = nums2[num2Pointer];
-      num2Pointer--;
+      nums1[invalidZeroPointer] = nums2[nums2Pointer];
+      nums2Pointer--;
+      invalidZeroPointer--;
     }
-    placeholderPointer--;
   }
 }
 ```
