@@ -429,3 +429,19 @@ function merge(nums1: number[], m: number, nums2: number[], n: number): void {
     }
   }
 }
+
+//26. Remove Duplicates from Sorted Array
+function removeDuplicates(nums: number[]): number {
+  let r = 1;
+  let l = 1;
+  while (r < nums.length) {
+    if (nums[r] === nums[r - 1]) {
+      r++;
+    } else {
+      nums[l] = nums[r];
+      r++;
+      l++;
+    }
+  }
+  return l;
+}
