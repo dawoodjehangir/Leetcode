@@ -324,3 +324,42 @@ function searchInsert(nums: number[], target: number): number {
   }
   return left;
 }
+
+//14. Longest Common Prefix
+//horizontal scanning
+function longestCommonPrefixH(strs: string[]) {
+  //since we compare string at 0 index with everyone else, hence we take it's length as longestCP
+  let maxPrefixLength: number = strs[0].length;
+  //Loop over all remaining strings in the list
+  for (let i = 1; i < strs.length; i++) {
+    //variable to check till which character there's a mismatch. Can be zero also in case of empty string
+    let j = 0;
+    while (j < Math.min(strs[0].length, strs[i].length)) {
+      //in case of mismatch we update the maxPrefixLength
+      if (strs[0][j] !== strs[i][j]) {
+        break;
+      }
+      j++;
+    }
+    maxPrefixLength = Math.min(maxPrefixLength, j);
+  }
+  return strs[0].slice(0, maxPrefixLength);
+}
+
+//vertical scanning
+function longestCommonPrefixV(strs: string[]): string {
+  //initialize
+  //outer loop on the first string in the array
+  //inner loop going over all other strings in the array and checking column wise
+  // breaking conditions: we have reached some string's length or characters mismatch
+  //if we come out of both loops then that means first string is already a lcp
+  let lcpLength: number = strs[0].length;
+  for (let i = 0; i < strs[0].length; i++) {
+    for (let j = 1; j < strs.length; j++) {
+      if (strs[j].length === i || strs[0][i] !== strs[j][i]) {
+        lcpLength = Math.min(lcpLength, i);
+      }
+    }
+  }
+  return strs[0].slice(0, lcpLength);
+}
