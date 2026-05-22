@@ -445,3 +445,18 @@ function removeDuplicates(nums: number[]): number {
   }
   return l;
 }
+
+//27. Remove Element
+function removeElement(nums: number[], val: number): number {
+  let start: number = 0;
+  let end: number = nums.length;
+  while (start < end) {
+    if (nums[start] === val) {
+      end--;
+      [nums[start], nums[end]] = [nums[end], nums[start]];
+    } else {
+      start++;
+    }
+  }
+  return start;
+}
