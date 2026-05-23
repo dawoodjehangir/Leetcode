@@ -521,3 +521,35 @@ function preorderTraversal(root: TreeNode | null): number[] {
   }
   return result;
 }
+
+//145. Binary Tree Postorder Traversal
+function postorderTraversal(root: TreeNode | null): number[] {
+  if (root === null) {
+    return [];
+  }
+  let left = postorderTraversal(root.left);
+  let right = postorderTraversal(root.right);
+  return [...left, ...right, root.val];
+}
+
+//iterative way
+function postorderTraversal(root: TreeNode | null): number[] {
+  const treeStack: [TreeNode, boolean][] = [];
+  let current: TreeNode | null = root;
+  const result: number[] = [];
+  while (current !== null || treeStack.length > 0) {
+    if (current !== null) {
+      treeStack.push([current, false]);
+      current = current.left;
+    } else {
+      const [node, flag] = treeStack.pop()!;
+      if (!flag) {
+        treeStack.push([node, true]);
+        current = node.right;
+      } else {
+        result.push(node.val);
+      }
+    }
+  }
+  return result;
+}
