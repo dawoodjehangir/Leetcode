@@ -460,3 +460,32 @@ function removeElement(nums: number[], val: number): number {
   }
   return start;
 }
+
+//94. Binary Tree Inorder Traversal
+//recursive way
+function inorderTraversalRecursive(root: TreeNode | null): number[] {
+  if (root === null) {
+    return [];
+  }
+  let left: number[] = inorderTraversal(root.left);
+  left.push(root.val);
+  return left.concat(...inorderTraversal(root.right));
+}
+
+//iterative way
+function inorderTraversal(root: TreeNode | null): number[] {
+  const treeStack: TreeNode[] = [];
+  let current: TreeNode | null = root;
+  const result: number[] = [];
+  while (current !== null || treeStack.length > 0) {
+    if (current !== null) {
+      treeStack.push(current);
+      current = current.left;
+    } else {
+      current = treeStack.pop();
+      result.push(current.val);
+      current = current.right;
+    }
+  }
+  return result;
+}
