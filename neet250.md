@@ -1627,6 +1627,7 @@ function invertTree(root: TreeNode | null): TreeNode | null {
   return root;
 }
 
+//below solution unnecessarily complicated since it's moving in the tree in inorder way, while inverting the tree. Inverting the tree, doesn't require inorder. Hence, not recommended as it shows lack of deep understanding. Instead shows maybe memorization
 function invertTreeiterative(root: TreeNode | null): TreeNode | null {
   const myStack: TreeNode[] | null = [];
   let curr: TreeNode | null = root;
@@ -1643,6 +1644,23 @@ function invertTreeiterative(root: TreeNode | null): TreeNode | null {
   return root;
 }
 
+//straightforward iterative dfs solution
+function invertTree(root: TreeNode | null): TreeNode | null {
+  if (!root) return null;
+
+  const stack = [root];
+
+  while (stack.length > 0) {
+    const current = stack.pop()!;
+
+    [current.left, current.right] = [current.right, current.left];
+
+    if (current.left) stack.push(current.left);
+    if (current.right) stack.push(current.right);
+  }
+
+  return root;
+}
 //using BFS
 function bfs(root: TreeNode | null) {
   if (root == null) return null;

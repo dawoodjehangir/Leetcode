@@ -553,3 +553,66 @@ function postorderTraversal(root: TreeNode | null): number[] {
   }
   return result;
 }
+
+//226. Invert Binary Tree
+//recursive
+function invertTree(root: TreeNode | null): TreeNode | null {
+  if (root === null) {
+    return null;
+  }
+  [root.left, root.right] = [root.right, root.left];
+  invertTree(root.left);
+  invertTree(root.right);
+  return root;
+}
+
+//iterative using proper bfs - more complicated
+function invertTree(root: TreeNode | null): TreeNode | null {
+  if (root === null) {
+    return null;
+  }
+  const treeQueue: TreeNode[] = [root];
+  while (treeQueue.length > 0) {
+    let size = treeQueue.length;
+    for (let i = 0; i < size; i++) {
+      let current: TreeNode | null = treeQueue.shift();
+      [current.left, current.right] = [current.right, current.left];
+      if (current.left) treeQueue.push(current.left);
+      if (current.right) treeQueue.push(current.right);
+    }
+  }
+  return root;
+}
+
+//iterative using simpler bfs
+function invertTree(root: TreeNode | null): TreeNode | null {
+  if (root === null) {
+    return null;
+  }
+  const treeQueue: TreeNode[] = [root];
+  while (treeQueue.length > 0) {
+    let current: TreeNode | null = treeQueue.shift()!;
+    [current.left, current.right] = [current.right, current.left];
+    if (current.left) treeQueue.push(current.left);
+    if (current.right) treeQueue.push(current.right);
+  }
+  return root;
+}
+
+//iterative dfs
+function invertTree(root: TreeNode | null): TreeNode | null {
+  if (!root) return null;
+
+  const stack = [root];
+
+  while (stack.length > 0) {
+    const current = stack.pop()!;
+
+    [current.left, current.right] = [current.right, current.left];
+
+    if (current.left) stack.push(current.left);
+    if (current.right) stack.push(current.right);
+  }
+
+  return root;
+}
