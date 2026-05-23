@@ -489,3 +489,35 @@ function inorderTraversal(root: TreeNode | null): number[] {
   }
   return result;
 }
+
+//144. Binary Tree Preorder Traversal
+//recursive way
+function preorderTraversalRecursive(root: TreeNode | null): number[] {
+  if (root === null) {
+    return [];
+  } else {
+    return [
+      root.val,
+      ...preorderTraversalRecursive(root.left),
+      ...preorderTraversalRecursive(root.right),
+    ];
+  }
+}
+
+//iterative way
+function preorderTraversal(root: TreeNode | null): number[] {
+  const treeStack: TreeNode[] = [];
+  let current: TreeNode | null = root;
+  const result: number[] = [];
+  while (current !== null || treeStack.length > 0) {
+    if (current !== null) {
+      result.push(current.val);
+      treeStack.push(current);
+      current = current.left;
+    } else {
+      current = treeStack.pop();
+      current = current.right;
+    }
+  }
+  return result;
+}
