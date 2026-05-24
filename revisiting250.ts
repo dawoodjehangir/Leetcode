@@ -649,3 +649,20 @@ function guessNumber(n: number): number {
   }
   return -1;
 }
+
+//69. Sqrt(x)
+function mySqrt(x: number): number {
+  let low: number = 0;
+  let high: number = x;
+  while (low <= high) {
+    const mid = low + Math.floor((high - low) / 2);
+    if (mid * mid === x) {
+      return mid;
+    } else if (mid * mid < x) {
+      low = mid + 1;
+    } else if (mid * mid > x) {
+      high = mid - 1;
+    }
+  }
+  return high;
+}
