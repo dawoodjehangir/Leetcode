@@ -616,3 +616,18 @@ function invertTree(root: TreeNode | null): TreeNode | null {
 
   return root;
 }
+
+//141. Linked List Cycle
+function hasCycle(head: ListNode | null): boolean {
+  let slow: ListNode | null = head;
+  let fast: ListNode | null = head;
+
+  while (fast !== null && fast.next !== null) {
+    fast = fast.next.next;
+    slow = slow!.next;
+    if (fast === slow) {
+      return true;
+    }
+  }
+  return false;
+}
