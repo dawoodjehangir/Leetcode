@@ -666,3 +666,46 @@ function mySqrt(x: number): number {
   }
   return high;
 }
+
+//104. Maximum Depth of Binary Tree
+//recursive
+function maxDepthRecursive(root: TreeNode | null): number {
+  if (root === null) return 0;
+  return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+}
+
+//iterative bfs
+function maxDepth(root: TreeNode | null): number {
+  if (root === null) return 0;
+  const treeQueue: TreeNode[] = [root];
+  let depth: number = 0;
+  while (treeQueue.length > 0) {
+    const size: number = treeQueue.length;
+    for (let i = 0; i < size; i++) {
+      let current: TreeNode = treeQueue.shift();
+      if (current.left !== null) treeQueue.push(current.left);
+      if (current.right !== null) treeQueue.push(current.right);
+    }
+    depth++;
+  }
+  return depth;
+}
+
+//iterative dfs
+function maxDepth(root: TreeNode | null): number {
+  if (root === null) return 0;
+  const myStack: [TreeNode, number][] = [];
+  myStack.push([root, 1]);
+  let maxDepth = 0;
+  while (myStack.length > 0) {
+    const [node, depth] = myStack.pop();
+    maxDepth = Math.max(depth, maxDepth);
+    if (node.left !== null) {
+      myStack.push([node.left, depth + 1]);
+    }
+    if (node.right !== null) {
+      myStack.push([node.right, depth + 1]);
+    }
+  }
+  return maxDepth;
+}
