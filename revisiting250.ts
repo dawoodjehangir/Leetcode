@@ -728,3 +728,21 @@ function containsNearbyDuplicate(nums: number[], k: number): boolean {
   }
   return false;
 }
+
+//121. Best Time to Buy and Sell Stock
+function maxProfit(prices: number[]): number {
+  if (prices.length <= 1) return 0;
+  let buy: number = 0;
+  let sell: number = 1;
+  let maxProfit: number = 0;
+  while (sell < prices.length) {
+    let profit: number = prices[sell] - prices[buy];
+    if (profit < 0) {
+      buy = sell;
+    } else {
+      maxProfit = Math.max(maxProfit, profit);
+    }
+    sell++;
+  }
+  return maxProfit;
+}
