@@ -709,3 +709,22 @@ function maxDepth(root: TreeNode | null): number {
   }
   return maxDepth;
 }
+
+//219. Contains Duplicate II
+function containsNearbyDuplicate(nums: number[], k: number): boolean {
+  let r: number = 0; //leading pointer
+  let l: number = 0; //trailing pointer
+  const numsSet = new Set<number>();
+  while (r < nums.length) {
+    if (r - l > k) {
+      numsSet.delete(nums[l]);
+      l++;
+    }
+    if (numsSet.has(nums[r])) {
+      return true;
+    }
+    numsSet.add(nums[r]);
+    r++;
+  }
+  return false;
+}
