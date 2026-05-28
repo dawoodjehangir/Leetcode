@@ -746,3 +746,31 @@ function maxProfit(prices: number[]): number {
   }
   return maxProfit;
 }
+
+//682. Baseball Game
+function calPoints(operations: string[]): number {
+  const baseBallStack: number[] = [];
+  let result: number = 0;
+  let temp: number = 0;
+  for (let op of operations) {
+    if (op === "+") {
+      temp = baseBallStack.pop()!;
+      let sum = temp + baseBallStack[baseBallStack.length - 1];
+      result += sum;
+      baseBallStack.push(temp);
+      baseBallStack.push(sum);
+    } else if (op === "C") {
+      temp = baseBallStack.pop()!;
+      result -= temp;
+    } else if (op === "D") {
+      temp = baseBallStack[baseBallStack.length - 1] * 2;
+      baseBallStack.push(temp);
+      result += temp;
+    } else {
+      temp = Number(op);
+      baseBallStack.push(temp);
+      result += temp;
+    }
+  }
+  return result;
+}
