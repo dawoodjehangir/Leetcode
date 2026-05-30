@@ -1820,6 +1820,42 @@ function isBalanced(root: TreeNode | null): boolean {
 
   return helper(root)[0];
 }
+
+//iterative dfs
+```
+
+### 34. Same Binary Tree
+
+Given the roots of two binary trees p and q, return true if the trees are equivalent, otherwise return false.
+
+Two binary trees are considered equivalent if they share the exact same structure and the nodes have the same values.
+
+```typescript []
+// my first solution. Works but might be slightly difficult to understand.
+function isSameTree(p: TreeNode | null, q: TreeNode | null): boolean {
+  if (p === null) {
+    return q === null;
+  }
+  if (q === null) return false;
+  if (p.val !== q.val) return false;
+  let left = isSameTree(p.left, q.left);
+  let right = isSameTree(p.right, q.right);
+  return left && right;
+}
+
+//easy to understand solution
+function isSameTree(p: TreeNode | null, q: TreeNode | null): boolean {
+  if (p === null && q === null) return true;
+  if (p !== null && q !== null && p.val === q.val) {
+    return this.isSameTree(p.left, q.left) && this.isSameTree(p.right, q.right);
+  } else {
+    return false;
+  }
+}
+
+//iterative dfs
+
+//bfs
 ```
 
 # Medium
