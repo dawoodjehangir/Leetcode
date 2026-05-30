@@ -1800,6 +1800,28 @@ function diameterOfBinaryTree(root: TreeNode | null): number {
 }
 ```
 
+### 33. Balanced Binary Tree
+
+Given a binary tree, return true if it is height-balanced and false otherwise.
+
+A height-balanced binary tree is defined as a binary tree in which the left and right subtrees of every node differ in height by no more than 1.
+
+```typescript []
+function isBalanced(root: TreeNode | null): boolean {
+  const helper = (root: TreeNode | null): [boolean, number] => {
+    if (root === null) return [true, 0];
+    let left = helper(root.left);
+    let right = helper(root.right);
+
+    let balanced = left[0] && right[0] && Math.abs(left[1] - right[1]) <= 1;
+
+    return [balanced, 1 + Math.max(left[1], right[1])];
+  };
+
+  return helper(root)[0];
+}
+```
+
 # Medium
 
 ### 6: Group Anagrams

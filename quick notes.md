@@ -481,18 +481,27 @@ Use TimSort or a TimSort hybrid for sorting:
 
 Parent sends state downward.
 
-- depth
-- pathSum
-- currentPath
+Examples:
+
+- Path Sum
+- Maximum Depth (passing depth), DFS with depth
+- Backtracking
+- Tree traversal with state
+- Building paths
 
 #### 2. Bottom-up DFS
 
 Children return information upward.
 
-- height
-- balanced?
-- diameter
+- Tree Height
+- Balanced Binary Tree
+- Diameter of Tree
+- Maximum Path Sum
 - subtree sums
 
-The recursive code for maxDepth and Height looks same because `The max depth of a tree == the height of the root node`
-This is a standard equivalence in tree theory
+- The recursive code for maxDepth and Height looks same because `The max depth of a tree == the height of the root node`. This is a standard equivalence in tree theory.
+- Top-down vs bottom-up is NOT determined by traversal order. It's determined by the direction of information flow.
+- Question 1: Is important information passed as parameters?. Top-Down => Parent is telling children something.
+- Question 2: Is important information returned? Bottom-Up => Parent is waiting for child results.
+- Reliable Interview tip: If the recursive function's return value is the main thing solving the problem, it's usually bottom-up.
+- If the recursive function mainly carries state through parameters and updates external variables, it's usually top-down.
