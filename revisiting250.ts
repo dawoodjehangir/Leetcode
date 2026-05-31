@@ -790,3 +790,15 @@ function isBalanced(root: TreeNode | null): boolean {
   };
   return dfs(root)[0];
 }
+
+//100. Same Tree
+function isSameTree(p: TreeNode | null, q: TreeNode | null): boolean {
+  if (p === null) {
+    return q === null;
+  }
+  if (p !== null && q !== null && p.val === q.val) {
+    return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+  } else {
+    return false;
+  }
+}
