@@ -1859,6 +1859,43 @@ function isSameTree(p: TreeNode | null, q: TreeNode | null): boolean {
 //bfs
 ```
 
+### 35. Subtree of Another Tree
+
+Given the roots of two binary trees root and subRoot, return true if there is a subtree of root with the same structure and node values of subRoot and false otherwise.
+
+A subtree of a binary tree tree is a tree that consists of a node in tree and all of this node's descendants. The tree tree could also be considered as a subtree of itself.
+
+```typescript []
+//edge cases
+// if both trees are null, then the answer is yes for subtree
+// what if main tree is normal, but smaller tree is null, then the answer is also yes
+
+//Time complexity s O(m.n), where m is # of nodes in root and n is # of nodes in subRoot
+function isSameTree(p: TreeNode | null, q: TreeNode | null): boolean {
+  if (p === null) {
+    return q === null;
+  }
+  if (p !== null && q !== null && p.val === q.val) {
+    return this.isSameTree(p.left, q.left) && this.isSameTree(p.right, q.right);
+  } else {
+    return false;
+  }
+}
+
+function isSubtree(root: TreeNode | null, subRoot: TreeNode | null): boolean {
+  if (subRoot === null) return true;
+  if (root === null) return false;
+
+  if (this.isSameTree(root, subRoot)) {
+    return true;
+  } else {
+    return (
+      this.isSubtree(root.left, subRoot) || this.isSubtree(root.right, subRoot)
+    );
+  }
+}
+```
+
 # Medium
 
 ### 6: Group Anagrams
