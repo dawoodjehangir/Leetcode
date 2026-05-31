@@ -1822,6 +1822,7 @@ function isBalanced(root: TreeNode | null): boolean {
 }
 
 //iterative dfs
+// seems quite complicated, hence left out for now
 ```
 
 ### 34. Same Binary Tree

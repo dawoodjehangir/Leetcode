@@ -5,6 +5,7 @@
 - Boyer-Moore Voting Algorithm - Done once
 - Bit Manipulation
 - Newton's Method
+- Balanced vs Degenerate Tree?
 
 ## Yet to Learn#2: JS/TS/framework topics
 

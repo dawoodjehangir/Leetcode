@@ -774,3 +774,19 @@ function calPoints(operations: string[]): number {
   }
   return result;
 }
+
+//110. Balanced Binary Tree
+//recursive
+function isBalanced(root: TreeNode | null): boolean {
+  const dfs = (root: TreeNode | null): [boolean, number] => {
+    if (root === null) {
+      return [true, 0];
+    }
+    let left = dfs(root.left);
+    let right = dfs(root.right);
+    let isParentBalanced =
+      left[0] && right[0] && Math.abs(left[1] - right[1]) <= 1;
+    return [isParentBalanced, 1 + Math.max(left[1], right[1])];
+  };
+  return dfs(root)[0];
+}
