@@ -6,6 +6,8 @@
 - Bit Manipulation
 - Newton's Method
 - Balanced vs Degenerate Tree?
+- Quick Sort: learn the Partition algo which sorts array from both left and right side. Also, see the advantages/disadvantages of picking different pivots e.g. start/end of array, random, median element?
+- does kruskals and prim only work on undirected graphs?
 
 ## Yet to Learn#2: JS/TS/framework topics
 
