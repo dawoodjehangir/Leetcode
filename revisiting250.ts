@@ -864,3 +864,17 @@ function mergeTwoLists(
   }
   return newHead.next;
 }
+
+//141. Linked List Cycle
+function hasCycle(head: ListNode | null): boolean {
+  let slowP: ListNode | null = head;
+  let fastP: ListNode | null = head;
+  while (fastP !== null && fastP.next !== null) {
+    fastP = fastP.next.next;
+    slowP = slowP!.next;
+    if (fastP === slowP) {
+      return true;
+    }
+  }
+  return false;
+}
