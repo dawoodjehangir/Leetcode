@@ -802,3 +802,39 @@ function isSameTree(p: TreeNode | null, q: TreeNode | null): boolean {
     return false;
   }
 }
+
+////////////////////////////////////////////////////////////////////////////
+// SECOND RUN
+//206. Reverse Linked List
+// iterative
+function reverseList(head: ListNode | null): ListNode | null {
+  if (head === null) return null;
+  let current: ListNode | null = head;
+  let prev: ListNode | null = null;
+  while (current !== null) {
+    let temp: ListNode | null = current.next;
+    current.next = prev;
+    prev = current;
+    current = temp;
+  }
+  head = prev;
+  return head;
+}
+
+// recursive
+function reverseList(head: ListNode | null): ListNode | null {
+  if (head === null) return null;
+  const reverseRecursion = (
+    current: ListNode | null,
+    prev: ListNode | null,
+  ) => {
+    if (current === null) {
+      head = prev;
+      return;
+    }
+    reverseRecursion(current?.next, current);
+    current.next = prev;
+  };
+  reverseRecursion(head, null);
+  return head;
+}
