@@ -893,7 +893,7 @@ function isPalindrome(s: string): boolean {
       return true;
     return false;
   };
-  while (l <= r) {
+  while (l < r) {
     while (l < r && !isAlphanumeric(s[l])) {
       l++;
     }
