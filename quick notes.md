@@ -16,6 +16,29 @@
 - function are objects. classes are functions too? => deeply tied to prototype inheritance
 - reference semantics
 
+## AI topics to learn:
+
+1. Transformers
+   1.1 Tokens
+   1.2 Vectors
+   1.3 Attention
+
+2. Retrieval Augmented Generation
+   2.1 Chunking
+   2.2 Vector Databases
+   2.3 Query Rewriting
+   2.4 Chunk reranking
+
+3. Agents
+   3.1 Short-term and long-term memory
+   3.2 Tool use
+   3.3 MCP
+   3.4 Orchestration
+
+4. Evals
+   4.1 Manual Evals
+   4.2 LLM as a Judge
+
 ### JS/TS concepts
 
 - Primitive types (number, string, boolean) are copied by value
