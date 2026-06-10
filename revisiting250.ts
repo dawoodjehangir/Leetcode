@@ -805,7 +805,22 @@ function isSameTree(p: TreeNode | null, q: TreeNode | null): boolean {
 
 //572. Subtree of Another Tree
 // recursive
-function isSubtree(root: TreeNode | null, subRoot: TreeNode | null): boolean {}
+function isSubtree(root: TreeNode | null, subRoot: TreeNode | null): boolean {
+  //Make use of similar tree problem since that gets the job done by matching each & every
+  //node.
+  //use top-down approach i.e. start checking from top and then progress downward
+  //edge cases: if subRoot is null, we return true even if root is null or not
+  //edge cases: if root is null, we return true only if subroot is null, otherwise false
+  //when root is not null and subroot not null, we call isSametree depending on if
+  //vals match or not
+  //Time complexity O(mn)
+  if (subRoot === null) return true;
+  if (root === null) return false;
+  if (isSameTree(root, subRoot)) {
+    return true;
+  }
+  return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+}
 
 ////////////////////////////////////////////////////////////////////////////
 // SECOND RUN
