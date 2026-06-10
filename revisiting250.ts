@@ -963,3 +963,42 @@ function inorderTraversal(root: TreeNode | null): number[] {
   }
   return result;
 }
+
+//169. Majority Element
+// more verbose
+function majorityElement(nums: number[]): number {
+  let mElement: number = nums[0];
+  let count: number = 1;
+  let index: number = 1;
+  while (index < nums.length) {
+    if (nums[index] !== mElement) {
+      if (count < 1) {
+        mElement = nums[index];
+        count++;
+      } else {
+        count--;
+      }
+    } else {
+      count++;
+    }
+    index++;
+  }
+  return mElement;
+}
+
+//precise
+function majorityElement(nums: number[]): number {
+  let mElement: number;
+  let count: number = 0;
+  for (const num of nums) {
+    if (count < 1) {
+      mElement = num;
+    }
+    if (mElement! === num) {
+      count++;
+    } else {
+      count--;
+    }
+  }
+  return mElement!;
+}
