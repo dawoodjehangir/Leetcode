@@ -1047,3 +1047,40 @@ function isSameTree(p: TreeNode | null, q: TreeNode | null): boolean {
     return false;
   }
 }
+
+//145. Binary Tree Postorder Traversal
+//recursive
+function postorderTraversal(root: TreeNode | null): number[] {
+  const result: number[] = [];
+  const postOrder = (root: TreeNode | null): void => {
+    if (root === null) return;
+    postOrder(root.left);
+    postOrder(root.right);
+    result.push(root.val);
+  };
+  postOrder(root);
+  return result;
+}
+
+//iterative
+function postorderTraversal(root: TreeNode | null): number[] {
+  if (root === null) return [];
+  const result: number[] = [];
+  const myStack: [TreeNode, boolean][] = [];
+  let current = root;
+  while (current !== null || myStack.length > 0) {
+    if (current !== null) {
+      myStack.push([current, false]);
+      current = current.left;
+    } else {
+      const [node, visited] = myStack.pop()!;
+      if (visited) {
+        result.push(node.val);
+      } else {
+        myStack.push([node, true]);
+        current = node.right;
+      }
+    }
+  }
+  return result;
+}
