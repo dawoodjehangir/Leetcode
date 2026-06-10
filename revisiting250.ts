@@ -880,7 +880,6 @@ function hasCycle(head: ListNode | null): boolean {
 }
 
 //125. Valid Palindrome
-
 function isPalindrome(s: string): boolean {
   let l: number = 0;
   let r: number = s.length - 1;
@@ -907,4 +906,60 @@ function isPalindrome(s: string): boolean {
     r--;
   }
   return true;
+}
+
+//94. Binary Tree Inorder Traversal
+//pure recursion
+function inorderTraversal(root: TreeNode | null): number[] {
+  if (root === null) return [];
+  return [
+    ...inorderTraversal(root.left),
+    root.val,
+    ...inorderTraversal(root.right),
+  ];
+}
+
+//helper recursion
+function inorderTraversal(root: TreeNode | null): number[] {
+  let result: number[] = [];
+  const inorder = (root: TreeNode | null): void => {
+    if (root === null) return;
+    inorder(root.left);
+    result.push(root.val);
+    inorder(root.right);
+  };
+  inorder(root);
+  return result;
+}
+
+//helper recursion #2
+function inorderTraversal(root: TreeNode | null): number[] {
+  let result: number[] = [];
+  const inorder = (root: TreeNode | null, result: number[]): void => {
+    if (root === null) return;
+    inorder(root.left, result);
+    result.push(root.val);
+    inorder(root.right, result);
+  };
+  inorder(root, result);
+  return result;
+}
+
+//iterative
+function inorderTraversal(root: TreeNode | null): number[] {
+  if (root === null) return [];
+  const result: number[] = [];
+  const myStack: TreeNode[] = [];
+  let current: TreeNode | null = root;
+  while (current !== null || myStack.length > 0) {
+    if (current !== null) {
+      myStack.push(current);
+      current = current.left;
+    } else {
+      current = myStack.pop();
+      result.push(current.val);
+      current = current.right;
+    }
+  }
+  return result;
 }
