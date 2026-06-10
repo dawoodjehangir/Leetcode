@@ -3,6 +3,7 @@
 ## Yet to Learn#1: DSA/Algos
 
 - Boyer-Moore Voting Algorithm - Done once
+- Morris Traversal
 - Bit Manipulation
 - Newton's Method
 - Balanced vs Degenerate Tree?
