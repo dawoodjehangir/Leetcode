@@ -1002,3 +1002,14 @@ function majorityElement(nums: number[]): number {
   }
   return mElement!;
 }
+
+//344. Reverse String
+function reverseString(s: string[]): void {
+  let left: number = 0;
+  let right: number = s.length - 1;
+  while (left < right) {
+    [s[left], s[right]] = [s[right], s[left]];
+    left++;
+    right--;
+  }
+}
