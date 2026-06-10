@@ -803,6 +803,10 @@ function isSameTree(p: TreeNode | null, q: TreeNode | null): boolean {
   }
 }
 
+//572. Subtree of Another Tree
+// recursive
+function isSubtree(root: TreeNode | null, subRoot: TreeNode | null): boolean {}
+
 ////////////////////////////////////////////////////////////////////////////
 // SECOND RUN
 //206. Reverse Linked List
@@ -1011,5 +1015,20 @@ function reverseString(s: string[]): void {
     [s[left], s[right]] = [s[right], s[left]];
     left++;
     right--;
+  }
+}
+
+//100. Same Tree
+function isSameTree(p: TreeNode | null, q: TreeNode | null): boolean {
+  //both have to be null at the same time
+  //both have to be not null at the same time => in this case the values have to match
+  //top-down approach. I check parent first and then get result from left
+  //and right subtree. If all are true, then we return true, otherwise false
+  if (p !== null && q !== null && p.val === q.val) {
+    return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+  } else if (p === null && q === null) {
+    return true;
+  } else {
+    return false;
   }
 }
