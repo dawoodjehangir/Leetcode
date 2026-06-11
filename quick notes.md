@@ -604,3 +604,16 @@ function backtrack(state) {
     }
 }
 ```
+
+### Heap
+
+Once you have that generic heap template, all heap problems become:
+
+```
+Kth Largest
+Top K Frequent
+Merge K Lists
+Meeting Rooms II
+Dijkstra
+Task Scheduler
+```
