@@ -532,3 +532,75 @@ Children return information upward.
 - Question 2: Is important information returned? Bottom-Up => Parent is waiting for child results.
 - Reliable Interview tip: If the recursive function's return value is the main thing solving the problem, it's usually bottom-up.
 - If the recursive function mainly carries state through parameters and updates external variables, it's usually top-down.
+
+#### Interview Rule
+
+For recursion trees:
+
+If there are 2^n leaves
+And each internal node has constant work
+
+Then:
+
+```
+Total work = O(total nodes)
+           = O(2^(n+1)-1)
+           = O(2^n)
+```
+
+That's why people often estimate complexity from the number of leaves alone. In a binary recursion tree, the total number of nodes is only a constant factor larger than the number of leaves.
+
+### Backtracking
+
+#### How To Recognize Backtracking Problems
+
+When you hear:
+
+```
+Generate all subsets
+Generate all permutations
+Find all paths
+Combination Sum
+N-Queens
+Word Search
+Sudoku
+```
+
+think:
+
+```
+I need to explore many possibilities.
+```
+
+Then immediately ask:
+
+```
+What is my state?
+What choices do I have?
+How do I choose?
+How do I unchoose?
+```
+
+The Universal Template
+
+#### Most backtracking problems are this:
+
+```
+Choose
+Explore
+Unchoose
+
+function backtrack(state) {
+
+    process(state);
+
+    for (choice of choices) {
+
+        makeChoice();
+
+        backtrack(newState);
+
+        undoChoice();
+    }
+}
+```

@@ -1896,6 +1896,62 @@ function isSubtree(root: TreeNode | null, subRoot: TreeNode | null): boolean {
 }
 ```
 
+### 36. Sum of All Subsets XOR Total
+
+The XOR total of an array is defined as the bitwise XOR of all its elements, or 0 if the array is empty.
+
+For example, the XOR total of the array [2,5,6] is 2 XOR 5 XOR 6 = 1.
+You are given an array nums, return the sum of all XOR totals for every subset of nums.
+
+Note: Subsets with the same elements should be counted multiple times.
+
+An array a is a subset of an array b if a can be obtained from b by deleting some (possibly zero) elements of b.
+
+```typescript []
+// using the standard backtracking approach
+// draw a tree first to understand how the solution will pan out
+// consider the template for a general backtracking problem, that explores all solutions
+// our parameters would be index (the next index we are interested to consider) and the subset (a valid subset of the array we have)
+// since our "processing" is not just done on leaf nodes -> that's also a reason why the end base condition seems to be missing. We need to "process/work" on all the nodes we visit i.e. calculate the XOR values of all possible subsets (all nodes of the recursive tree)
+
+//Time Complexity O(n * 2^n) => n is the size of nums
+//Space O(n)
+function subsetXORSum(nums: number[]): number {
+  let total: number = 0;
+  const backtracking = (index: number, subset: number[]) => {
+    let xor: number = 0; //for calculating the current (of a particular subset) xor result
+    for (let num of subset) {
+      xor = xor ^ num;
+    }
+    total += xor; //accumulating the sums of all xors of all subsets
+
+    for (let j = index; j < nums.length; j++) {
+      subset.push(nums[j]); //adding the current choice to the subset
+      backtracking(j + 1, subset); //we move on to consider next subset after making our choice
+      subset.pop(); //we remove the current choice from the subset and move on to next ones
+    }
+  };
+  backtracking(0, []);
+  return total;
+}
+
+//recursive approach
+// Provides better time complexity as the XOR is calculated recursively and not within each call
+// this recursive approach considers a sort of decision tree, splitting at every index in terms of including it or excluding it => which means we need two recursive calls: one which includes a certain index, while the second one excludes it
+// we pass the XOR total in the call itself along with tracking the index of an array
+function subsetXORSum(nums: number[]): number {
+  const dfsXOR = (ind: number, total: number): number => {
+    if (ind === nums.length) {
+      return total;
+    }
+
+    //we choose a certain index and we exclude a certain index, and sum their results as we want to consider the sum of all subsets including and excluding all possible subsets
+    return dfsXOR(ind + 1, total ^ nums[ind]) + dfsXOR(ind + 1, total);
+  };
+  return dfsXOR(0, 0);
+}
+```
+
 # Medium
 
 ### 6: Group Anagrams
