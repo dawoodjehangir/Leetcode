@@ -1084,3 +1084,47 @@ function postorderTraversal(root: TreeNode | null): number[] {
   }
   return result;
 }
+
+//704. Binary Search
+//iterative
+function search(nums: number[], target: number): number {
+  let low: number = 0;
+  let high: number = nums.length - 1;
+  while (low <= high) {
+    let mid: number = low + Math.floor((high - low) / 2);
+    if (nums[mid] === target) {
+      return mid;
+    } else if (nums[mid] > target) {
+      high = mid - 1;
+    } else {
+      low = mid + 1;
+    }
+  }
+  return -1;
+}
+
+//recursive
+function search(nums: number[], target: number): number {
+  //we need to a helper function that accepts two parameters i.e. low and high for the array.
+  //based on that we will search the array
+  const bs = (
+    nums: number[],
+    low: number,
+    high: number,
+    target: number,
+  ): number => {
+    if (low > high) {
+      return -1;
+    }
+    let mid = low + Math.floor((high - low) / 2);
+    if (nums[mid] === target) {
+      return mid;
+    } else if (nums[mid] > target) {
+      return bs(nums, low, mid - 1, target);
+    } else {
+      return bs(nums, mid + 1, high, target);
+    }
+  };
+
+  return bs(nums, 0, nums.length - 1, target);
+}
