@@ -616,4 +616,6 @@ Merge K Lists
 Meeting Rooms II
 Dijkstra
 Task Scheduler
+K Closest Points
+Meeting Rooms
 ```

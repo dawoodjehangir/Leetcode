@@ -1972,19 +1972,56 @@ class KthLargest {
    * @param {number} k
    * @param {number[]} nums
    */
-  heap: number[];
-  constructor(k: number, nums: number[]) {
-    this.heap = [-1001];
-    for (let num of this.nums) {
-      insert(num);
-    }
-  }
+  constructor(k: number, nums: number[]) {}
 
   /**
    * @param {number} val
    * @return {number}
    */
   add(val: number): number {}
+}
+
+//generic Min Heap implementation
+class MinHeap<T> {
+  private heap: T[];
+  constructor() {
+    this.heap = [];
+  }
+
+  push(val: T): void;
+
+  pop(): T | null;
+
+  public peek(): T | null {
+    return this.heap.length ? this.heap[0] : null;
+  }
+
+  public size(): number {
+    return this.heap.length;
+  }
+  public isEmpty(): boolean {
+    return this.heap.length === 0;
+  }
+
+  //helper functions
+  // arguments are array indexes
+  private parent(i: number): number {
+    return Math.floor((i - 1) / 2);
+  }
+  private left(i: number): number {
+    return 2 * i + 1;
+  }
+  private right(i: number): number {
+    return 2 * i + 2;
+  }
+
+  private swap(i: number, j: number): void {
+    [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]];
+  }
+
+  private shiftUp(i: number): void;
+
+  private shiftDown(i: number): void;
 }
 ```
 
