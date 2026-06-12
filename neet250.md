@@ -1983,14 +1983,36 @@ class KthLargest {
 
 //generic Min Heap implementation
 class MinHeap<T> {
-  private heap: T[];
-  constructor() {
-    this.heap = [];
+  private heap: T[] = [];
+
+  constructor(private compare: (a: T, b: T) => number) {
   }
 
-  push(val: T): void;
+  public push(val: T): void {
+    this.heap.push(val);
+    this.shiftUp(this.size() - 1);
+  }
 
-  pop(): T | null;
+  public pop(): T | null {
+    if (this.isEmpty()) return null;
+
+    let minElement: T = this.heap[0]; //storing min element
+
+    if (this.size() === 1) {
+      this.heap.pop();
+      return minElement;
+    }
+
+    //if there are more elements in heap, then we have to adjust
+    //storing last element at starting index
+    this.heap[0] = this.heap[this.size() - 1];
+    //removing last index
+    this.heap.pop();
+    //shifting first element down
+    this.shiftDown(0);
+
+    return minElement;
+  }
 
   public peek(): T | null {
     return this.heap.length ? this.heap[0] : null;
@@ -1999,18 +2021,24 @@ class MinHeap<T> {
   public size(): number {
     return this.heap.length;
   }
+
   public isEmpty(): boolean {
     return this.heap.length === 0;
   }
 
-  //helper functions
+  // -----------------------
+  // Helper methods
+  // -----------------------
+
   // arguments are array indexes
   private parent(i: number): number {
     return Math.floor((i - 1) / 2);
   }
+
   private left(i: number): number {
     return 2 * i + 1;
   }
+
   private right(i: number): number {
     return 2 * i + 2;
   }
@@ -2019,9 +2047,39 @@ class MinHeap<T> {
     [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]];
   }
 
-  private shiftUp(i: number): void;
+  private shiftUp(i: number): void {
+    let newAddition: T = this.heap[i]; //save the newly added item
 
-  private shiftDown(i: number): void;
+    //we shift up until we reach index >= 0 (root) AND new item is smaller than its parent
+    while (i > 0 && this.compare(newAddition, this.heap[this.parent(i)]) < 0) {
+      this.heap[i] = this.heap[this.parent(i)];
+      i = this.parent(i);
+    }
+    this.heap[i] = newAddition;
+  }
+
+  private shiftDown(i: number): void {
+    const heapSize: number = this.size();
+    //check if left child exists
+    while (this.left(i) < heapSize)) {
+      let smaller = this.left(i);
+
+      //check if value at right child is smaller than left child
+      if (
+        this.right(i) < heapSize &&
+        this.compare(this.heap[this.right(i)], this.heap[smaller]) < 0
+      ) {
+        smaller = this.right(i);
+      }
+
+      //if value at parent is <= than the smaller child
+      if (this.compare(this.heap[i], this.heap[smaller]) <= 0) {
+        break;
+      }
+      this.swap(i, smaller);
+      i = smaller;
+    }
+  }
 }
 ```
 
