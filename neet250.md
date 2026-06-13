@@ -2184,4 +2184,54 @@ function lowestCommonAncestor(
 }
 ```
 
+### 39. Insert into a Binary Search Tree
+
+You are given the root node of a binary search tree (BST) and a value val to insert into the tree. Return the root node of the BST after the insertion. It is guaranteed that the new value does not exist in the original BST.
+
+Note: There may exist multiple valid ways for the insertion, as long as the tree remains a BST after insertion. You can return any of them.
+
+```typescript []
+//first try
+function insertIntoBST(root: TreeNode | null, val: number): TreeNode {
+  //if root === null
+  // if right child exists and val > root => root = root.right
+  // else
+  // if left child exists and val < root => root = root.left
+  if (root === null) {
+    return new TreeNode(val, null, null);
+  }
+  let current: TreeNode | null = root;
+  const dfs = (node: TreeNode | null) => {
+    if (val > node.val) {
+      if (node.right === null) {
+        node.right = new TreeNode(val, null, null);
+        return;
+      }
+      dfs(node.right);
+    } else {
+      if (node.left === null) {
+        node.left = new TreeNode(val, null, null);
+        return;
+      }
+      dfs(node.left);
+    }
+  };
+  dfs(current);
+  return root;
+}
+
+//given solution
+function insertIntoBST(root: TreeNode | null, val: number): TreeNode {
+  if (root === null) {
+    return new TreeNode(val, null, null);
+  }
+  if (val > root.val) {
+    root.right = this.insertIntoBST(root.right, val);
+  } else {
+    root.left = this.insertIntoBST(root.left, val);
+  }
+  return root;
+}
+```
+
 # Hard
