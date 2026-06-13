@@ -1962,31 +1962,45 @@ constructor(int k, int[] nums) Initializes the object given an integer k and the
 int add(int val) Adds the integer val to the stream and returns the kth largest integer in the stream.
 
 ```typescript
-//heap is represented in an array
-// where an index lies at i (starting index 1), left child lies at 2i, and right at 2i + 1
-// we are desiging max heap
-// we always insert element at the end of the heap and bring it up considering the parent and so on
-// to insert elements in a heap, traverse through the elements and call insert function n times
+// the most important concept in this question is that we have a stream i.e. nums, and a corresponding minHeap, where we don't remove any items from nums or minHEap. Rather they are only added.
 class KthLargest {
+  private minHeapObj: MinHeap<number>;
+  private kSize: number;
   /**
    * @param {number} k
    * @param {number[]} nums
    */
-  constructor(k: number, nums: number[]) {}
+  constructor(k: number, nums: number[]) {
+    this.minHeapObj = new MinHeap<number>((a: number, b: number) => a - b);
+    this.kSize = k;
+
+    for (const num of nums) {
+      this.minHeapObj.push(num);
+    }
+    while (this.minHeapObj.size() > k) {
+      this.minHeapObj.pop();
+    }
+  }
 
   /**
    * @param {number} val
    * @return {number}
    */
-  add(val: number): number {}
+  add(val: number): number {
+    //size of stream will always be >= k, once val gets added to the stream. Not before it
+    this.minHeapObj.push(val);
+    while (this.minHeapObj.size() > this.kSize) {
+      this.minHeapObj.pop();
+    }
+    return this.minHeapObj.peek()!;
+  }
 }
 
 //generic Min Heap implementation
 class MinHeap<T> {
   private heap: T[] = [];
 
-  constructor(private compare: (a: T, b: T) => number) {
-  }
+  constructor(private compare: (a: T, b: T) => number) {}
 
   public push(val: T): void {
     this.heap.push(val);
@@ -2061,7 +2075,7 @@ class MinHeap<T> {
   private shiftDown(i: number): void {
     const heapSize: number = this.size();
     //check if left child exists
-    while (this.left(i) < heapSize)) {
+    while (this.left(i) < heapSize) {
       let smaller = this.left(i);
 
       //check if value at right child is smaller than left child
