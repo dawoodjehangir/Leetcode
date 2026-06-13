@@ -2135,4 +2135,53 @@ function groupAnagrams(strs: string[]): string[][] {
 }
 ```
 
+### 38. Lowest Common Ancestor in Binary Search Tree
+
+Given a binary search tree (BST) where all node values are unique, and two nodes from the tree p and q, return the lowest common ancestor (LCA) of the two nodes.
+
+The lowest common ancestor between two nodes p and q is the lowest node in a tree T such that both p and q as descendants. The ancestor is allowed to be a descendant of itself.
+
+```typescript []
+// Recursive approach
+//Time Complexity O(logn) or O(h)=> where n is the no. of nodes. H because it's BST
+// we are using top-down apprach in traversing since we can already decide the outcome/result through parent nodes as we go down
+// Decision making is quite simplistic:
+// if p and q lie on either side of the root or if root's val matches either p or q => then we know already that root is LCA.
+// otherwise, we recursively call either sides of the tree
+function lowestCommonAncestor(
+  root: TreeNode | null,
+  p: TreeNode | null,
+  q: TreeNode | null,
+): TreeNode | null {
+  if (root === null) return null;
+
+  if (p.val > root.val && q.val > root.val) {
+    return this.lowestCommonAncestor(root.right, p, q);
+  } else if (q.val < root.val && p.val < root.val) {
+    return this.lowestCommonAncestor(root.left, p, q);
+  } else {
+    return root;
+  }
+}
+
+//iterative
+function lowestCommonAncestor(
+  root: TreeNode | null,
+  p: TreeNode | null,
+  q: TreeNode | null,
+): TreeNode | null {
+  let current: TreeNode | null = root;
+  while (current !== null) {
+    if (p.val > current.val && q.val > current.val) {
+      current = current.right;
+    } else if (q.val < current.val && p.val < current.val) {
+      current = current.left;
+    } else {
+      break;
+    }
+  }
+  return current;
+}
+```
+
 # Hard
