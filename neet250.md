@@ -2146,6 +2146,41 @@ function islandPerimeter(grid: number[][]): number {
   }
   return totalP;
 }
+
+//recursive => dfs approach
+//Time O(r,c)
+//Space O(r,c)
+function islandPerimeter(grid: number[][]): number {
+  const key = (r: number, c: number) => `${r},${c}`;
+  const visited = new Set<string>();
+  const dfs = (r, c): number => {
+    if (
+      r < 0 ||
+      c < 0 ||
+      r >= grid.length ||
+      c >= grid[0].length ||
+      grid[r][c] === 0
+    ) {
+      return 1;
+    }
+    if (!visited.has(key(r, c))) {
+      visited.add(key(r, c));
+      let up = dfs(r - 1, c);
+      let down = dfs(r + 1, c);
+      let left = dfs(r, c - 1);
+      let right = dfs(r, c + 1);
+      return up + down + left + right;
+    }
+    return 0;
+  };
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[0].length; j++) {
+      if (grid[i][j] === 1) {
+        return dfs(i, j);
+      }
+    }
+  }
+}
 ```
 
 # Medium
