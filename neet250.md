@@ -2200,7 +2200,6 @@ function insertIntoBST(root: TreeNode | null, val: number): TreeNode {
   if (root === null) {
     return new TreeNode(val, null, null);
   }
-  let current: TreeNode | null = root;
   const dfs = (node: TreeNode | null) => {
     if (val > node.val) {
       if (node.right === null) {
@@ -2216,7 +2215,7 @@ function insertIntoBST(root: TreeNode | null, val: number): TreeNode {
       dfs(node.left);
     }
   };
-  dfs(current);
+  dfs(root);
   return root;
 }
 
@@ -2231,6 +2230,102 @@ function insertIntoBST(root: TreeNode | null, val: number): TreeNode {
     root.left = this.insertIntoBST(root.left, val);
   }
   return root;
+}
+```
+
+### 40. Reorder Linked List
+
+You are given the head of a singly linked-list.
+
+The positions of a linked list of length = 7 for example, can intially be represented as:
+
+[0, 1, 2, 3, 4, 5, 6]
+
+Reorder the nodes of the linked list to be in the following order:
+
+[0, 6, 1, 5, 2, 4, 3]
+
+Notice that in the general case for a list of length = n the nodes are reordered to be in the following order:
+
+[0, n-1, 1, n-2, 2, n-3, ...]
+
+You may not modify the values in the list's nodes, but instead you must reorder the nodes themselves.
+
+```typescript []
+// recursive solution
+// During the returning phase, we patch the last node to front node and so on.
+// Time O(n)
+// Space O(n) => system recursion stack
+
+function reorderList(head: ListNode | null): void {
+  const recursive = (
+    root: ListNode | null,
+    current: ListNode | null,
+  ): ListNode | null => {
+    if (current === null) {
+      return root;
+    }
+
+    root = recursive(root, current.next);
+    //in this phase the root points to the first node and current points to the last node
+
+    if (root === null) {
+      return null;
+    }
+    let temp = null; //to store temp node
+    if (root === current || root.next === current) {
+      current.next = null;
+    } else {
+      temp = root.next;
+      root.next = current;
+      current.next = temp;
+    }
+    return temp;
+  };
+
+  recursive(head, head.next);
+}
+
+//efficient solution
+//involves three phases: find the middle of the list, reverse the second part of the list, and lastly, patch the two lists in correct order
+// Time O(n)
+// Space O(1)
+function reorderList(head: ListNode | null): void {
+  if (!head || !head.next) return;
+  let slow: ListNode | null = head;
+  let fast: ListNode | null = head.next;
+
+  //First: find the middle
+  while (fast !== null && fast.next !== null) {
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+  //slow points to the middle node i.e. which will be last in the final list
+  //slow.next is the start of second list
+
+  //Second: reverse the second part
+  let listTwo: ListNode | null = slow.next;
+  slow.next = null; // separated List1
+  let prev: ListNode | null = null;
+  while (listTwo !== null) {
+    let temp = listTwo.next;
+    listTwo.next = prev;
+    prev = listTwo;
+    listTwo = temp;
+  }
+  listTwo = prev; //prev points to head of list 2 and then we assign that to listTwo
+
+  //Third: patch together correctly
+  //temp variable to point at List one's start
+  let listOne = head;
+  while (listTwo !== null) {
+    let temp1 = listOne.next;
+    let temp2 = listTwo.next;
+    listOne.next = listTwo;
+    listTwo.next = temp1;
+    listOne = temp1;
+    listTwo = temp2;
+  }
 }
 ```
 
