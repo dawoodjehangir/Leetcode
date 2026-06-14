@@ -2097,6 +2097,57 @@ class MinHeap<T> {
 }
 ```
 
+## Graphs
+
+### Island Perimeter
+
+You are given a row x col grid representing a map where grid[i][j] = 1 represents land and grid[i][j] = 0 represents water.
+
+Grid cells are connected horizontally/vertically (not diagonally). The grid is completely surrounded by water, and there is exactly one island (i.e., one or more connected land cells).
+
+The island doesn't have "lakes", meaning the water inside isn't connected to the water around the island. One cell is a square with side length 1.
+
+Return the perimeter of the island.
+
+```typescript []
+//naive/simple approach, but also the most efficient
+//observation: we visit each value/part of the grid and then check if
+//firstly, if it's 1
+//then we check, if neighbouring grids: 1 or not.
+//if neighbouring grid (NG) is 1, then perimeter is 4, if NG is 2, then perimeter 3, if NG is 3, perimeter is 1, if NG is 4, then perimeter is 0.
+//Time O(rc) => O(rc)
+function islandPerimeter(grid: number[][]): number {
+  let rows: number = grid.length;
+  let cols: number = grid[0].length;
+  let totalP: number = 0;
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      if (grid[r][c] === 1) {
+        let perimeter = 4;
+        if (r - 1 >= 0 && grid[r - 1][c] === 1) {
+          //up
+          perimeter--;
+        }
+        if (c - 1 >= 0 && grid[r][c - 1] === 1) {
+          //left
+          perimeter--;
+        }
+        if (r + 1 < rows && grid[r + 1][c] === 1) {
+          //down
+          perimeter--;
+        }
+        if (c + 1 < cols && grid[r][c + 1] === 1) {
+          //right
+          perimeter--;
+        }
+        totalP += perimeter;
+      }
+    }
+  }
+  return totalP;
+}
+```
+
 # Medium
 
 ### 6: Group Anagrams
