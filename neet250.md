@@ -2099,7 +2099,7 @@ class MinHeap<T> {
 
 ## Graphs
 
-### Island Perimeter
+### 42. Island Perimeter
 
 You are given a row x col grid representing a map where grid[i][j] = 1 represents land and grid[i][j] = 0 represents water.
 
@@ -2423,7 +2423,7 @@ function reorderList(head: ListNode | null): void {
 
 ## Backtracking
 
-### Subsets
+### 41. Subsets
 
 Given an array nums of unique integers, return all possible subsets of nums.
 
@@ -2465,6 +2465,39 @@ function subsets(nums: number[]): number[][] {
     re(index + 1, subset);
   };
   re(0, []);
+  return solution;
+}
+```
+
+### Combination Sum
+
+You are given an array of distinct integers nums and a target integer target. Your task is to return a list of all unique combinations of nums where the chosen numbers sum to target.
+
+The same number may be chosen from nums an unlimited number of times. Two combinations are the same if the frequency of each of the chosen numbers is the same, otherwise they are different.
+
+You may return the combinations in any order and the order of the numbers in each combination can be in any order.
+
+```typescript []
+//recursive approach => decision tree
+function combinationSum(nums: number[], target: number): number[][] {
+  const solution: number[][] = [];
+  const backtracking = (index: number, subset: number[], remaining: number) => {
+    //base condition has to do with remaining to be zero
+    // if less than zero than we don't add to solution
+    if (index >= nums.length) return;
+    if (remaining <= 0) {
+      if (remaining === 0) {
+        solution.push([...subset]);
+      }
+      return;
+    }
+
+    subset.push(nums[index]);
+    backtracking(index, subset, remaining - nums[index]);
+    subset.pop();
+    backtracking(index + 1, subset, remaining);
+  };
+  backtracking(0, [], target);
   return solution;
 }
 ```
