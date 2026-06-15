@@ -2502,4 +2502,65 @@ function combinationSum(nums: number[], target: number): number[][] {
 }
 ```
 
+## Stack
+
+### Min Stack
+
+Design a stack class that supports the push, pop, top, and getMin operations.
+
+MinStack() initializes the stack object.
+void push(int val) pushes the element val onto the stack.
+void pop() removes the element on the top of the stack.
+int top() gets the top element of the stack.
+int getMin() retrieves the minimum element in the stack.
+Each function should run in O(1) time.
+
+```typescript []
+class MinStack {
+  constructor(
+    private stack: number[] = [],
+    private minValStack: number[] = [],
+  ) {}
+
+  /**
+   * @param {number} val
+   * @return {void}
+   */
+  push(val: number): void {
+    this.stack.push(val);
+    if (this.minValStack.length === 0) {
+      this.minValStack.push(val);
+    } else {
+      if (val < this.minValStack[this.minValStack.length - 1]) {
+        this.minValStack.push(val);
+      } else {
+        this.minValStack.push(this.minValStack[this.minValStack.length - 1]);
+      }
+    }
+  }
+
+  /**
+   * @return {void}
+   */
+  pop(): void {
+    this.minValStack.pop();
+    this.stack.pop();
+  }
+
+  /**
+   * @return {number}
+   */
+  top(): number {
+    return this.stack[this.stack.length - 1];
+  }
+
+  /**
+   * @return {number}
+   */
+  getMin(): number {
+    return this.minValStack[this.minValStack.length - 1];
+  }
+}
+```
+
 # Hard
