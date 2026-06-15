@@ -47,6 +47,23 @@
 
 This distinction is extremely important in JS/TS interviews.
 
+- Whenever you see:
+
+```
+[]
+{}
+new Map()
+new Set()
+function() {}
+class Foo {}
+Date
+RegExp
+```
+
+assume:
+
+VARIABLE STORES A REFERENCE
+
 ### Hash maps, Objects, hashing
 
 - hash maps resize themselves

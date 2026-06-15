@@ -2185,6 +2185,8 @@ function islandPerimeter(grid: number[][]): number {
 
 # Medium
 
+## Arrays & Hashing
+
 ### 6: Group Anagrams
 
 Given an array of strings strs, group all anagrams together into sublists. You may return the output in any order.
@@ -2220,6 +2222,8 @@ function groupAnagrams(strs: string[]): string[][] {
   return Array.from(result.values());
 }
 ```
+
+## Trees
 
 ### 38. Lowest Common Ancestor in Binary Search Tree
 
@@ -2319,6 +2323,8 @@ function insertIntoBST(root: TreeNode | null, val: number): TreeNode {
 }
 ```
 
+## LinkedList
+
 ### 40. Reorder Linked List
 
 You are given the head of a singly linked-list.
@@ -2412,6 +2418,54 @@ function reorderList(head: ListNode | null): void {
     listOne = temp1;
     listTwo = temp2;
   }
+}
+```
+
+## Backtracking
+
+### Subsets
+
+Given an array nums of unique integers, return all possible subsets of nums.
+
+The solution set must not contain duplicate subsets. You may return the solution in any order.
+
+```typescript []
+//general backtracking approach
+//Important pointers: duplicates like [1,2] and [2,1] are not possible. Choose one
+//order of selection does not matter
+//Time n * O(2^n) because n time taken to copy subset array into solution set and then 2^n leaves/subsets that we anyway have to visit
+//Space O(n) for the stack as stack size is max n (length of array)
+//Space O(2^n) for the output array
+function subsets(nums: number[]): number[][] {
+  const solution: number[][] = [];
+  const backtracking = (index: number, subset: number[]) => {
+    solution.push([...subset]);
+    for (let i = index; i < nums.length; i++) {
+      subset.push(nums[i]);
+      backtracking(i + 1, subset);
+      subset.pop();
+    }
+  };
+  backtracking(0, []);
+  return solution;
+}
+
+//recursive appraoch => decision tree
+function subsets(nums: number[]): number[][] {
+  const solution: number[][] = [];
+  const re = (index: number, subset: number[]) => {
+    if (index >= nums.length) {
+      solution.push([...subset]);
+      return;
+    }
+
+    subset.push(nums[index]);
+    re(index + 1, subset);
+    subset.pop();
+    re(index + 1, subset);
+  };
+  re(0, []);
+  return solution;
 }
 ```
 
