@@ -622,6 +622,41 @@ function backtrack(state) {
 }
 ```
 
+#### Time and Space Complexity for Backtracking
+
+- Ask 3 questions.
+- Question 1: How many choices does each node have?
+
+```
+Subsets      -> 2
+Combination Sum -> ~2
+Permutations -> shrinking n
+```
+
+This gives branching factor. (i.e. The no of recursive calls that we see in the function)
+
+- Question 2: How deep can the recursion go?
+
+```
+Subsets -> n
+
+Combination Sum -> target / smallest_number
+
+Permutations ->n
+```
+
+This gives depth. (i.e. one which shows up in the power)
+
+- Question 3: How much work per node?
+  Putting everything together:
+
+```
+Time ≈
+(branching factor)^(depth)
+×
+(work per node)
+```
+
 ### Heap
 
 Once you have that generic heap template, all heap problems become:
