@@ -2183,6 +2183,73 @@ function islandPerimeter(grid: number[][]): number {
 }
 ```
 
+## Dynamic Programming
+
+### Climbing Stairs
+
+You are given an integer n representing the number of steps to reach the top of a staircase. You can climb with either 1 or 2 steps at a time.
+
+Return the number of distinct ways to climb to the top of the staircase.
+
+```typescript []
+//this solution is efficient and hence doesn't work at leetcode
+// can also be transformed into memoized, but computing result becomes redundant
+function climbStairs(n: number): number {
+  let result: number = 0;
+
+  const re = (steps: number) => {
+    if (steps < 0) {
+      return;
+    } else if (steps === 0) {
+      result++;
+      return;
+    }
+    re(steps - 1);
+    re(steps - 2);
+  };
+  re(n);
+  return result;
+}
+
+//rewriting the brute force solution which can then be memoized
+//solution written in a way such that as we progress through the recursive tree, we get
+function climbStairs(n: number): number {
+  const bruteForce = (i: number): number => {
+    if (i > n) return 0; //if we end up here then it's going to be an invalid path
+    if (i === n) return 1; //if we land here, then we figured one possible pathway
+    return bruteForce(i + 1) + bruteFroce(i + 2);
+  };
+  return bruteForce(0);
+}
+
+//Time O(n) => we are utilizing subproblems nows
+//Space O(n) => For the memoization array
+
+function climbStairs(n: number): number {
+  const dp: number[] = new Int32Array(n).fill(-1);
+  const memoized = (i: number): number => {
+    if (i > n) return 0; //if we end up here then it's going to be an invalid path
+    if (i === n) return 1; //if we land here, then we figured one possible pathway
+    if (dp[i] !== -1) return dp[i];
+    dp[i] = memoized(i + 1) + memoized(i + 2);
+    return dp[i];
+  };
+  return memoized(0);
+}
+
+//tabulation method
+function climbStairs(n: number): number {
+  let one = 1,
+    two = 1;
+  for (let i = 0; i < n - 1; i++) {
+    let temp = one;
+    one = one + two;
+    two = temp;
+  }
+  return one;
+}
+```
+
 # Medium
 
 ## Arrays & Hashing

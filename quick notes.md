@@ -657,6 +657,12 @@ Time ≈
 (work per node)
 ```
 
+### Dynamic Programming
+
+#### Key Pointers
+
+- memoization works best when a function returns a value. Memoization is fundamentally caching input → output mappings.
+
 ### Heap
 
 Once you have that generic heap template, all heap problems become:
