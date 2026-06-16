@@ -2250,6 +2250,48 @@ function climbStairs(n: number): number {
 }
 ```
 
+### Min Cost Climbing Stairs
+
+You are given an array of integers cost where cost[i] is the cost of taking a step from the ith floor of a staircase. After paying the cost, you can step to either the (i + 1)th floor or the (i + 2)th floor.
+
+You may choose to start at the index 0 or the index 1 floor.
+
+Return the minimum cost to reach the top of the staircase, i.e. just past the last index in cost.
+
+```typescript []
+//problem is much like basic climb stairs. We can either take 1 step at a time or 2 steps at a time
+//differences:
+//(1) there is a cost associated with taking each step that we have to pay. Our goal is to make that as minimum as possible
+//(2) we also have two options as the beginning point: 0th index or 1st index
+//(3) we have to reach nth index where n is size of the array
+
+function minCostClimbingStairs(cost: number[]): number {
+  const dp = new Int32Array(cost.length).fill(-1);
+  const memoization = (step: number): number => {
+    if (step >= cost.length) {
+      return 0;
+    }
+    if (dp[step] !== -1) return dp[step];
+
+    dp[step] =
+      cost[step] + Math.min(memoization(step + 1), memoization(step + 2));
+    return dp[step];
+  };
+  return Math.min(memoization(0), memoization(1));
+}
+
+function minCostClimbingStairs(cost: number[]): number {
+  cost.push(0);
+  //we store at index the min cost to reach the end. We append an extra 0 at the end since
+  //it's cost would 0.
+  //at the end of this computation, each index in cost array would store the min Cost from that index till the end.
+  //Hence for the final result, we check out 0th or 1st index whichever has minimum value
+  for (let i = cost.length - 3; i >= 0; i--) {
+    cost[i] = cost[i] + Math.min(cost[i + 1], cost[i + 2]);
+  }
+}
+```
+
 # Medium
 
 ## Arrays & Hashing

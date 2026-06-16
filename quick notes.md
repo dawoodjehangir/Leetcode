@@ -663,6 +663,120 @@ Time ≈
 
 - memoization works best when a function returns a value. Memoization is fundamentally caching input → output mappings.
 
+#### Interview pointers
+
+- mental model is:
+
+```
+DP = State + Transition + Cache
+```
+
+- For every DP problem, ask these 5 questions:
+
+1. What is the state?
+
+```
+A state is the minimum information needed to describe where I am. A good question:
+
+"What variables change as I move through the problem?"
+
+Usually those become your DP state.
+```
+
+2. What does dp(state) mean?
+
+```
+Be explicit.
+
+For Climbing Stairs:
+
+
+dp(n) = number of ways to reach step 0 from n
+This step alone solves half the problem.
+```
+
+3. What choices can I make?
+
+```
+Most interview DP recurrences come from enumerating choices.
+
+Climbing Stairs:
+
+dp(n) =
+    dp(n - 1)
+  + dp(n - 2)
+```
+
+4. What are the base cases?
+
+The smallest subproblems.
+
+5. Cache it
+
+Once recursion works.
+
+#### One-sentence DP formula
+
+```
+State
+→ Choices
+→ Recurrence
+→ Base Cases
+→ Memoize
+→ Tabulate (optional optimization)
+```
+
+##### DP Patterns
+
+Pattern 1: Linear DP
+
+```
+Examples:
+
+Climbing Stairs
+House Robber
+Fibonacci
+Min Cost Climbing Stairs
+```
+
+Pattern 2: Grid DP
+
+```
+Examples:
+
+Unique Paths
+Minimum Path Sum
+```
+
+Pattern 3: Knapsack DP
+
+```
+Examples:
+
+Knapsack
+Partition Equal Subset Sum
+Target Sum
+```
+
+Pattern 4: String DP
+
+```
+Examples:
+
+LCS
+Edit Distance
+Longest Palindromic Subsequence
+```
+
+Pattern 5: Interval DP
+
+```
+Examples:
+
+Burst Balloons
+Matrix Chain Multiplication
+```
+
 ### Heap
 
 Once you have that generic heap template, all heap problems become:
