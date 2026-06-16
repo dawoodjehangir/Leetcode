@@ -2332,6 +2332,36 @@ function groupAnagrams(strs: string[]): string[][] {
 }
 ```
 
+## Two Pointers
+
+### Two Integer Sum II
+
+Given an array of integers numbers that is sorted in non-decreasing order.
+
+Return the indices (1-indexed) of two numbers, [index1, index2], such that they add up to a given target number target and index1 < index2. Note that index1 and index2 cannot be equal, therefore you may not use the same element twice.
+
+There will always be exactly one valid solution.
+
+Your solution must use O(1) additional space.
+
+```typescript []
+function twoSum(numbers: number[], target: number): number[] {
+  let l: number = 0;
+  let r: number = numbers.length - 1;
+  while (l < r) {
+    let sum = numbers[l] + numbers[r];
+    if (sum === target) {
+      return [l, r];
+    } else if (sum > target) {
+      r--;
+    } else {
+      l++;
+    }
+  }
+  return [];
+}
+```
+
 ## Trees
 
 ### 38. Lowest Common Ancestor in Binary Search Tree
