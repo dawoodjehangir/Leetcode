@@ -2683,6 +2683,57 @@ function combinationSum2(candidates: number[], target: number): number[][] {
 }
 ```
 
+### Combinations
+
+You are given two integers n and k, return all possible combinations of k numbers chosen from the range [1, n].
+
+You may return the answer in any order.
+
+```typescript []
+//recursive solution => with manual push and pop
+
+//Time Complexity O(k * mathematical formula of calculating combination nCk)
+function combine(n: number, k: number): number[][] {
+  const solution: number[][] = [];
+  const backtracking = (i: number, comb: number[]) => {
+    //we only choose combination of size k
+    if (comb.length === k) {
+      solution.push([...comb]);
+      return;
+    }
+    //if we go beyond n then it's wrong. We can only include till n
+    if (i > n) {
+      return;
+    }
+    comb.push(i);
+    backtracking(i + 1, comb);
+    comb.pop();
+    backtracking(i + 1, comb);
+  };
+  backtracking(1, []);
+  return solution;
+}
+
+//standard backtracking solution
+function combine(n: number, k: number): number[][] {
+  const solution: number[][] = [];
+  const backtracking = (i: number, comb: number[]) => {
+    //we only choose combination of size k
+    if (comb.length === k) {
+      solution.push([...comb]);
+      return;
+    }
+    for (let j = i; j <= n; j++) {
+      comb.push(j);
+      backtracking(j + 1, comb);
+      comb.pop();
+    }
+  };
+  backtracking(1, []);
+  return solution;
+}
+```
+
 ## Stack
 
 ### Min Stack
