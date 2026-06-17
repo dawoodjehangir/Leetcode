@@ -2734,6 +2734,38 @@ function combine(n: number, k: number): number[][] {
 }
 ```
 
+### Permutations
+
+Given an array nums of unique integers, return all the possible permutations. You may return the answer in any order.
+
+```typescript
+//Time complexity O(n^n) => O(n!)
+//Space complexity O(n) => auxiliary array
+function permute(nums: number[]): number[][] {
+  let result: number[][] = [];
+  const flag = new Array(nums.length).fill(false);
+
+  const backtracking = (perm: number[]) => {
+    if (perm.length === nums.length) {
+      result.push([...perm]);
+      return;
+    }
+
+    for (let ind = 0; ind < nums.length; ind++) {
+      if (flag[ind] !== true) {
+        perm.push(nums[ind]);
+        flag[ind] = true;
+        backtracking(perm);
+        perm.pop();
+        flag[ind] = false;
+      }
+    }
+  };
+  backtracking([]);
+  return result;
+}
+```
+
 ## Stack
 
 ### Min Stack
