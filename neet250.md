@@ -2623,17 +2623,59 @@ function combinationSum(nums: number[], target: number): number[][] {
   const backtracking = (index: number, subset: number[], remaining: number) => {
     //base condition has to do with remaining to be zero
     // if less than zero than we don't add to solution
-    if (index >= nums.length) return;
-    if (remaining <= 0) {
-      if (remaining === 0) {
-        solution.push([...subset]);
-      }
+    if (remaining === 0) {
+      solution.push([...subset]);
       return;
     }
+    if (remaining < 0 || index >= nums.length) return;
 
     subset.push(nums[index]);
     backtracking(index, subset, remaining - nums[index]);
     subset.pop();
+    backtracking(index + 1, subset, remaining);
+  };
+  backtracking(0, [], target);
+  return solution;
+}
+```
+
+### Combination Sum II
+
+You are given an array of integers candidates, which may contain duplicates, and a target integer target. Your task is to return a list of all unique combinations of candidates where the chosen numbers sum to target.
+
+Each element from candidates may be chosen at most once within a combination. The solution set must not contain duplicate combinations.
+
+You may return the combinations in any order and the order of the numbers in each combination can be in any order.
+
+```typescript []
+function combinationSum2(candidates: number[], target: number): number[][] {
+  const solution: number[][] = [];
+  candidates.sort((a, b) => a - b);
+
+  const backtracking = (index: number, subset: number[], remaining: number) => {
+    //process the state: index in the array, current subset we have made, remaning chunk out of the target
+    if (remaining === 0) {
+      solution.push([...subset]);
+      return;
+    }
+
+    if (remaining < 0 || index >= candidates.length) return;
+    //choices: all the candidates present in the array
+
+    //make a choice
+    subset.push(candidates[index]);
+    //explore
+    backtracking(index + 1, subset, remaining - candidates[index]);
+    //undo the choice
+    subset.pop();
+
+    //skip duplicate elements
+    while (
+      index + 1 < candidates.length &&
+      candidates[index + 1] === candidates[index]
+    ) {
+      index++;
+    }
     backtracking(index + 1, subset, remaining);
   };
   backtracking(0, [], target);
