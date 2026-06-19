@@ -2235,6 +2235,8 @@ Return the label of the town judge if the town judge exists and can be identifie
 
 ```typescript []
 //note: no self loops
+// space complexity O(n)
+// time complexity O(m+n) where m is the no. of edges and n is the number of people
 
 //const matrix = Array.from({ length: m }, () => Array(n).fill(0));
 function findJudge(n: number, trust: number[][]): number {
