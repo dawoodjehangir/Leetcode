@@ -822,8 +822,8 @@ function isSubtree(root: TreeNode | null, subRoot: TreeNode | null): boolean {
   return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
 }
 
-//min heap designing
-class MinHeap<T> {
+//generic Priority Queue backed by a binary heap
+class Heap<T> {
   private heap: T[] = [];
 
   constructor(private comparator: (a: T, b: T) => number) {}

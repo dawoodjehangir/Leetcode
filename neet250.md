@@ -2292,6 +2292,145 @@ function minCostClimbingStairs(cost: number[]): number {
 }
 ```
 
+### Last Stone Weight
+
+You are given an array of integers stones where stones[i] represents the weight of the ith stone.
+
+We want to run a simulation on the stones as follows:
+
+At each step we choose the two heaviest stones, with weight x and y and smash them togethers
+If x == y, both stones are destroyed
+If x < y, the stone of weight x is destroyed, and the stone of weight y has new weight y - x.
+Continue the simulation until there is no more than one stone remaining.
+
+Return the weight of the last remaining stone or return 0 if none remain.
+
+```typescript []
+//we have to design max heap
+class PriorityQueue<T> {
+  private heap: T[] = [];
+
+  constructor(private comparator: (a: T, b: T) => number) {}
+
+  // public methods
+  public push(x: T): void {
+    //add element to the end of the heap array
+    this.heap.push(x);
+    //then move it up such that if's value is < parent
+    this.shiftUp(this.size() - 1);
+  }
+  public pop(): T | null {
+    if (this.isEmpty()) return null;
+
+    if (this.size() === 1) {
+      return this.heap.pop()!;
+    }
+
+    let min: T = this.peek()!; //saved min
+    this.heap[0] = this.heap.pop()!; // removed the last explicity
+    this.shiftDown(0);
+
+    //you will always pop from the root of the heap.
+    //then you bring the last element in the heap array to the top
+    //then push it down such that it's value is < than both of it's children
+
+    return min;
+  }
+  public peek(): T | null {
+    //return the min from the root
+    return this.isEmpty() ? null : this.heap[0];
+  }
+
+  public size(): number {
+    //return the size of the heap
+    return this.heap.length;
+  }
+
+  public isEmpty(): boolean {
+    //return true if emepty
+    return this.heap.length === 0;
+  }
+
+  // helper methods
+  private leftChild(index: number): number {
+    return 2 * index + 1;
+  }
+  private rightChild(index: number): number {
+    return 2 * index + 2;
+  }
+  private parent(index: number): number {
+    return Math.floor((index - 1) / 2);
+  }
+  private swap(i: number, j: number): void {
+    [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]];
+  }
+  private shiftUp(index: number): void {
+    let temp = this.heap[index];
+    while (
+      index > 0 &&
+      this.comparator(temp, this.heap[this.parent(index)]) < 0
+    ) {
+      this.heap[index] = this.heap[this.parent(index)];
+      index = this.parent(index);
+    }
+    this.heap[index] = temp;
+  }
+
+  private shiftDown(index: number): void {
+    // [5,2,3,4]
+
+    while (this.leftChild(index) < this.size()) {
+      let smallestChild: number = this.leftChild(index);
+      if (
+        smallestChild + 1 < this.size() &&
+        this.comparator(
+          this.heap[this.rightChild(index)],
+          this.heap[this.leftChild(index)],
+        ) < 0
+      ) {
+        smallestChild = smallestChild + 1;
+      }
+      if (this.comparator(this.heap[index], this.heap[smallestChild]) <= 0) {
+        break;
+      }
+
+      this.swap(index, smallestChild);
+      index = smallestChild;
+    }
+  }
+}
+
+function lastStoneWeight(stones: number[]): number {
+  //O(n) Space
+  //O(nlogn) Time
+  if (stones.length === 1) {
+    return stones[0];
+  }
+
+  const maxPQ = new PriorityQueue<number>((a, b) => b - a);
+
+  //made maxPQ
+  for (let stone of stones) {
+    maxPQ.push(stone);
+  }
+
+  //We keep looping until
+  while (maxPQ.size() > 1) {
+    let first: number = maxPQ.pop();
+    let second: number = maxPQ.pop();
+
+    if (first === second) {
+      continue;
+    } else if (first > second) {
+      maxPQ.push(first - second);
+    } else {
+      maxPQ.push(second - first);
+    }
+  }
+  return maxPQ.size() > 0 ? maxPQ.peek() : 0;
+}
+```
+
 # Medium
 
 ## Arrays & Hashing
