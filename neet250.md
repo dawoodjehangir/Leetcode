@@ -2183,6 +2183,43 @@ function islandPerimeter(grid: number[][]): number {
 }
 ```
 
+### Verifying An Alien Dictionary
+
+In an alien language, surprisingly, they also use English lowercase letters, but possibly in a different order. The order of the alphabet is some permutation of lowercase letters.
+
+Given a sequence of words written in the alien language, and the order of the alphabets, return true if and only if the given words are sorted lexicographically in this alien language.
+
+```typescript []
+//word1 and word2 can be compared the following way:
+// word1 should have smaller length than word2 if all letters are same
+// if I find a different letter, than one in word1 should have a smaller index from orderMapping, if the index is fine, then we dont need to compare the upcoming letters hence the break statement
+function isAlienSorted(words: string[], order: string): boolean {
+  const orderMapping = new Map<string, number>();
+  for (let i = 0; i < order.length; i++) {
+    orderMapping.set(order[i], i);
+  }
+  for (let i = 1; i < words.length; i++) {
+    let word1 = words[i - 1];
+    let word2 = words[i];
+
+    for (let j = 0; j < word1.length; j++) {
+      if (j === word2.length) {
+        return false;
+      }
+
+      if (word1[j] !== word2[j]) {
+        if (orderMapping.get(word1[j]) > orderMapping.get(word2[j])) {
+          return false;
+        } else {
+          break;
+        }
+      }
+    }
+  }
+  return true;
+}
+```
+
 ## Dynamic Programming
 
 ### Climbing Stairs
