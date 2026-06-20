@@ -2752,6 +2752,38 @@ function levelOrder(root: TreeNode | null): number[][] {
 }
 ```
 
+### Binary Tree Right Side View
+
+You are given the root of a binary tree. Return only the values of the nodes that are visible from the right side of the tree, ordered from top to bottom.
+
+```typescript []
+//naive approach
+// Space O(n)
+// Time O(n)
+// I follow a BFS approach and create the traversal list.
+// But instead of keeping a full level-order list, I just push only one node's value to the solution list. And that particular node is the right-most node on a particular level.
+function rightSideView(root: TreeNode | null): number[] {
+  if (root === null) return [];
+
+  const myQueue: TreeNode[] = [];
+  myQueue.push(root);
+  const rsViewList: number[] = [];
+
+  while (myQueue.length > 0) {
+    const levelSize: number = myQueue.length;
+    const level: number[] = [];
+    for (let i = 0; i < levelSize; i++) {
+      let node = myQueue.shift();
+      if (node.left !== null) myQueue.push(node.left);
+      if (node.right !== null) myQueue.push(node.right);
+      level.push(node.val);
+    }
+    rsViewList.push(level[level.length - 1]);
+  }
+  return rsViewList;
+}
+```
+
 ## LinkedList
 
 ### 40. Reorder Linked List
