@@ -2673,6 +2673,60 @@ function insertIntoBST(root: TreeNode | null, val: number): TreeNode {
 }
 ```
 
+### Delete Node in a BST
+
+You are given a root node reference of a BST and a key, delete the node with the given key in the BST, if present. Return the root node reference (possibly updated) of the BST.
+
+Basically, the deletion can be divided into two stages:
+
+Search for a node to remove.
+If the node is found, delete the node.
+Note: There can be multiple results after deleting the node, return any one of them.
+
+```typescript []
+//Deletion cases
+//Node to be deleted is a lead node => simply delete
+//Node to be deleted has one child
+//Node to be delete has two children
+
+function deleteNode(root: TreeNode | null, key: number): TreeNode {
+  //if root is null, then we simply return null
+  if (root === null) return root;
+
+  if (key > root.val) {
+    //this function will return the subtree of the node to be deleted so that we attached
+    root.right = this.deleteNode(root.right, key);
+  } else if (key < root.val) {
+    root.left = this.deleteNode(root.left, key);
+  } else {
+    //the node to be deleted is found
+
+    //now we handle first 2 cases here:
+    //1- Node to be deleted is a leaf node
+    //2- Node to be deleted has one child
+
+    if (root.left === null) return root.right; //this will return right subtree of the node to be deleted and this right subtree will get attached to the parent correctly because of the function assignment we have above
+    if (root.right === null) return root.left; //same explanation as above
+
+    //the above two cases handle both 1- and 2-
+
+    //now we have the situation where node to be deleted has both children
+
+    //we pick inorder successor
+    let node = root.right; //we choose right subtree here
+    while (node.left !== null) {
+      node = node.left;
+    }
+    //by this point we have found the leftmost child in the right subtree
+
+    //now we replace root's value with this node
+    root.val = node.val;
+    root.right = this.deleteNode(root.right, node.val);
+  }
+  return root;
+}
+```
+
 ## LinkedList
 
 ### 40. Reorder Linked List
