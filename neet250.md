@@ -2727,6 +2727,31 @@ function deleteNode(root: TreeNode | null, key: number): TreeNode {
 }
 ```
 
+### Binary Tree Level Order Traversal
+
+Given a binary tree root, return the level order traversal of it as a nested list, where each sublist contains the values of nodes at a particular level in the tree, from left to right.
+
+```typescript []
+//bfs using Queue
+function levelOrder(root: TreeNode | null): number[][] {
+  if (root === null) return [];
+  const nodesOrder: number[][] = [];
+  const myQueue: TreeNode[] = [root];
+  while (myQueue.length > 0) {
+    let level: number[] = [];
+    const size: number = myQueue.length;
+    for (let i = 0; i < size; i++) {
+      let node: TreeNode = myQueue.shift();
+      if (node.left !== null) myQueue.push(node.left);
+      if (node.right !== null) myQueue.push(node.right);
+      level.push(node.val);
+    }
+    nodesOrder.push(level);
+  }
+  return nodesOrder;
+}
+```
+
 ## LinkedList
 
 ### 40. Reorder Linked List
