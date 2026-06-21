@@ -1134,6 +1134,49 @@ function combinationSum2(candidates: number[], target: number): number[][] {
   return solution;
 }
 
+//77. Combinations
+//no duplicate elements here, hence no duplicate sets will happen here, otherwise we would
+//have to skip duplicates
+
+//include/exclude
+function combineIncExc(n: number, k: number): number[][] {
+  const combinations: number[][] = [];
+  const backtrackingComb = (num: number, comb: number[]) => {
+    if (comb.length === k) {
+      combinations.push([...comb]);
+      return;
+    } else if (num > n) return;
+
+    //include
+    comb.push(num);
+    backtrackingComb(num + 1, comb);
+    comb.pop();
+
+    //exclude
+    backtrackingComb(num + 1, comb);
+  };
+  backtrackingComb(1, []);
+  return combinations;
+}
+
+//loop
+function combineLoop(n: number, k: number): number[][] {
+  const combinations: number[][] = [];
+  const backtrackingComb = (num: number, comb: number[]) => {
+    if (comb.length === k) {
+      combinations.push([...comb]);
+      return;
+    }
+
+    for (let i = num; i <= n; i++) {
+      comb.push(i);
+      backtrackingComb(i + 1, comb);
+      comb.pop();
+    }
+  };
+  backtrackingComb(1, []);
+  return combinations;
+}
 ////////////////////////////////////////////////////////////////////////////
 // SECOND RUN
 //206. Reverse Linked List
