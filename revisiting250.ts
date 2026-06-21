@@ -1177,6 +1177,35 @@ function combineLoop(n: number, k: number): number[][] {
   backtrackingComb(1, []);
   return combinations;
 }
+
+//46. Permutations
+//Time and Space is O(n * n!)
+//we need auxiliary space for this algo => flag array to keep track of unvisited indices
+function permute(nums: number[]): number[][] {
+  const permutations: number[][] = [];
+  const flag = new Array<boolean>(nums.length).fill(false);
+  const backtracking = (perm: number[]) => {
+    if (perm.length === nums.length) {
+      permutations.push([...perm]);
+      return;
+    }
+
+    for (let i = 0; i < nums.length; i++) {
+      if (!flag[i]) {
+        //choose to pick
+        perm.push(nums[i]);
+        flag[i] = true;
+
+        backtracking(perm);
+
+        perm.pop();
+        flag[i] = false;
+      }
+    }
+  };
+  backtracking([]);
+  return permutations;
+}
 ////////////////////////////////////////////////////////////////////////////
 // SECOND RUN
 //206. Reverse Linked List
