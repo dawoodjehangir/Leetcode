@@ -991,6 +991,17 @@ function subsetXORSumLoop(nums: number[]): number {
   return sumOfXor;
 }
 //recursive approach
+//this also forms decision tree
+function subsetXORSum(nums: number[]): number {
+  let xorSum: number = 0;
+  const re = (ind: number, sum: number): number => {
+    if (ind === nums.length) {
+      return sum;
+    }
+    return re(ind + 1, nums[ind] ^ sum) + re(ind + 1, sum);
+  };
+  return re(0, xorSum);
+}
 ////////////////////////////////////////////////////////////////////////////
 // SECOND RUN
 //206. Reverse Linked List
