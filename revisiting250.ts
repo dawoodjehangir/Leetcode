@@ -992,7 +992,7 @@ function subsetXORSumLoop(nums: number[]): number {
 }
 //recursive approach
 //this also forms decision tree
-function subsetXORSum(nums: number[]): number {
+function subsetXORSumRe(nums: number[]): number {
   let xorSum: number = 0;
   const re = (ind: number, sum: number): number => {
     if (ind === nums.length) {
@@ -1001,6 +1001,41 @@ function subsetXORSum(nums: number[]): number {
     return re(ind + 1, nums[ind] ^ sum) + re(ind + 1, sum);
   };
   return re(0, xorSum);
+}
+
+// 78. Subsets
+//include exclude solution
+function subsetsIncExc(nums: number[]): number[][] {
+  const powerSet: number[][] = [];
+  const backtrackingIncExc = (index: number, subset: number[]): void => {
+    if (index >= nums.length) {
+      powerSet.push([...subset]);
+      return;
+    }
+    //include
+    subset.push(nums[index]);
+    backtrackingIncExc(index + 1, subset);
+    subset.pop();
+
+    backtrackingIncExc(index + 1, subset);
+  };
+  backtrackingIncExc(0, []);
+  return powerSet;
+}
+
+//loop solution
+function subsets(nums: number[]): number[][] {
+  const powerSet: number[][] = [];
+  const backtrackingLoop = (index: number, subset: number[]): void => {
+    powerSet.push([...subset]);
+    for (let i = index; i < nums.length; i++) {
+      subset.push(nums[i]);
+      backtrackingLoop(i + 1, subset);
+      subset.pop();
+    }
+  };
+  backtrackingLoop(0, []);
+  return powerSet;
 }
 ////////////////////////////////////////////////////////////////////////////
 // SECOND RUN
