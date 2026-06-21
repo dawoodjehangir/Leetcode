@@ -3088,6 +3088,65 @@ function permute(nums: number[]): number[][] {
 }
 ```
 
+### Generate Parentheses
+
+You are given an integer n. Return all well-formed parentheses strings that you can generate with n pairs of parentheses.
+
+```typescript []
+//first own implementation using help
+function generateParenthesis(n: number): string[] {
+  const solution: string[] = [];
+  const re = (open: number, close: number, pArr: string[]) => {
+    //base case
+    if (open > n || close > n) return;
+    if (pArr.length === 2 * n) {
+      if (open === n && close === n) {
+        solution.push(pArr.join(""));
+      }
+      return;
+    }
+    if (close < open) {
+      pArr.push(")");
+      re(open + 1, close, pArr);
+      pArr.pop();
+      pArr.push("(");
+      re(open, close + 1, pArr);
+      pArr.pop();
+    } else {
+      pArr.push(")");
+      re(open + 1, close, pArr);
+      pArr.pop();
+    }
+  };
+  re(0, 0, []);
+  return solution;
+}
+
+//cleaner implementation
+function generateParenthesis(n: number): string[] {
+  const solution: string[] = [];
+  const backtracking = (open: number, close: number, pArr: string[]): void => {
+    if (open === n && close === n) {
+      solution.push(pArr.join(""));
+      return;
+    }
+    if (open < n) {
+      pArr.push("(");
+      backtracking(open + 1, close, pArr);
+      pArr.pop();
+    }
+    if (close < open) {
+      pArr.push(")");
+      backtracking(open, close + 1, pArr);
+      pArr.pop();
+    }
+  };
+
+  backtracking(0, 0, []);
+  return solution;
+}
+```
+
 ### Subsets II
 
 You are given an array nums of integers, which may contain duplicates. Return all possible subsets.

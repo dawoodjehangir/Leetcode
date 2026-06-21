@@ -64,6 +64,26 @@ assume:
 
 VARIABLE STORES A REFERENCE
 
+### Arrays, Strings
+
+- Interview Cheat Sheet
+
+```
+// Array -> String
+arr.join("");
+
+// String -> Array of chars
+str.split("");
+[...str];
+Array.from(str);
+
+// String -> Array of words
+str.split(" ");
+
+// CSV -> Array
+str.split(",");
+```
+
 ### Hash maps, Objects, hashing
 
 - hash maps resize themselves
