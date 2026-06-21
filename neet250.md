@@ -3185,6 +3185,72 @@ function subsetsWithDup(nums: number[]): number[][] {
 }
 ```
 
+### Word Search
+
+Given a 2-D grid of characters board and a string word, return true if the word is present in the grid, otherwise return false.
+
+For the word to be present it must be possible to form it with a path in the board with horizontally or vertically neighboring cells. The same cell may not be used more than once in a word.
+
+```typescript []
+//we need a grid to check for visited
+//we need to create a bounding function that checks if we land at a valid cell in the grid
+//bounding function has to check if we arent landing on already visited cell, or going out of bounds, or just a cell that doesn't align with word's character
+//traverse the grid and whenever you find the first occurence of word[0] in the grid, then you call the recursive backtracking function
+
+//Time complexity is O(r*c*f^length of word)
+function exist(board: string[][], word: string): boolean {
+  // initialization done
+  const visitedGrid = new Array<boolean[]>(board.length);
+  for (let i = 0; i < visitedGrid.length; i++) {
+    visitedGrid[i] = new Array<boolean>(board[0].length).fill(false);
+  }
+
+  //bounding function
+  const boundChecker = (r: number, c: number, index: number): boolean => {
+    if (
+      r >= 0 &&
+      r < board.length &&
+      c >= 0 &&
+      c < board[0].length &&
+      visitedGrid[r][c] === false &&
+      board[r][c] === word[index]
+    ) {
+      return true;
+    }
+    return false;
+  };
+  //r,c to check bounding conditions
+  //index to track the word correctly
+  const backtrackingGrid = (r: number, c: number, index: number): boolean => {
+    if (index === word.length) {
+      return true;
+    }
+
+    if (!boundChecker(r, c, index)) {
+      return false;
+    }
+
+    visitedGrid[r][c] = true;
+    let solution =
+      backtrackingGrid(r - 1, c, index + 1) ||
+      backtrackingGrid(r + 1, c, index + 1) ||
+      backtrackingGrid(r, c - 1, index + 1) ||
+      backtrackingGrid(r, c + 1, index + 1);
+    visitedGrid[r][c] = false;
+    return solution;
+  };
+
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[0].length; j++) {
+      //if we successfully find the complete word, then return true
+      //otherwise, we continue to again find first letter somewhere else in the grid
+      if (backtrackingGrid(i, j, 0)) return true;
+    }
+  }
+  return false;
+}
+```
+
 ## Stack
 
 ### Min Stack
