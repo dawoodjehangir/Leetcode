@@ -1037,6 +1037,65 @@ function subsets(nums: number[]): number[][] {
   backtrackingLoop(0, []);
   return powerSet;
 }
+
+//39. Combination Sum
+//time complexity 2^t at max because we are still taking two decisions each time and that's
+//where the base 2 comes from. Height of the tree is T at max or T/(min value in candidate)
+// include-exclude
+function combinationSumIncExc(
+  candidates: number[],
+  target: number,
+): number[][] {
+  const solution: number[][] = [];
+  const backtrackingIncExc = (
+    index: number,
+    sum: number,
+    comb: number[],
+  ): void => {
+    if (sum === target) {
+      solution.push([...comb]);
+      return;
+    } else if (sum > target || index >= candidates.length) {
+      return;
+    }
+
+    //include
+    comb.push(candidates[index]);
+    backtrackingIncExc(index, candidates[index] + sum, comb); //we dont do index+1, since each index can be added multiple
+    //times
+    comb.pop();
+
+    //exclude or move forward in this scenario
+    backtrackingIncExc(index + 1, sum, comb);
+  };
+  backtrackingIncExc(0, 0, []);
+  return solution;
+}
+
+// loop
+function combinationSum(candidates: number[], target: number): number[][] {
+  const solution: number[][] = [];
+  const backtrackingLoop = (
+    index: number,
+    sum: number,
+    comb: number[],
+  ): void => {
+    if (sum === target) {
+      solution.push([...comb]);
+      return;
+    } else if (sum > target) {
+      return;
+    }
+
+    for (let i = index; i < candidates.length; i++) {
+      comb.push(candidates[i]);
+      backtrackingLoop(i, sum + candidates[i], comb);
+      comb.pop();
+    }
+  };
+  backtrackingLoop(0, 0, []);
+  return solution;
+}
 ////////////////////////////////////////////////////////////////////////////
 // SECOND RUN
 //206. Reverse Linked List
