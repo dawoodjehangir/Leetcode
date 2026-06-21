@@ -3088,6 +3088,44 @@ function permute(nums: number[]): number[][] {
 }
 ```
 
+### Subsets II
+
+You are given an array nums of integers, which may contain duplicates. Return all possible subsets.
+
+The solution must not contain duplicate subsets. You may return the solution in any order.
+
+```typescript []
+//time complexity => O(n*2^n)
+//space complexity => O(2^n)
+function subsetsWithDup(nums: number[]): number[][] {
+  //since we have dupes, hence we have to sort our nums array
+
+  const solution: number[][] = [];
+
+  nums.sort((a, b) => a - b);
+  const backtracking = (index: number, subset: number[]): void => {
+    if (index === nums.length) {
+      solution.push([...subset]);
+      return;
+    }
+
+    //include
+    subset.push(nums[index]);
+    backtracking(index + 1, subset);
+    subset.pop();
+
+    //time to skip duplicates
+    while (index + 1 < nums.length && nums[index] === nums[index + 1]) {
+      index++;
+    }
+    //exclude
+    backtracking(index + 1, subset);
+  };
+  backtracking(0, []);
+  return solution;
+}
+```
+
 ## Stack
 
 ### Min Stack
