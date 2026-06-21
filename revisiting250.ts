@@ -1096,6 +1096,44 @@ function combinationSum(candidates: number[], target: number): number[][] {
   backtrackingLoop(0, 0, []);
   return solution;
 }
+
+//40. Combination Sum II
+//in this question we don't want duplicate combinations. This is what separates it from
+//the basic Combination Sum. if we have an array like [1,6,1] => we don't want [1,6] and
+//[6,1] from it. Rather, we can definitely use duplicate items the no. of times they
+//appear in an array e.g. [1,1,6] or [6,1,1] is possible. However, duplicate subsets or
+//combination sets are not allowed. Here we use the technique to skip duplicates i.e.
+//at the time of excluding which skip over duplicate items in the array
+
+function combinationSum2(candidates: number[], target: number): number[][] {
+  const solution: number[][] = [];
+  candidates.sort((a, b) => a - b);
+  const backtrackingIncExc = (index: number, sum: number, comb: number[]) => {
+    if (sum === target) {
+      solution.push([...comb]);
+      return;
+    } else if (sum > target || index >= candidates.length) {
+      return;
+    }
+
+    //include
+    comb.push(candidates[index]);
+    backtrackingIncExc(index + 1, sum + candidates[index], comb);
+    comb.pop();
+
+    while (
+      index + 1 < candidates.length &&
+      candidates[index] === candidates[index + 1]
+    ) {
+      index++;
+    }
+    //exclude
+    backtrackingIncExc(index + 1, sum, comb);
+  };
+  backtrackingIncExc(0, 0, []);
+  return solution;
+}
+
 ////////////////////////////////////////////////////////////////////////////
 // SECOND RUN
 //206. Reverse Linked List
