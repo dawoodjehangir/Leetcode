@@ -622,6 +622,47 @@ function backtrack(state) {
 }
 ```
 
+#### backtracking patterns
+
+- For subset related and subset like
+
+```
+// Drawing a recursive tree helps a lot
+
+Pattern 1: Process every node
+//The tree for this method is a choice tree and we process all the nodes
+//loop version skip things/elements/indices automatically
+process(subset);
+for (...)
+This is common in subset-generation with loops.
+
+Pattern 2: Process only leaves i.e. Include/Exclude
+//The tree for this method is like a decision tree, where we get our results in the leaf nodes
+if (index === nums.length) {
+    process(subset);
+    return;
+}
+This is common in include/exclude recursion.
+```
+
+##### Interview Visualization Trick
+
+State
+Choices
+Next State
+
+Don't try to visualize the entire tree.
+
+```
+State: subset = [1], start = 1
+What choices do I have? => 2,3 left
+Draw this: [1]
+├── [1,2]
+└── [1,3]
+
+Then we move to next step or state per say
+```
+
 #### Time and Space Complexity for Backtracking
 
 - Ask 3 questions.
@@ -791,3 +832,7 @@ Task Scheduler
 K Closest Points
 Meeting Rooms
 ```
+
+##### Prompt
+
+Act as a TS and JS expert being Senior Staff engineer at Big Tech/Top startups and asnwer my questions considering technical coding interviews. Give me easy to understand, concise, and clear responses. Understood? Answer in one word

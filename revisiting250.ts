@@ -916,6 +916,81 @@ class Heap<T> {
   }
 }
 
+//1863. Sum of All Subset XOR Totals
+//two ways to solve this problem
+//standard backtracking approach
+//state => To traverse through the problem to find all possible subsets, we have to track
+//index and subset at a particular time
+//meaning => (i,sub) => all possible subsets possible from i onwards with starting subset
+//  sub
+//choices => all indexes in the array
+//how to choose ==> manually or loop
+//explore
+//unchoose
+
+/***
+ * Time and Space complexity answer
+ * There are 2^n subsets.
+Generating/outputting each subset costs O(n) in the worst case.
+Therefore total time is O(n * 2^n).
+Auxiliary space is O(n) due to recursion depth.
+ */
+
+function subsetXORSum(nums: number[]): number {
+  let sumOfXor: number = 0;
+  const computeXOR = (subset: number[]) => {
+    let xor: number = 0;
+    for (let i of subset) {
+      xor = xor ^ i;
+    }
+    return xor;
+  };
+
+  const backtrackingIncExc = (index: number, subset: number[]): void => {
+    //since we are manaually including and excluding, we only process our subsets at the
+    //leaf nodes. Here we will get all 2^n subsets also. If we have no leaf node condition
+    //then same subsets get counted more than once => visualize/draw tree
+    if (index >= nums.length) {
+      sumOfXor += computeXOR(subset); //this is the processing bit to calculate our solution
+      return;
+    }
+    //choices are the indexes left in the array left to explore
+    //include
+    subset.push(nums[index]);
+    backtrackingIncExc(index + 1, subset); //explore
+    subset.pop();
+
+    //exclude
+    backtrackingIncExc(index + 1, subset);
+  };
+  backtrackingIncExc(0, []);
+  return sumOfXor;
+}
+
+function subsetXORSumLoop(nums: number[]): number {
+  let sumOfXor: number = 0;
+  const computeXOR = (subset: number[]) => {
+    let xor: number = 0;
+    for (let i of subset) {
+      xor = xor ^ i;
+    }
+    return xor;
+  };
+
+  const backtrackingloop = (index: number, subset: number[]): void => {
+    sumOfXor += computeXOR(subset); //this is the processing bit to calculate our solution
+    //choices are the indexes left in the array left to explore
+    for (let i = index; i < nums.length; i++) {
+      //if we go beyond array size, we return
+      subset.push(nums[i]);
+      backtrackingloop(i + 1, subset); //explore
+      subset.pop();
+    }
+  };
+  backtrackingloop(0, []);
+  return sumOfXor;
+}
+//recursive approach
 ////////////////////////////////////////////////////////////////////////////
 // SECOND RUN
 //206. Reverse Linked List
