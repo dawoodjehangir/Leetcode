@@ -3251,6 +3251,75 @@ function exist(board: string[][], word: string): boolean {
 }
 ```
 
+### Palindrome Partitioning
+
+Given a string s, split s into substrings where every substring is a palindrome. Return all possible lists of palindromic substrings.
+
+You may return the solution in any order.
+
+```typescript []
+//steps:
+// Backtracking builds one partition at a time, not all substrings at once.
+//Each complete path from start to end becomes one sub-array in the final output.
+//So output = list of partitions, each partition = list of palindromic substrings.
+
+//for loop solution, where the loop is acting like an axe which splits string into different length cuts as the loop iterates
+//in the first iteration, we get cut of length 1, and we check if the String till that cut is a palindrome. If it's a NO, then we don't need to proceed further to create a parition list.
+//If it's a yes, we recursively call again by passing the next "start" index to check.
+
+//for include exclude, the problem lies with the base condition as I cant correctly explain it.
+function partition(s: string): string[][] {
+  const solution: string[][] = [];
+
+  const isPalindrome = (l: number, r: number): boolean => {
+    while (l < r) {
+      if (s[l] !== s[r]) {
+        return false;
+      }
+      l++;
+      r--;
+    }
+    return true;
+  };
+
+  const backtrackingLoop = (start: number, partition: string[]) => {
+    if (start === s.length) {
+      solution.push([...partition]);
+      return;
+    }
+    for (let boundary = start; boundary < s.length; boundary++) {
+      if (isPalindrome(start, boundary)) {
+        partition.push(s.slice(start, boundary + 1));
+        backtrackingLoop(boundary + 1, partition);
+        partition.pop();
+      }
+    }
+  };
+
+  const backtrackingIncExc = (
+    start: number,
+    boundary: number,
+    partition: string[],
+  ) => {
+    if (boundary === s.length) {
+      if (start === s.length) {
+        solution.push([...partition]);
+      }
+      return;
+    }
+    if (isPalindrome(start, boundary)) {
+      partition.push(s.slice(start, boundary + 1));
+      backtrackingIncExc(boundary + 1, boundary + 1);
+      partition.pop();
+    }
+    backtrackingIncExc(start, boundary + 1);
+  };
+  backtrackingIncExc(0, []);
+
+  return solution;
+}
+```
+
 ## Stack
 
 ### Min Stack

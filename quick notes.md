@@ -40,7 +40,22 @@
    4.1 Manual Evals
    4.2 LLM as a Judge
 
-### JS/TS concepts
+## Leetcode Interview tips
+
+```
+| Phrase in problem                | Common technique         |
+| -------------------------------- | ------------------------ |
+| Longest substring                | Sliding Window           |
+| Count substrings                 | Two pointers / HashMap   |
+| Longest palindromic substring    | Expand Around Center     |
+| Longest common subsequence (LCS) | Dynamic Programming      |
+| Check if subsequence             | Two pointers             |
+| Generate all subsequences        | Backtracking / Recursion |
+| Prefix matching                  | Trie / Hashing           |
+| Suffix matching                  | Trie / Suffix structures |
+```
+
+## JS/TS concepts
 
 - Primitive types (number, string, boolean) are copied by value
 - Objects/arrays/maps/functions are copied by reference
@@ -64,7 +79,7 @@ assume:
 
 VARIABLE STORES A REFERENCE
 
-### Arrays, Strings
+## Arrays, Strings
 
 - Interview Cheat Sheet
 
@@ -83,6 +98,37 @@ str.split(" ");
 // CSV -> Array
 str.split(",");
 ```
+
+#### Substring vs Subsequence
+
+- Substring: should be CONTINUOS/CONTIGUOUS + PRESERVE ORDER.
+  Formula: n \* (n + 1) / 2
+- Subsequence: should PRESERVE ORDER
+- A good interview rule: Every substring is a subsequence, but not every subsequence is a substring
+
+```
+Given:
+
+s = "abcde"
+
+"bcd" -> substring and subsequence
+"ace" -> subsequence only
+"aed" -> neither (order changed)
+```
+
+#### Important Interview terms:
+
+1. Prefix: Starts at index 0.
+2. Suffix: Ends at the last index.
+3. Subarray vs Substring: Both mean contiguous portions.
+
+```
+Array    -> Subarray
+String   -> Substring
+```
+
+4. Subarray vs Substring: Both mean contiguous portions, i.e. exactly same properties but different data structures
+5. Subset vs Subsequence: Order doesn't matter vs Order must be preserved
 
 ### Hash maps, Objects, hashing
 
@@ -650,14 +696,21 @@ function backtrack(state) {
 // Drawing a recursive tree helps a lot
 
 Pattern 1: Process every node
-//The tree for this method is a choice tree and we process all the nodes
-//loop version skip things/elements/indices automatically
+//The tree for this method is a choice tree
+//For drawing the tree, for For loop-based backtracking => think: remaining choices
+//And we process every node in this tree, or i.e. each node is a candidate to make into the final solution
+
+//Codewise: loop version skip things/elements/indices automatically
 process(subset);
 for (...)
 This is common in subset-generation with loops.
 
 Pattern 2: Process only leaves i.e. Include/Exclude
 //The tree for this method is like a decision tree, where we get our results in the leaf nodes
+//each level, we pick one element and then skip that element. We follow this and go on, till the length of e.g.
+//array we have to traverse through backtracking
+//Our final/useful candidates are only the leaf nodes
+
 if (index === nums.length) {
     process(subset);
     return;
