@@ -1206,6 +1206,36 @@ function permute(nums: number[]): number[][] {
   backtracking([]);
   return permutations;
 }
+
+//70. Climbing Stairs
+//memoization
+function climbStairs(n: number): number {
+  const memoized = new Array<number>(n).fill(-1);
+  const dp = (stepsCovered: number): number => {
+    if (stepsCovered >= n) {
+      if (stepsCovered === n) return 1;
+      return 0;
+    }
+    if (memoized[stepsCovered] !== -1) return memoized[stepsCovered];
+    memoized[stepsCovered] = dp(stepsCovered + 1) + dp(stepsCovered + 2);
+    return memoized[stepsCovered];
+  };
+  return dp(0);
+}
+
+//tabulation
+function climbStairs(n: number): number {
+  const tabulation = new Array<number>(n + 1).fill(-1);
+  tabulation[n] = 0;
+  tabulation[n - 1] = 1;
+  let i = n - 2;
+  while (i > -1) {
+    tabulation[i] = tabulation[i + 1] + tabulation[i + 2];
+    i--;
+  }
+  return tabulation[0];
+}
+
 ////////////////////////////////////////////////////////////////////////////
 // SECOND RUN
 //206. Reverse Linked List
