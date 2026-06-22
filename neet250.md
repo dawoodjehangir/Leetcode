@@ -3320,6 +3320,51 @@ function partition(s: string): string[][] {
 }
 ```
 
+### Letter Combinations of a Phone Number
+
+You are given a string digits made up of digits from 2 through 9 inclusive.
+
+Each digit (not including 1) is mapped to a set of characters as shown below:
+
+A digit could represent any one of the characters it maps to.
+
+Return all possible letter combinations that digits could represent. You may return the answer in any order.
+
+```typescript []
+//Time complexity n*4^n => at each position we can have at max 4 choices of alphabets and then that number is ^n because every level we can have at max 4 choices. e.g. if digits of length two, then to make combination of two alphabets we have at max 4x4 choices hence 4^2 => and from this logic we have 4^n. n*4^n comes from copying the current combination into solution array
+function letterCombinations(digits: string): string[] {
+  if (digits.length === 0) return [];
+  const phoneMap = [
+    "", // 0
+    "", // 1
+    "abc", // 2
+    "def", // 3
+    "ghi", // 4
+    "jkl", // 5
+    "mno", // 6
+    "pqrs", // 7
+    "tuv", // 8
+    "wxyz", // 9
+  ];
+  const solution: string[] = [];
+  const backtracking = (digitIndex: number, comb: string[]): void => {
+    if (comb.length === digits.length) {
+      solution.push(comb.join(""));
+      return;
+    }
+
+    let mappingStr: string = phoneMap[+digits[digitIndex]]; //convert string to Number
+    for (let charIndex = 0; charIndex < mappingStr.length; charIndex++) {
+      comb.push(mappingStr[charIndex]);
+      backtracking(digitIndex + 1, comb);
+      comb.pop();
+    }
+  };
+  backtracking(0, []);
+  return solution;
+}
+```
+
 ## Stack
 
 ### Min Stack
