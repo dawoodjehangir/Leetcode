@@ -1236,6 +1236,33 @@ function climbStairs(n: number): number {
   return tabulation[0];
 }
 
+function minCostClimbingStairsMem(cost: number[]): number {
+  const memoization = new Array<number>(cost.length).fill(-1);
+  const dp = (index: number): number => {
+    if (index >= cost.length) {
+      return 0;
+    }
+    if (memoization[index] !== -1) return memoization[index];
+    memoization[index] = cost[index] + Math.min(dp(index + 1), dp(index + 2));
+    return memoization[index];
+  };
+
+  return Math.min(dp(0), dp(1));
+}
+
+function minCostClimbingStairs(cost: number[]): number {
+  let one = cost[cost.length - 1];
+  let two = 0;
+  let index = cost.length - 2;
+  while (index > -1) {
+    let temp = two;
+    two = one;
+    one = Math.min(temp, two) + cost[index];
+    index--;
+  }
+  return Math.min(one, two);
+}
+
 ////////////////////////////////////////////////////////////////////////////
 // SECOND RUN
 //206. Reverse Linked List
