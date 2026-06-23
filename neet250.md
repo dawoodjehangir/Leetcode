@@ -3367,6 +3367,8 @@ function letterCombinations(digits: string): string[] {
 
 ## Dynamic Programming
 
+### House Robber
+
 You are given an integer array nums where nums[i] represents the amount of money the ith house has. The houses are arranged in a straight line, i.e. the ith house is the neighbor of the (i-1)th and (i+1)th house.
 
 You are planning to rob money from the houses, but you cannot rob two adjacent houses because the security system will automatically alert the police if two adjacent houses were both broken into.
@@ -3404,6 +3406,79 @@ function rob(nums: number[]): number {
     index--;
   }
   return one;
+}
+function rob(nums: number[]): number {
+  let rob1 = 0,
+    rob2 = 0;
+  for (let n of nums) {
+    let temp = Math.max(rob1 + n, rob2);
+    rob1 = rob2;
+    rob2 = temp;
+  }
+  return rob2;
+}
+```
+
+### House Robber II
+
+You are given an integer array nums where nums[i] represents the amount of money the ith house has. The houses are arranged in a circle, i.e. the first house and the last house are neighbors.
+
+You are planning to rob money from the houses, but you cannot rob two adjacent houses because the security system will automatically alert the police if two adjacent houses were both broken into.
+
+Return the maximum amount of money you can rob without alerting the police.
+
+```typescript []
+//memoized solution
+function robMem(nums: number[]): number {
+  if (nums.length === 1) return nums[0];
+  const memoized = Array.from({ length: nums.length }, () =>
+    new Array<number>(2).fill(-1),
+  );
+
+  const dp = (houseIndex: number, skip: number): number => {
+    if (skip === 1) {
+      if (houseIndex >= nums.length - 1) {
+        return 0;
+      }
+    } else {
+      if (houseIndex >= nums.length) {
+        return 0;
+      }
+    }
+
+    if (memoized[houseIndex][skip] !== -1) return memoized[houseIndex][skip];
+
+    memoized[houseIndex][skip] = Math.max(
+      nums[houseIndex] + dp(houseIndex + 2, skip),
+      dp(houseIndex + 1, skip),
+    );
+    return memoized[houseIndex][skip];
+  };
+  let skippedLastHouse: number = dp(0, 1);
+  let skippedFirstHouse: number = dp(1, 0);
+  return Math.max(skippedLastHouse, skippedFirstHouse);
+}
+
+//tabulation
+function rob(nums: number[]): number {
+  if (nums.length === 0) return 0;
+  if (nums.length === 1) return nums[0];
+
+  const houseRobberI = (nums: number[]): number => {
+    let rob1 = 0,
+      rob2 = 0;
+    for (let n of nums) {
+      let temp = Math.max(rob1 + n, rob2);
+      rob1 = rob2;
+      rob2 = temp;
+    }
+    return rob2;
+  };
+
+  return Math.max(
+    houseRobberI(nums.slice(0, nums.length - 1)),
+    houseRobberI(nums.slice(1)),
+  );
 }
 ```
 
