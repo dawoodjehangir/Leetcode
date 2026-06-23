@@ -3365,6 +3365,48 @@ function letterCombinations(digits: string): string[] {
 }
 ```
 
+## Dynamic Programming
+
+You are given an integer array nums where nums[i] represents the amount of money the ith house has. The houses are arranged in a straight line, i.e. the ith house is the neighbor of the (i-1)th and (i+1)th house.
+
+You are planning to rob money from the houses, but you cannot rob two adjacent houses because the security system will automatically alert the police if two adjacent houses were both broken into.
+
+Return the maximum amount of money you can rob without alerting the police.
+
+```typescript []
+function robMem(nums: number[]): number {
+  const memoized = new Array<number>(nums.length).fill(-1);
+
+  const dp = (houseIndex: number): number => {
+    if (houseIndex >= nums.length) {
+      return 0;
+    }
+
+    if (memoized[houseIndex] !== -1) return memoized[houseIndex];
+
+    memoized[houseIndex] = Math.max(
+      nums[houseIndex] + dp(houseIndex + 2),
+      dp(houseIndex + 1),
+    );
+    return memoized[houseIndex];
+  };
+  return dp(0);
+}
+
+function rob(nums: number[]): number {
+  let one = nums[nums.length - 1],
+    two = 0;
+  let index = nums.length - 2;
+  while (index > -1) {
+    let temp = two;
+    two = one;
+    one = Math.max(two + nums[index], one);
+    index--;
+  }
+  return one;
+}
+```
+
 ## Stack
 
 ### Min Stack
